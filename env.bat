@@ -1,0 +1,10 @@
+set PHASE=developement
+set enc_key=FZDHuXvT2bSp5Mh4aDxUGFtHpnnnOOAa3WIDTMfuqV@!_MMaa=
+set jwt_sec=ttJJHSH_2NNDH8V@1ndjddd_kk-dky89lddowbddddvdiwodmd=
+set port=8029
+set database=52f51ec943a2adcd56567f277dfdcfc6
+set user=c43233dee42be24a3f527fda4ff02dab
+set password=
+set host=1b04a85fa3aaf24b2629efc70be3d2e6
+set sendermail=48e99635842c597fcc8b003790fb74c4ad7ec4c2b536f56ce5f258ae55015e3c
+set senderpass=f11852704a26e8979663877eeed80526
