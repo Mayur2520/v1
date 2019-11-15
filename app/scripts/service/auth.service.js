@@ -11,6 +11,10 @@ angular.module('MyApp')
             return $resource('/api/SetNewPassword',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
+        ForgotPassword: function () {
+            return $resource('/api/ForgotPassword',
+                {}, { 'save': { method: 'POST',isArray:false } });
+        },
 		getUserDetails: function () {
             return $resource('/api/getUserDetails/:userid', {});
         },

@@ -6,13 +6,12 @@ angular.module('MyApp')
         {
             Authenticate.authUser().save($scope.user).$promise.then(function (response) {
                 if (response.success === true) {
-                    $location.path('/set_new_password');
-					/* if(response.firstlogin === 0)
+					 if(response.firstlogin === 0)
 					{
 						$location.path('/set_new_password');
 					}
 					else
-					$location.path('/dashboard'); */
+					$location.path('/dashboard'); 
 				}
 				if (response.success === false) {
 					$scope.errormsg = response.message
@@ -196,10 +195,64 @@ function ColorPassword(pass) {
 
   $scope.SetNewPassword = function () {
     Authenticate.SetNewPassword().save($scope.UserDetails).$promise.then(function (response) {
-
+		if(response.status == true)
+				{
+				Swal({
+					type: response.type,
+					title: response.title,
+					text: response.message,
+				}).then(() => {
+					console.log(response.forgotpassword);
+					if(response.forgotpassword === 1)
+						{ 
+							console.log('11111')
+							$location.path('/');
+							$location.replace();
+						}
+						else
+						{
+							console.log('2222')
+							$location.path('/dashboard'); 
+							$location.replace();	
+						}
+					});
+				}
+				else
+				{
+				Swal({
+					type: response.type,
+					title: response.title,
+					text: response.message,
+				})
+				}
     });
   };
-        
+		
+  
+  $scope.ForgotPassword = function () {
+	
+	Authenticate.ForgotPassword().save($scope.user).$promise.then(function (response) {
+		if (response.success === true) {
+			$scope.sentotpmessage = response.message;
+		
+			$timeout(function () {
+				$scope.showbtn = true;
+				$timeout(timer, 1000);
+			}, 20000);
+
+		} else {
+			Swal({
+			type: response.type,
+			title: response.title,
+			text: response.message,
+		}).then(() => {
+				location.reload();
+		})
+		}
+    });
+};
+
+
 
 
     }]);
