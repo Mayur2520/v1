@@ -1,3 +1,5 @@
+@import "./sidenav.css";
+
 body {
     display: flex;
     min-height: 100vh;
@@ -2710,3 +2712,9 @@ button.badge-top-right:before {
       font-size: 18px;
       color: #818181;
   }
+
+
+
+
+
+

@@ -16,7 +16,7 @@ angular.module('MyApp', ['ngResource',
     })
     .when("/dashboard", {
       templateUrl : "public/dashboard.html",
-       controller:"LoginController"
+       controller:"DashboardController"
     })
 	.otherwise({
 		  redirectTo: ''

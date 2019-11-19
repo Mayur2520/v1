@@ -11,7 +11,8 @@ angular.module('MyApp')
 						$location.path('/set_new_password');
 					}
 					else
-					$location.path('/dashboard'); 
+					$location.path('/set_new_password');
+					// $location.path('/dashboard'); 
 				}
 				if (response.success === false) {
 					$scope.errormsg = response.message
@@ -202,18 +203,15 @@ function ColorPassword(pass) {
 					title: response.title,
 					text: response.message,
 				}).then(() => {
-					console.log(response.forgotpassword);
-					if(response.forgotpassword === 1)
+					if(response.forgotpassword == 1)
 						{ 
-							console.log('11111')
 							$location.path('/');
-							$location.replace();
+							$scope.$apply();
 						}
 						else
 						{
-							console.log('2222')
 							$location.path('/dashboard'); 
-							$location.replace();	
+							$scope.$apply();
 						}
 					});
 				}
