@@ -18,6 +18,10 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/dashboard.html",
        controller:"DashboardController"
     })
+    .when("/products", {
+      templateUrl : "public/products.html",
+       controller:"EntityController"
+    })
 	.otherwise({
 		  redirectTo: ''
 		});

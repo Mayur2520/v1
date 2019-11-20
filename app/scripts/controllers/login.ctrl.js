@@ -11,8 +11,7 @@ angular.module('MyApp')
 						$location.path('/set_new_password');
 					}
 					else
-					$location.path('/set_new_password');
-					// $location.path('/dashboard'); 
+					$location.path('/dashboard'); 
 				}
 				if (response.success === false) {
 					$scope.errormsg = response.message
@@ -251,6 +250,28 @@ function ColorPassword(pass) {
 };
 
 
+$scope.openNav = false;
 
+$scope.ToggleNavbar = function()
+{
+	$scope.openNav = true;
+	var className = $('#sidenav').attr('class');
+	if(className == 'main_sidebar animated slideInLeft')
+	{
+		$("#sidenav").removeClass("slideInLeft").addClass("slideOutLeft");
+		$(".container-fluid *").attr("disabled", false);
+	}
+	else
+	{
+		$("#sidenav").addClass("slideInLeft").removeClass("slideOutLeft");
+		$(".container-fluid *").attr("disabled", "disabled");
+	}
+};
+
+$scope.hideNavbar = function()
+{
+		$("#sidenav").removeClass("slideInLeft").addClass("slideOutLeft");
+		$(".container-fluid *").attr("disabled", false);
+}
 
     }]);

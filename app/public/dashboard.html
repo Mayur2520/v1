@@ -1,8 +1,13 @@
-<div ng-include="'./public/navbar.html'"></div>      
-      <div class="container-fluid">
-           
-        <h3>Navbar Text</h3>
-        <p>Use the .navbar-text class to vertical align any elements inside the navbar that are not links (ensures proper padding).</p>
+      <div class="wrapper">
+        <div ng-include="'./public/navbar.html'"></div>
+        <div class="container-fluid section">
+         
+          <div class="col-12" ng-repeat="data in dataarr">
+            {{data}}<h3>Navbar Text</h3>
+            <p>Use the .navbar-text class to vertical align any elements inside the navbar that are not links (ensures
+              proper padding).  </p> <div class="col-12">-------------------------------------------------
+                <button class="btn btn-primary" ng-click="clickFuntion()">Click</button>
+              </div>
+          </div>
+        </div>
       </div>
-      
-
