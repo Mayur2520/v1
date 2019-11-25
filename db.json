@@ -18,7 +18,7 @@
         "Query":"CREATE TABLE IF NOT EXISTS `customers` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(1000) NULL , `email` VARCHAR(1000) NULL , `mobile` BIGINT NULL , `type` VARCHAR(100) NULL , `status` INT NOT NULL DEFAULT '0' , `address` VARCHAR(5000) NULL , `createddate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `createdby` INT NULL, `companyid` INT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;"
     },
     {
-        "Query":"CREATE TABLE IF NOT EXISTS `products` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(1000) NULL ,`unit` VARCHAR(1000) NULL , `type` VARCHAR(100) NULL , `status` INT NOT NULL DEFAULT '0' ,`createddate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `createdby` INT NULL, `companyid` INT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;"
+        "Query":"CREATE TABLE IF NOT EXISTS `products` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(1000) NULL ,`unit` VARCHAR(1000) NULL , `type` VARCHAR(100) NULL , `status` INT NOT NULL DEFAULT '0' ,`createddate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `createdby` INT NULL, `companyid` INT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;ALTER TABLE `products` ADD IF NOT EXISTS `image` VARCHAR(100) NULL AFTER `type`;ALTER TABLE `products` ADD IF NOT EXISTS `marathi_name` VARCHAR(100) NULL AFTER `name`"
     },
     {
         "Query":"CREATE TABLE IF NOT EXISTS `productspricing` ( `id` INT NOT NULL AUTO_INCREMENT , `productid` INT NULL, `price` FLOAT NULL ,`qty` FLOAT NULL ,`unit` VARCHAR(1000) NULL , `status` INT NOT NULL DEFAULT '0' ,`createddate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `createdby` INT NULL, `companyid` INT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;"

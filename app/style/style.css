@@ -1,5 +1,10 @@
 @import "./sidenav.css";
 
+@font-face {
+    font-family: "marathi";
+    src: url("./fonts/01-roupya-marathi-font.ttf");
+    }
+
 body {
     display: flex;
     min-height: 100vh;
@@ -12,6 +17,11 @@ main {
 
 body {
     background: #fff;
+}
+
+.marathi-input
+{
+    font-family: marathi;
 }
 .section{
     position: relative;
