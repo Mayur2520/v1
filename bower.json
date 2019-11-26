@@ -28,7 +28,6 @@
     "angular-resource": "^1.7.8",
     "angular-cookies": "^1.7.8",
     "sweetalert2": "^9.3.6",
-    "angular-smart-table": "^2.1.11"
   },
   "resolutions": {
     "bootstrap": "^4.3.1",
