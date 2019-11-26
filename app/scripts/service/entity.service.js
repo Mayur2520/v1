@@ -7,5 +7,10 @@ angular.module('MyApp')
           return $resource('/api/getProductList',
               {}, { 'query': { method: 'GET',isArray:false } });
       },
+
+      deleteProductDetails: function () {
+          return $resource('/api/deleteProductDetails/:id',
+              {}, { 'delete': { method: 'DELETE',isArray:false } });
+      },
     }
   }]);

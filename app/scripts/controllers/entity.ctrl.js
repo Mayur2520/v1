@@ -6,10 +6,24 @@ angular.module('MyApp')
             itemsPerPage: 5,
             fillLastPage: true
           }
+
+          $scope.getProductDetails = function(productDetails)
+          {
+            $scope.productDetails = [];
+            $scope.productDetails.push(productDetails);
+          };
         
+        $scope.getProductList = function(productid)
+        {
+               
+                Entity.deleteProductDetails().delete({ id: productid}).$promise.then(function (response) {   
+                });
+               
+        };
+
         $scope.getProductList = function()
         {
-          
+               
                 Entity.getProductList().query().$promise.then(function (response) {
                     if(!response.status)
                         $scope.ProductsList = response.productsList;     
