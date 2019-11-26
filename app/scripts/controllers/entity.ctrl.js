@@ -9,11 +9,12 @@ angular.module('MyApp')
         
         $scope.getProductList = function()
         {
+          
                 Entity.getProductList().query().$promise.then(function (response) {
                     if(!response.status)
-                        $scope.ProductsList = response.productsList;
-                        $scope.displayedProductsList = $scope.ProductsList;
+                        $scope.ProductsList = response.productsList;     
                 });
+               
         };
 
         $scope.SaveProductDetails = function()
