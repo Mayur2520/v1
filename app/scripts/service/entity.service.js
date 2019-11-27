@@ -8,6 +8,16 @@ angular.module('MyApp')
               {}, { 'query': { method: 'GET',isArray:false } });
       },
 
+      productTypes: function () {
+          return $resource('/api/productTypes',
+              {}, { 'query': { method: 'GET',isArray:true } });
+      },
+
+      productUnits: function () {
+          return $resource('/api/productUnits',
+              {}, { 'query': { method: 'GET',isArray:true } });
+      },
+
       deleteProductDetails: function () {
           return $resource('/api/deleteProductDetails/:id',
               {}, { 'delete': { method: 'DELETE',isArray:false } });

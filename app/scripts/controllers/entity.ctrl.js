@@ -20,6 +20,8 @@ angular.module('MyApp')
                 });
                
         };
+        
+       
 
         $scope.getProductList = function()
         {
@@ -27,6 +29,24 @@ angular.module('MyApp')
                 Entity.getProductList().query().$promise.then(function (response) {
                     if(!response.status)
                         $scope.ProductsList = response.productsList;     
+                });
+               
+        };
+
+        $scope.productTypes = function()
+        {
+               
+                Entity.productTypes().query().$promise.then(function (response) {
+                    $scope.product_type = response;
+                });
+               
+        };
+
+        $scope.productUnits = function()
+        {
+               
+                Entity.productUnits().query().$promise.then(function (response) {
+                    return  response;  
                 });
                
         };

@@ -2,11 +2,12 @@ var express = require('express'),
 	path = require('path'),
 	bodypareser = require('body-parser'),
 	fs = require('fs'),
-	morgan = require('morgan'),
+	morgan = require('morgan');
 	// logger = require('./lib/config/logger'),
 	// loggerConf = require('./lib/config/loggerConfig'),
-	dbcreation = require('./lib/config/dbCreation');
+	var dbcreation = require('./lib/config/dbCreation');
 	
+
 
 	var routes = require('./lib/routes');
 
