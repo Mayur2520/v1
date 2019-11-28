@@ -3,6 +3,11 @@ angular.module('MyApp')
 
     return{
 
+      ImporProductsDetails: function () {
+          return $resource('/api/ImporProductsDetails',
+              {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       getProductList: function () {
           return $resource('/api/getProductList',
               {}, { 'query': { method: 'GET',isArray:false } });

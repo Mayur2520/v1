@@ -1,0 +1,134 @@
+<div class="wrapper">
+    <div ng-include="'./public/navbar.html'"></div>
+    <div class="container-fluid section">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-12">
+                <h4>Payments</h4>
+            </div>
+            <div class="col-md-4 col-lg-4 col-12">
+                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalProductDetails">Add
+                    New</button>
+                <button class="btn btn-sm btn-info" data-toggle="modal"
+                    data-target="#ModalImportProductsDetails">Upload</button>
+            </div>
+        </div>
+
+        <div class="row mt-3" ng-init="getProductList();productTypes()">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width: 100%;">
+                        <thead>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Marathi Name</th>
+                                <th>Type</th>
+                                <th></th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="_data in ProductsList">
+                                <td>{{$index +1}}</td>
+                                <td>{{_data.name}}</td>
+                                <td class="marathi-input">{{_data.marathi_name}}</td>
+                                <td>{{_data.type}}</td>
+                                <td class="text-center text-nowrap"><button class="btn btn-warning btn-sm" ng-click="getProductDetails(_data)"  data-toggle="modal" data-target="#modalProductDetails"><i class="fa fa-pencil"></i> Edit</button>&nbsp;<button class="btn btn-danger btn-sm" ng-click="deleteProductDetails(_data.id)"><i class="fa fa-trash"></i> Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal add product details-->
+<div class="modal fade" id="modalProductDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form class="form" name="form">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" ng-model="productDetails[0].name" id="name"
+                                    name="Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="marathi-name">Name in Marathi:</label>
+                                <input type="text" class="form-control marathi-input" id="marathi-name"
+                                    ng-model="productDetails[0].marathi_name" name="Name in Marathi"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type:</label>
+                                <select class="form-control" id="type" ng-model="productDetails[0].type" ng-options="obj for obj in product_type">
+                                    <option value="" selected disabled>Select type</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">image:</label>
+                                <input type="file" id="imgInp" ngf-select ng-model="prdImage" name="file"
+                                    ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"
+                                    ngf-resize="{width: 100, height: 100}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal"
+                    ng-click="SaveProductDetails()">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- The Modal import product details-->
+<div class="modal fade" id="ModalImportProductsDetails">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Import Products Details</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- <script>
+  $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        fixedHeader: true,
+        lengthChange: true,
+        buttons: [ 'copy', 'excel', 'pdf' ]
+    } );
+ 
+    table.buttons().container()
+        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+} );
+</script> -->

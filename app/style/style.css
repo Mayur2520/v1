@@ -11,6 +11,10 @@ body {
     flex-direction: column;
 }
 
+.pointer
+{
+    cursor: pointer;
+}
 main {
     flex: 1 0 auto;
 }

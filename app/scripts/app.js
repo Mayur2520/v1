@@ -22,6 +22,18 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/products.html",
        controller:"EntityController"
     })
+    .when("/orderes", {
+      templateUrl : "public/orderes.html",
+       controller:"EntityController"
+    })
+    .when("/invoice", {
+      templateUrl : "public/invoice.html",
+       controller:"EntityController"
+    })
+    .when("/payment", {
+      templateUrl : "public/payment.html",
+       controller:"EntityController"
+    })
 	.otherwise({
 		  redirectTo: ''
 		});

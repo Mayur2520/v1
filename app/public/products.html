@@ -3,13 +3,16 @@
     <div class="container-fluid section">
         <div class="row">
             <div class="col-md-12 col-lg-12 col-12">
-                <h4>List</h4>
+                <h4>Products</h4>
             </div>
             <div class="col-md-4 col-lg-4 col-12">
                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalProductDetails">Add
                     New</button>
                 <button class="btn btn-sm btn-info" data-toggle="modal"
                     data-target="#ModalImportProductsDetails">Upload</button>
+            </div>
+            <div class="col-md-3 lg-3 xl-3 col-12 ml-auto">
+                <input class="form-control" placeholder="Search" ng-model="search.name"/>
             </div>
         </div>
 
@@ -25,7 +28,7 @@
                                 <th></th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="_data in ProductsList">
+                            <tr ng-repeat="_data in ProductsList | filter: search.name">
                                 <td>{{$index +1}}</td>
                                 <td>{{_data.name}}</td>
                                 <td class="marathi-input">{{_data.marathi_name}}</td>
@@ -42,7 +45,7 @@
 
 <!-- The Modal add product details-->
 <div class="modal fade" id="modalProductDetails">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -66,6 +69,72 @@
                                 <label for="marathi-name">Name in Marathi:</label>
                                 <input type="text" class="form-control marathi-input" id="marathi-name"
                                     ng-model="productDetails[0].marathi_name" name="Name in Marathi"/>
+                                    <label class="text-primary pointer" ng-click="showSet = !showSet"><i class="fa fa-info"></i> Marathi Keaybord charecter set Image</label>
+                            </div>
+                            <div class="col-12" ng-if="showSet">
+                                <!-- <img src="../images/fornt-charset.png" class="img-responsive"/> -->
+                                <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td ng-repeat="char in MarathiCharSet | startFrom : 0 | limitTo : 19" ng-click="createWordFromLatter(char)">
+                                            <div class="p-1">
+                                            <span>{{char}}</span>
+                                            <br>
+                                            <span class="marathi-input text-bold">{{char}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-repeat="char in MarathiCharSet | startFrom : 19 | limitTo : 19" ng-click="createWordFromLatter(char)">
+                                            <div class="p-1">
+                                            <span>{{char}}</span>
+                                            <br>
+                                            <span class="marathi-input text-bold">{{char}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td ng-repeat="char in MarathiCharSet | startFrom : 38 | limitTo : 19" ng-click="createWordFromLatter(char)">
+                                            <div class="p-1">
+                                            <span>{{char}}</span>
+                                            <br>
+                                            <span class="marathi-input text-bold">{{char}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-repeat="char in MarathiCharSet | startFrom : 57 | limitTo : 19" ng-click="createWordFromLatter(char)">
+                                            <div class="p-1">
+                                            <span>{{char}}</span>
+                                            <br>
+                                            <span class="marathi-input text-bold">{{char}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-repeat="char in MarathiCharSet | startFrom : 76 | limitTo : 19" ng-click="createWordFromLatter(char)">
+                                            <div class="p-1">
+                                            <span>{{char}}</span>
+                                            <br>
+                                            <span class="marathi-input text-bold">{{char}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td ng-repeat="char in MarathiCharSet | startFrom : 95 | limitTo : 19" ng-click="createWordFromLatter(char)">
+                                            <div class="p-1">
+                                            <span>{{char}}</span>
+                                            <br>
+                                            <span class="marathi-input text-bold">{{char}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                </table>
+
+                            </div>
                             </div>
                             <div class="form-group">
                                 <label for="type">Type:</label>
@@ -108,19 +177,33 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                Modal body..
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
+                <div class="row">
+                    <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center">
+                        <a href="./files/productDetails.xlsx" style="text-decoration:none;color:black;"  download><i class="fa fa-download" style="font-size:50px;"></i>
+                            <br>
+                            <b>Download excel file</b>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" id="customFile" name="filename" onchange="angular.element(this).scope().UploadFile(this.files)">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                          </div>
+                    </div>
+                    <div class="col-12">
+                      <label class="text-danger">{{errormsg}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Import" class="btn btn-success"  ng-disabled="!SelectedFileForUpload"
+                    ng-click="ParseExcelDataAndSave()" />
+                </div>
+              </div>
     </div>
 </div>
 
-<script>
+<!-- <script>
   $(document).ready(function() {
     var table = $('#example').DataTable( {
         fixedHeader: true,
@@ -131,4 +214,4 @@
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
-</script>
+</script> -->

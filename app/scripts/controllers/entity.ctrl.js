@@ -6,6 +6,7 @@ angular.module('MyApp')
             itemsPerPage: 5,
             fillLastPage: true
           }
+          $scope.productDetails = [{marathi_name:null}];
 
           $scope.getProductDetails = function(productDetails)
           {
@@ -87,6 +88,85 @@ angular.module('MyApp')
                 // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
               });
         }
+
+        $scope.resetSelection = function()
+        {
+            angular.element("input[type='file']").val(null);
+            $(".custom-file-input").siblings(".custom-file-label").removeClass("selected").html("Choose file");
+        }
+
+          // IMPORT PRODUCTS DETAILS
+
+          $scope.SelectedFileForUpload = null;
+ 
+          $scope.UploadFile = function (files) {
+              $scope.$apply(function () { //I have used $scope.$apply because I will call this function from File input type control which is not supported 2 way binding
+                  $scope.Message = "";
+                  $scope.SelectedFileForUpload = files[0];
+              })
+          }
+       
+          //Parse Excel Data 
+          $scope.ParseExcelDataAndSave = function () {
+              var file = $scope.SelectedFileForUpload;
+              if (file) {
+                  var reader = new FileReader();
+                  reader.onload = function (e) {
+                      var data = e.target.result;
+                      //XLSX from js-xlsx library , which I will add in page view page
+                      var workbook = XLSX.read(data, { type: 'binary' });
+                      var sheetName = workbook.SheetNames[0];
+                      var excelData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                      if (excelData.length > 0) {
+                          //Save data 
+                          $scope.ImporProductsDetails(excelData);
+                      }
+                      else {
+                          $scope.Message = "No data found";
+                      }
+                  }
+                  reader.onerror = function (ex) {
+                      console.log(ex);
+                  }
+       
+                  reader.readAsBinaryString(file);
+              }
+              else{
+                  $scope.errormsg = "Please select The file first."
+              }
+          }
+       
+          // Save excel data to our database
+          $scope.ImporProductsDetails = function (excelData) {
+            Entity.ImporProductsDetails().save(excelData).$promise.then(function (response) {
+              Swal({
+                  type: response.type,
+                  title: response.title,
+                  text: response.message,
+              }).then(() => {
+                  if(response.status == 0)
+                  {
+      
+                  }
+                  else
+                  {
+                      $scope.resetSelection();
+                      $('#ModalImportProductsDetails').modal('hide');
+                      $scope.getProductList();
+                  }
+              });
+          });
+          }
+          
+
+          $scope.MarathiCharSet = [
+              'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','`',1,2,3,4,5,6,7,8,9,0,'-','=','~','!','@','#','$','%','^','&','*','(',')','_','+','{','}','[',']',';',':','\"','\'','\\',',','<','.','>','/','?'
+          ];
+          console.log($scope.MarathiCharSet.length)
+          $scope.createWordFromLatter = function(char)
+          {
+            $scope.productDetails[0].marathi_name = $scope.productDetails[0].marathi_name + char
+          }
 
     }]);
 
