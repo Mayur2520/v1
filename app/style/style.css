@@ -2734,4 +2734,7 @@ button.badge-top-right:before {
     padding: 0.20rem !important;
   }
 
-
+.booked_row
+{
+    background-color: #8DC26F !important;
+}

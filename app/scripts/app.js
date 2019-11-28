@@ -22,17 +22,25 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/products.html",
        controller:"EntityController"
     })
-    .when("/orderes", {
+    .when("/customers", {
+      templateUrl : "public/customers.html",
+       controller:"CustomerController"
+    })
+    .when("/users", {
+      templateUrl : "public/users.html",
+       controller:"CustomerController"
+    })
+    .when("/orders", {
       templateUrl : "public/orderes.html",
-       controller:"EntityController"
+       controller:"OrderController"
     })
     .when("/invoice", {
       templateUrl : "public/invoice.html",
-       controller:"EntityController"
+       controller:"OrderController"
     })
     .when("/payment", {
       templateUrl : "public/payment.html",
-       controller:"EntityController"
+       controller:"OrderController"
     })
 	.otherwise({
 		  redirectTo: ''

@@ -1,7 +1,5 @@
 angular.module('MyApp')
 	.controller('EntityController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity) {
-        console.log('Entity ctrl works')
-
         $scope.config = {
             itemsPerPage: 5,
             fillLastPage: true
@@ -14,12 +12,29 @@ angular.module('MyApp')
             $scope.productDetails.push(productDetails);
           };
         
-        $scope.getProductList = function(productid)
+        $scope.deleteProductDetails = function(productid)
         {
-               
-                Entity.deleteProductDetails().delete({ id: productid}).$promise.then(function (response) {   
+          Swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.value) {
+                Entity.deleteProductDetails().query({ id: productid}).$promise.then(function (response) {   
+                  Swal({
+                    type: response.type,
+                    title: response.title,
+                    text: response.message,
+                  }).then(() => {
+                    $scope.getProductList();
+                  })
                 });
-               
+              }
+            });
         };
         
        
@@ -43,14 +58,7 @@ angular.module('MyApp')
                
         };
 
-        $scope.productUnits = function()
-        {
-               
-                Entity.productUnits().query().$promise.then(function (response) {
-                    return  response;  
-                });
-               
-        };
+       
 
         $scope.SaveProductDetails = function()
         {
@@ -162,9 +170,12 @@ angular.module('MyApp')
           $scope.MarathiCharSet = [
               'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','`',1,2,3,4,5,6,7,8,9,0,'-','=','~','!','@','#','$','%','^','&','*','(',')','_','+','{','}','[',']',';',':','\"','\'','\\',',','<','.','>','/','?'
           ];
-          console.log($scope.MarathiCharSet.length)
+
           $scope.createWordFromLatter = function(char)
           {
+            if($scope.productDetails[0].marathi_name == null)
+              $scope.productDetails[0].marathi_name = "";
+
             $scope.productDetails[0].marathi_name = $scope.productDetails[0].marathi_name + char
           }
 

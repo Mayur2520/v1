@@ -25,7 +25,7 @@ angular.module('MyApp')
 
       deleteProductDetails: function () {
           return $resource('/api/deleteProductDetails/:id',
-              {}, { 'delete': { method: 'DELETE',isArray:false } });
+              {}, { 'query': { method: 'GET',isArray:false } });
       },
     }
   }]);
