@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="" onclick="history.back()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
+    <a class="navbar-brand" href="">Order Details</a>
+
+    <a class="navbar-brand ml-auto" href="" ng-click="saveOrderDetails()"><i class="fa fa-check" aria-hidden="true"></i></a>
+  </nav>
+
+  <div class="container-fluid section" ng-init="InitFunctions()">
+    <div class="row">
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+         <div class="form-group">
+             <label for="customername">Customer:</label>
+             <input type="text" class="form-control" ng-model="orderDetails.customername" id="customername"
+                 name="customername" uib-typeahead="obj as obj.name for obj in CustomersList | filter:$viewValue " placeholder="Search Customer" >
+         </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+         <div class="form-group">
+             <label for="orderdate">Order Date:</label>
+             <input type="date" class="form-control" ng-model="orderDetails.orderdate" id="orderdate"
+                 name="orderdate">
+         </div>
+        </div>
+     </div>
+
+
+     <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td colspan="4"><input class="form-control" placeholder="Search Products" ng-model="search.name"></td>
+                    </tr>
+                </thead>
+                <thead>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Qty.</th>
+                    <th>Unit</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="_data in ProductsList | filter: search.name" ng-class="{booked_row:validateEntries(_data)}">
+                        <td>{{$index +1}}</td>
+                        <td>{{_data.name}}</td>
+                        <td><input type="number" class="form-control"  ng-model="_data.qty" placeholder="Qty."/></td>
+                        <td><select class="form-control" ng-model="_data.prunit" style="width: 80px;" ng-options="obj for obj in productUnit">
+                            <option value="" selected disabled>Select</option>
+                        </select></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  </div>

@@ -2,6 +2,8 @@ angular.module('MyApp')
 	.controller('OrderController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Order','Entity', 'Customer', function ($scope, $http, $route, $location, $window, $timeout, Order, Entity, Customer) {
 
 
+        
+
         $scope.getProductList = function()
         {
                
@@ -44,5 +46,29 @@ angular.module('MyApp')
             $scope.productUnits();
             $scope.getCustomerList();
         }
+
+
+        $scope.saveOrderDetails = function()
+        {
+
+            var orderDetails = $scope.ProductsList.filter(function(value){
+                return value.qty && value.prunit
+            })
+
+            if(orderDetails.length > 0)
+            {
+                orderDetails[0].customerdetails = $scope.orderDetails;
+
+                Order.saveOrderDetails().save(orderDetails).$promise.then(function(response){
+                    
+                });
+
+            }
+
+
+
+
+            console.log(orderDetails);
+        };
 
     }]);
