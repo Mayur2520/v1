@@ -60,15 +60,23 @@ angular.module('MyApp')
                 orderDetails[0].customerdetails = $scope.orderDetails;
 
                 Order.saveOrderDetails().save(orderDetails).$promise.then(function(response){
-                    
+                    Swal({
+                        type: response.type,
+                        title: response.title,
+                        text: response.message,
+                    }).then(() => {
+                        if(response.status == 0)
+                        {
+            
+                        }
+                        else
+                        {
+                            $scope.InitFunctions()
+                        }
+                    });
                 });
 
             }
-
-
-
-
-            console.log(orderDetails);
         };
 
     }]);
