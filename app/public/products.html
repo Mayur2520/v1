@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="row mt-3" ng-init="getProductList();productTypes()">
+        <div class="row mt-3" ng-init="getProductList();productTypes();productUnits()">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="table-responsive">
                     <table id="example" class="table table-striped table-bordered" style="width: 100%;">
@@ -24,6 +24,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Marathi Name</th>
+                                <th>Unit</th>
                                 <th>Type</th>
                                 <th></th>
                         </thead>
@@ -32,6 +33,7 @@
                                 <td>{{$index +1}}</td>
                                 <td>{{_data.name}}</td>
                                 <td class="marathi-input">{{_data.marathi_name}}</td>
+                                <td>{{_data.unit}}</td>
                                 <td>{{_data.type}}</td>
                                 <td class="text-center text-nowrap"><button class="btn btn-warning btn-sm" ng-click="getProductDetails(_data)"  data-toggle="modal" data-target="#modalProductDetails"><i class="fa fa-pencil"></i> Edit</button>&nbsp;<button class="btn btn-danger btn-sm" ng-click="deleteProductDetails(_data.id)"><i class="fa fa-trash"></i> Delete</button></td>
                             </tr>
@@ -136,6 +138,13 @@
 
                             </div>
                             </div>
+                            <div class="form-group">
+                                <label for="unit">Unit:</label>
+                                <select class="form-control" id="unit" ng-model="productDetails[0].unit" ng-options="obj for obj in productUnit">
+                                    <option value="" selected disabled>Select unit</option>
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label for="type">Type:</label>
                                 <select class="form-control" id="type" ng-model="productDetails[0].type" ng-options="obj for obj in product_type">

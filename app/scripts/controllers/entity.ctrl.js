@@ -58,7 +58,15 @@ angular.module('MyApp')
                
         };
 
-       
+        $scope.productUnits = function()
+        {
+               
+                Entity.productUnits().query().$promise.then(function (response) {
+                    $scope.productUnit = response;  
+                });
+               
+        };
+
 
         $scope.SaveProductDetails = function()
         {

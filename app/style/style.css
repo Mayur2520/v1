@@ -2738,3 +2738,8 @@ button.badge-top-right:before {
 {
     background-color: #8DC26F !important;
 }
+
+.recently_updated
+{
+    background-color: rgb(236, 234, 103) !important;
+}

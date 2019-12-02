@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" href="" onclick="history.back()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
+    <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
     <a class="navbar-brand" href="">Order Details</a>
 
     <a class="navbar-brand ml-auto" href="" ng-click="saveOrderDetails()"><i class="fa fa-check" aria-hidden="true"></i></a>
@@ -39,11 +39,11 @@
                     <th>Unit</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="_data in ProductsList | filter: search.name" ng-class="{booked_row:validateEntries(_data)}">
+                    <tr ng-repeat="_data in ProductsList | filter: search.name" ng-class="{booked_row:validateEntries(_data) , recently_updated:_data.isRecentlyUpdated}">
                         <td>{{$index +1}}</td>
                         <td>{{_data.name}}</td>
-                        <td><input type="number" class="form-control"  ng-model="_data.qty" placeholder="Qty."/></td>
-                        <td><select class="form-control" ng-model="_data.prunit" style="width: 80px;" ng-options="obj for obj in productUnit">
+                        <td><input type="number" class="form-control"  ng-model="_data.qty" placeholder="Qty." ng-change="validateRecentlyUpdated(_data,{{_data}})"/></td>
+                        <td><select class="form-control" ng-model="_data.unit" style="width: 80px;" ng-options="obj for obj in productUnit" ng-change="validateRecentlyUpdated(_data,{{_data}})">
                             <option value="" selected disabled>Select</option>
                         </select></td>
                     </tr>
