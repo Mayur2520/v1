@@ -1,5 +1,5 @@
 angular.module('MyApp')
-	.controller('OrderController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Order','Entity', 'Customer', function ($scope, $http, $route, $location, $window, $timeout, Order, Entity, Customer) {
+	.controller('OrderController', ['$scope', '$rootScope' ,'$http', '$route', '$location', '$window', '$timeout', 'Order','Entity', 'Customer', function ($scope, $rootScope, $http, $route, $location, $window, $timeout, Order, Entity, Customer) {
 
         $scope.getBackToOrderlist = function()
         {
@@ -7,6 +7,12 @@ angular.module('MyApp')
             $window.history.back();
         };
 
+        function getSession()
+        {
+            Entity.getSession().query().$promise.then(function (response) {
+                $scope.userDetails = response;    
+            });   
+        } getSession();
 
         $scope.getProductList = function()
         {
@@ -16,6 +22,18 @@ angular.module('MyApp')
                 });               
         };
 
+        $scope.productTypes = function()
+        {
+               
+                Entity.productTypes().query().$promise.then(function (response) {
+                    $scope.product_type = response;
+                    $scope.ProductsType=[{title:'All',value:''}];
+                    $scope.product_type.map(function(value){
+                        $scope.ProductsType.push({title:value,value:value})
+                    });
+                });
+               
+        };
 
         $scope.productUnits = function()
         {
@@ -35,6 +53,18 @@ angular.module('MyApp')
             {
                 newObj.isRecentlyUpdated =true;
             }
+        };
+
+        $scope.validateCartQty = function(newObj)
+        {
+                    if(newObj.qty <= newObj.dil_qty)
+                    {
+                        newObj.isQtySame = true;
+                    }
+                    if(newObj.qty > newObj.dil_qty)
+                    {
+                        newObj.lowQty = true;
+                    }     
         };
 
         $scope.getCustomerList = function()
@@ -77,16 +107,19 @@ angular.module('MyApp')
                      if(!response.status)
                      {
                         $scope.orderdetails = response.orderDetails;
-                        $scope.ProductsList.map(function(value){
-                            $scope.orderdetails.map(function(orderitem){
-                                if(value.id == orderitem.productid)
-                                {
-                                    value.qty = orderitem.qty;
-                                    value.unit = orderitem.unit;
-                                    value.orderdetailsid = orderitem.details_id;
-                                }
+                        if($scope.ProductsList && $scope.ProductsList.length > 0)
+                        {
+                            $scope.ProductsList.map(function(value){
+                                $scope.orderdetails.map(function(orderitem){
+                                    if(value.id == orderitem.productid)
+                                    {
+                                        value.qty = orderitem.qty;
+                                        value.unit = orderitem.unit;
+                                        value.orderdetailsid = orderitem.details_id;
+                                    }
+                                });
                             });
-                        });
+                        }
                         $scope.orderDetails.customername = $scope.orderdetails[0].cust_name;
                         $scope.orderDetails.orderid = $scope.orderdetails[0].orderid;
                         $scope.orderDetails.orderdate = new Date(new Date($scope.orderdetails[0].orderdate).setDate(new Date($scope.orderdetails[0].orderdate).getDate() +1));
@@ -106,7 +139,10 @@ angular.module('MyApp')
         {
             $scope.getProductList();
             $scope.productUnits();
-            $scope.getCustomerList();
+            $scope.productTypes();
+            // if($scope.userDetails.role != 'customer')
+             $scope.getCustomerList();
+        
 
             if($window.sessionStorage.getItem('orderid') != null && $window.sessionStorage.getItem('orderid') > 0)
             {
@@ -117,10 +153,18 @@ angular.module('MyApp')
 
         $scope.saveOrderDetails = function()
         {
-
-            var orderDetails = $scope.ProductsList.filter(function(value){
-                return value.qty != undefined && value.unit != null
-            })
+            if($scope.ProductsList)
+            {
+                var orderDetails = $scope.ProductsList.filter(function(value){
+                    return value.qty != undefined && value.unit != null
+                })
+            }
+            else if($scope.orderdetails)
+            {
+                var orderDetails = $scope.orderdetails.filter(function(value){
+                    return value.dil_qty != undefined
+                })
+            }
 
             if(orderDetails.length > 0)
             {

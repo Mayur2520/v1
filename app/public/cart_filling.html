@@ -1,24 +1,24 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
-    <a class="navbar-brand" href="">Order Details</a>
+    <a class="navbar-brand" href="">Order Cart Details</a>
 
     <a class="navbar-brand ml-auto" href="" ng-click="saveOrderDetails()"><i class="fa fa-check" aria-hidden="true"></i></a>
   </nav>
 
-  <div class="container-fluid section" ng-init="InitFunctions()">
+  <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();">
     <div class="row">
-        <div class="col-6 col-md-6 col-lg-6 col-xl-6" ng-f="userDetails.role != 'customer'">
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
          <div class="form-group">
              <label for="customername">Customer:</label>
              <input type="text" class="form-control btn-sm" ng-model="orderDetails.customername" id="customername"
-                 name="customername" uib-typeahead="obj as obj.name for obj in CustomersList | filter:$viewValue " placeholder="Search Customer" >
+                 name="customername" placeholder="Customer" readonly >
          </div>
         </div>
         <div class="col-6 col-md-6 col-lg-6 col-xl-6">
          <div class="form-group">
              <label for="orderdate">Order Date:</label>
              <input type="date" class="form-control btn-sm" ng-model="orderDetails.orderdate" id="orderdate"
-                 name="orderdate">
+                 name="orderdate" readonly >
          </div>
         </div>
      </div>
@@ -31,7 +31,7 @@
                     <tr>
                         <td colspan="3">
                             <input class="form-control btn-sm" placeholder="Search Products" ng-model="search.name"></td>
-                        <td colspan="1">
+                        <td colspan="2">
                                 <select class="form-control btn-sm" id="type" ng-model="productType" ng-options="obj.value as obj.title for obj in ProductsType">
                                         <option value="" selected disabled>Type</option>
                                     </select>
@@ -42,16 +42,16 @@
                     <th>#</th>
                     <th>Product</th>
                     <th>Qty.</th>
+                    <th>Dil. Qty.</th>
                     <th>Unit</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="_data in ProductsList | filter:{ type: productType } | filter: search.name" ng-class="{booked_row:validateEntries(_data) , recently_updated:_data.isRecentlyUpdated}">
-                        <td>{{$index +1}}</td>
-                        <td>{{_data.name}}</td>
-                        <td><input type="number" class="form-control"  ng-model="_data.qty" placeholder="Qty." ng-change="validateRecentlyUpdated(_data,{{_data}})"/></td>
-                        <td><select class="form-control" ng-model="_data.unit" style="width: 80px;" ng-options="obj for obj in productUnit" ng-change="validateRecentlyUpdated(_data,{{_data}})">
-                            <option value="" selected disabled>Select</option>
-                        </select></td>
+                    <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name" ng-class="{booked_row:_data.isQtySame, low_qty: _data.lowQty}">
+                        <td><label class="p-2">{{$index +1}}</label></td>
+                        <td ng-click="_data.dil_qty = _data.qty;validateCartQty(_data)">{{_data.productname}}</td>
+                        <td>{{_data.qty}}</td>
+                        <td><input type="number" class="form-control btn-sm"  ng-model="_data.dil_qty" placeholder="Dil. Qty." ng-change="validateCartQty(_data)"/></td>
+                        <td>{{_data.unit}}</td>
                     </tr>
                 </tbody>
             </table>

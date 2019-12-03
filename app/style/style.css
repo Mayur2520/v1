@@ -2743,3 +2743,8 @@ button.badge-top-right:before {
 {
     background-color: rgb(236, 234, 103) !important;
 }
+
+.low_qty
+{
+    background-color: rgb(241, 91, 91) !important;
+}

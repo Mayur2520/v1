@@ -9,10 +9,10 @@ angular.module('MyApp')
             $scope.dataarr.push(i)
         }
 
-        $scope.clickFuntion = function()
+        $scope.SendNotifuication = function()
         {
-            console.log('1111111')
-            alert('1');
+            console.log('-------------------- 1')
+            Dashboard.ExeNotification('sample User',"Sample message sent from device")
         }
 
     }]);

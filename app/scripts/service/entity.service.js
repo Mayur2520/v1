@@ -8,6 +8,11 @@ angular.module('MyApp')
               {}, { 'save': { method: 'POST',isArray:false } });
       },
 
+      getSession: function () {
+          return $resource('/api/getSession',
+              {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
       getProductList: function () {
           return $resource('/api/getProductList',
               {}, { 'query': { method: 'GET',isArray:false } });
