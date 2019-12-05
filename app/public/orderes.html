@@ -1,5 +1,6 @@
 <div class="wrapper">
     <div ng-include="'./public/navbar.html'"></div>
+    
     <div class="container-fluid section">
         <div class="row">
             <div class="col-md-12 col-lg-12 col-12">
@@ -8,6 +9,29 @@
             <div class="col-md-4 col-lg-4 col-12">
                 <a class="btn btn-sm btn-info" href="#!place_order">Add
                     New</a>
+            </div>
+
+            <div class="col-md-4 col-lg-4 col-12 ml-auto">
+                <div class="row">
+                    <div class="col-md-6 col-12 col-lg-6">
+                            <div class="form-group">
+                                    <label for="order-date">Order Date From</label>
+                                    <input type="date" id="order-date" ng-model="orderDate_from" ng-change="ListOrders(orderDate_from, orderDate_to)" class="form-control"/>
+                                </div>
+                    </div>
+                    <div class="col-md-6 col-12 col-lg-6">
+                            <div class="form-group">
+                                    <label for="order-date">To</label>
+                                    <input type="date" id="order-date" ng-model="orderDate_to" ng-change="ListOrders(orderDate_from, orderDate_to)" class="form-control"/>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-4 colxl-4">
+                <input class="form-control" placeholder="Search" ng-model="search.order"/>
             </div>
         </div>
 
@@ -25,7 +49,7 @@
                                 <th></th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="_data in ordersList">
+                            <tr ng-repeat="_data in ordersList | filter:search.order">
                                 <td>{{$index +1}}</td>
                                 <td>{{_data.orderdate | date:'dd/MM/yyyy'}}</td>
                                 <td>{{_data.cust_name}}</td>

@@ -7,6 +7,27 @@ angular.module('MyApp')
             $window.history.back();
         };
 
+
+        function formatDate(date){
+           
+            if(date)
+            {
+                var dd = new Date(date).getDate();
+                var mm = new Date(date).getMonth()+1;
+                var yy = new Date(date).getFullYear();
+            }
+        
+            return yy+'/'+mm+'/'+dd;
+    }
+
+        function reverseString(str){
+            let stringRev ="";
+            for(let i= 0; i<str.length; i++){
+                stringRev = str[i]+stringRev;
+            }
+            return stringRev;
+    }
+
         function getSession()
         {
             Entity.getSession().query().$promise.then(function (response) {
@@ -127,12 +148,34 @@ angular.module('MyApp')
                 });     
         };
 
-        $scope.ListOrders = function()
+        $scope.ListOrders = function(order_Date_from, orer_date_to)
         {
-            Order.ListOrders().query().$promise.then(function (response) {
-                     if(!response.status)
-                        $scope.ordersList = response.ordersList;
-                });      
+
+            // if(order_Date_from ||  orer_date_to)
+            {
+                if(order_Date_from)
+                {
+                    var from_orderDate =  order_Date_from;
+                }
+                else
+                {
+                    var from_orderDate =  new Date();
+                }
+
+                if(orer_date_to)
+                {
+                    var to_orderDate =  orer_date_to;
+                }
+                else
+                {
+                    var to_orderDate =  from_orderDate;
+                }
+            }
+
+            Order.ListOrders().save([{from_orderDate:formatDate(from_orderDate),to_orderDate:formatDate(to_orderDate)}]).$promise.then(function (response) {
+                if(!response.status)
+                $scope.ordersList = response.ordersList;
+            });
         };
 
         $scope.InitFunctions = function()

@@ -12,7 +12,7 @@ angular.module('MyApp')
       ListOrders: function()
       {
         return $resource('/api/ListOrders',
-        {}, { 'query': { method: 'GET',isArray:false } });
+        {}, { 'save': { method: 'POST',isArray:false } });
       },
 
       getOrderDetails: function()
