@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
-    <a class="navbar-brand" href="">Order Cart Details</a>
+    <a class="navbar-brand" href="">Invoice</a>
 
-    <a class="navbar-brand ml-auto" href="" ng-click="saveOrderDetails()"><i class="fa fa-check" aria-hidden="true"></i></a>
+    <a class="navbar-brand ml-auto" href="" ng-click="generateInvoice()"><i class="fa fa-check" aria-hidden="true"></i></a>
   </nav>
 
   <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();">
@@ -38,20 +38,24 @@
                         </td>
                     </tr>
                 </thead>
-                <thead>
+                <thead class="text-nowrap">
                     <th>#</th>
                     <th>Product</th>
-                    <th>Qty.</th>
                     <th>Dil. Qty.</th>
-                    <th>Unit</th>
+                    <th>Rate (in Rs.)</th>
+                    <th>Total</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name" ng-class="{booked_row:_data.isQtySame, low_qty: _data.lowQty}">
+                    <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name">
                         <td><label class="p-2">{{$index +1}}</label></td>
-                        <td ng-click="setDilQtyAsQty(_data)">{{_data.productname}}</td>
-                        <td>{{_data.qty}}</td>
-                        <td><input type="number" class="form-control btn-sm"  ng-model="_data.dil_qty" placeholder="Dil. Qty." ng-change="validateCartQty(_data)"/></td>
-                        <td>{{_data.unit}}</td>
+                        <td>{{_data.productname}}</td>
+                        <td>{{_data.dil_qty}} {{_data.unit}}</td>
+                        <td><input type="number" class="form-control btn-sm col-6"  ng-model="_data.rate" placeholder="Rate"/></td>
+                        <td>{{(_data.netprice = (_data.dil_qty * _data.rate) |number:2 )||"00.00"}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right"><strong>Total</strong></td>
+                        <td colspan="2" class="text-right"><strong>{{(orderdetails[0].totalAmount = getTotal() |number:2 )|| "00.00" }}/-</strong></td>
                     </tr>
                 </tbody>
             </table>

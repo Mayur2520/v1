@@ -121,6 +121,33 @@ angular.module('MyApp')
                 });
         }
 
+
+        $scope.setDilivaryStatusofOrder = function(orderDetails)
+        {
+            Swal({
+                title: 'Please confirm details',
+                text: "",
+                html: "<div><table><tr><td>Customer:</td><td>"+orderDetails.cust_name+"</td></tr><tr><td>Order Date(Y/M/D):</td><td>"+formatDate(orderDetails.orderdate)+"</td></tr><tr><td>Ordered By:</td><td>"+orderDetails.ordered_by+"</td></tr></table></div>",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirm'
+              }).then((result) => {
+                if (result.value) {
+                    Order.confirmToDilivary().query({ id: orderDetails.id}).$promise.then(function (response) {   
+                      Swal({
+                        type: response.type,
+                        title: response.title,
+                        text: response.message,
+                      }).then(() => {
+                        $scope.ListOrders();
+                      })
+                    });
+                  }
+                });
+        }
+
         $scope.getOrderDetails = function()
         {
             $scope.orderDetails = {};
@@ -135,6 +162,7 @@ angular.module('MyApp')
                                     if(value.id == orderitem.productid)
                                     {
                                         value.qty = orderitem.qty;
+                                        value.dil_qty = orderitem.dil_qty;
                                         value.unit = orderitem.unit;
                                         value.orderdetailsid = orderitem.details_id;
                                     }
@@ -143,10 +171,24 @@ angular.module('MyApp')
                         }
                         $scope.orderDetails.customername = $scope.orderdetails[0].cust_name;
                         $scope.orderDetails.orderid = $scope.orderdetails[0].orderid;
-                        $scope.orderDetails.orderdate = new Date(new Date($scope.orderdetails[0].orderdate).setDate(new Date($scope.orderdetails[0].orderdate).getDate() +1));
+                        $scope.orderDetails.orderdate = new Date($scope.orderdetails[0].orderdate);
                      }
                 });     
         };
+
+        $scope.getTotal = function(){
+            var total = 0;
+            for(var i = 0; i < $scope.orderdetails.length; i++){
+                var product = $scope.orderdetails[i];
+                if(isNaN(product.netprice))
+                {
+                    product.netprice = 0;
+                }
+                total += (product.netprice);
+            }
+            
+            return total;
+        }
 
         $scope.ListOrders = function(order_Date_from, orer_date_to)
         {
@@ -193,13 +235,18 @@ angular.module('MyApp')
             }
         }
 
+        $scope.setDilQtyAsQty = function(data)
+        {
+            data.dil_qty = data.qty;
+            $scope.validateCartQty(data);
+        }
 
         $scope.saveOrderDetails = function()
         {
             if($scope.ProductsList)
             {
                 var orderDetails = $scope.ProductsList.filter(function(value){
-                    return value.qty != undefined && value.unit != null
+                        return value.orderdetailsid != undefined || value.qty != undefined && value.unit != null
                 })
             }
             else if($scope.orderdetails)
@@ -234,9 +281,36 @@ angular.module('MyApp')
             }
         };
 
+
+        $scope.generateInvoice = function()
+        {
+            $scope.orderdetails[0].taxamt = 0;
+            $scope.orderdetails[0].netamt = $scope.orderdetails[0].totalAmount + $scope.orderdetails[0].taxamt;
+            Order.generateInvoice().save($scope.orderdetails).$promise.then(function(response){
+                Swal({
+                    type: response.type,
+                    title: response.title,
+                    text: response.message,
+                }).then(() => {
+                    if(response.status == 0)
+                    {
+        
+                    }
+                    else
+                    {
+                        $scope.orderDetails = {};
+                        $scope.InitFunctions();
+                    }
+                });
+            });
+        }
+
         $scope.setSessionId = function(orderid)
         {
             $window.sessionStorage.setItem('orderid',orderid);
         }
+
+
+       
 
     }]);

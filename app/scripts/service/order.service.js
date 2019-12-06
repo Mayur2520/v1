@@ -9,6 +9,12 @@ angular.module('MyApp')
         {}, { 'save': { method: 'POST',isArray:false } });
       },
 
+      generateInvoice: function()
+      {
+        return $resource('/api/generateInvoice',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       ListOrders: function()
       {
         return $resource('/api/ListOrders',
@@ -24,6 +30,12 @@ angular.module('MyApp')
       deleteOrder: function()
       {
         return $resource('/api/deleteOrder/:id',
+        {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      confirmToDilivary: function()
+      {
+        return $resource('/api/confirmToDilivary/:id',
         {}, { 'query': { method: 'GET',isArray:false } });
       }
 
