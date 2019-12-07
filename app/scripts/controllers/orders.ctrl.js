@@ -121,6 +121,11 @@ angular.module('MyApp')
                 });
         }
 
+        $scope.setCartStatus = function()
+        {
+                $scope.orderDetails.cartStatus = 1;
+        }
+
 
         $scope.setDilivaryStatusofOrder = function(orderDetails)
         {
@@ -273,6 +278,7 @@ angular.module('MyApp')
                         else
                         {
                             $scope.orderDetails = {};
+                            $scope.getBackToOrderlist();
                             $scope.InitFunctions();
                         }
                     });
@@ -299,6 +305,7 @@ angular.module('MyApp')
                     else
                     {
                         $scope.orderDetails = {};
+                        $scope.getBackToOrderlist();
                         $scope.InitFunctions();
                     }
                 });

@@ -37,5 +37,40 @@ angular.module('MyApp')
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 
+
+        // USERS DETAILS
+
+
+        getUserList: function()
+        {
+            return $resource('/api/getUserList',
+                {}, { 'query': { method: 'GET',isArray:false } });
+        },
+
+        deleteUserDetails: function()
+        {
+            return $resource('/api/deleteUserDetails/:id',
+                {}, { 'query': { method: 'GET',isArray:false } });
+        },
+
+        SaveUserDetails: function()
+        {
+            return $resource('/api/SaveUserDetails',
+                {}, { 'save': { method: 'POST',isArray:false } });
+        },
+
+        VerifyUserEmail: function()
+        {
+            return $resource('/api/VerifyUserEmail',
+                {}, { 'save': { method: 'POST',isArray:false } });
+        },
+
+        VerifyUserMobile: function()
+        {
+            return $resource('/api/VerifyUserMobile',
+                {}, { 'save': { method: 'POST',isArray:false } });
+        },
+
+
     }
 }]);

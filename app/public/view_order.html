@@ -1,8 +1,7 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
-    <a class="navbar-brand" href="">Invoice</a>
-
-    <a class="navbar-brand ml-auto" href="" ng-click="generateInvoice()"><i class="fa fa-check" aria-hidden="true"></i></a>
+    <a class="navbar-brand" href="">Order Details</a>
+    <a class="navbar-brand ml-auto invisible" href=""><i class="fa fa-check" aria-hidden="true"></i></a>
   </nav>
 
   <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();">
@@ -41,7 +40,7 @@
                 <thead class="text-nowrap">
                     <th>#</th>
                     <th>Product</th>
-                    <th>Dil. Qty.</th>
+                    <th>Qty.</th>
                     <th>Rate (in Rs.)</th>
                     <th>Total</th>
                 </thead>
@@ -50,8 +49,8 @@
                         <td><label class="p-2">{{$index +1}}</label></td>
                         <td>{{_data.productname}}</td>
                         <td>{{_data.dil_qty}} {{_data.unit}}</td>
-                        <td><input type="number" class="form-control btn-sm col-6"  ng-model="_data.price" placeholder="Rate"/></td>
-                        <td>{{(_data.netprice = (_data.dil_qty * _data.price) |number:2 )||"00.00"}}</td>
+                        <td class="text-right">{{_data.price | number:2}}</td>
+                        <td class="text-right">{{(_data.netprice = (_data.dil_qty * _data.price) |number:2 )||"00.00"}}</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="text-right"><strong>Total</strong></td>

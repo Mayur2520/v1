@@ -5,7 +5,7 @@
     <a class="navbar-brand ml-auto" href="" ng-click="saveOrderDetails()"><i class="fa fa-check" aria-hidden="true"></i></a>
   </nav>
 
-  <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();">
+  <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();setCartStatus()">
     <div class="row">
         <div class="col-6 col-md-6 col-lg-6 col-xl-6">
          <div class="form-group">
@@ -23,7 +23,7 @@
         </div>
      </div>
 
-
+     
      <div class="row">
         <div class="table-responsive">
             <table class="table table-striped">

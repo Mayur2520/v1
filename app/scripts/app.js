@@ -43,6 +43,10 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/cart_filling.html",
        controller:"OrderController"
     })
+    .when("/view_order", {
+      templateUrl : "public/view_order.html",
+       controller:"OrderController"
+    })
     .when("/invoice_generate", {
       templateUrl : "public/invoice_generate.html",
        controller:"OrderController"
