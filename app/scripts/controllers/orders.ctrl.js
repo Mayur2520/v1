@@ -225,6 +225,35 @@ angular.module('MyApp')
             });
         };
 
+        $scope.ListInvoice = function(invoiceDate_from, invoiceDate_to)
+        {
+
+            {
+                if(invoiceDate_from)
+                {
+                    var fromInvoiceDate =  invoiceDate_from;
+                }
+                else
+                {
+                    var fromInvoiceDate =  new Date();
+                }
+
+                if(invoiceDate_to)
+                {
+                    var toInvoiceDate =  invoiceDate_to;
+                }
+                else
+                {
+                    var toInvoiceDate =  fromInvoiceDate;
+                }
+            }
+
+            Order.ListInvoice().save([{fromInvoiceDate:formatDate(fromInvoiceDate),toInvoiceDate:formatDate(toInvoiceDate)}]).$promise.then(function (response) {
+                if(!response.status)
+                $scope.invoiceList = response.invoiceList;
+            });
+        };
+
         $scope.InitFunctions = function()
         {
             $scope.getProductList();
@@ -317,7 +346,38 @@ angular.module('MyApp')
             $window.sessionStorage.setItem('orderid',orderid);
         }
 
+        $scope.RedirectToInvoiceView = function(id,path)
+        {
+            $scope.setSessionId(id);
+            $location.path( "/"+path );
+        }
 
+        $scope.paymentDateils = [];
+
+        $scope.getInvoicesOfCustomer = function(customerDetails)
+        {
+            Order.getInvoicesOfCustomer().query({'customerid':customerDetails.id}).$promise.then(function (response) {
+                if(!response.status)
+                {
+                   $scope.CustomerInvoicesList = response.invoiceList;
+                }
+            });
+        };
+
+        $scope.togglePaymentMethod = function(btntype)
+        {
+            if(btntype == 'orderwise')
+            {
+                $scope.paymentDateils.againestOrder = true;
+                $scope.paymentDateils.paidlumpsum = false;
+            }
+            else
+            {
+                $scope.paymentDateils.againestOrder = false;
+                $scope.paymentDateils.paidlumpsum = true;
+            }
+          
+        }
        
 
     }]);

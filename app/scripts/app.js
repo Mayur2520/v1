@@ -55,8 +55,17 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/invoice.html",
        controller:"OrderController"
     })
+
+    .when("/invoice_view", {
+      templateUrl : "public/invoice_view.html",
+       controller:"OrderController"
+    })
     .when("/payment", {
       templateUrl : "public/payment.html",
+       controller:"OrderController"
+    })
+    .when("/payment_collection", {
+      templateUrl : "public/payment_collection.html",
        controller:"OrderController"
     })
 	.otherwise({

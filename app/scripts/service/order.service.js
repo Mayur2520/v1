@@ -21,9 +21,21 @@ angular.module('MyApp')
         {}, { 'save': { method: 'POST',isArray:false } });
       },
 
+      ListInvoice: function()
+      {
+        return $resource('/api/ListInvoice',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       getOrderDetails: function()
       {
         return $resource('/api/getOrderDetails/:orderid',
+        {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      getInvoicesOfCustomer: function()
+      {
+        return $resource('/api/getInvoicesOfCustomer/:customerid',
         {}, { 'query': { method: 'GET',isArray:false } });
       },
 
