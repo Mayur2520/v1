@@ -22,14 +22,14 @@ angular.module('MyApp')
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
+          }).then(function(result) {
             if (result.value) {
                 Entity.deleteProductDetails().query({ id: productid}).$promise.then(function (response) {   
                   Swal({
                     type: response.type,
                     title: response.title,
                     text: response.message,
-                  }).then(() => {
+                  }).then(function()  {
                     $scope.getProductList();
                   })
                 });
@@ -88,7 +88,7 @@ angular.module('MyApp')
                   type: resp.data.type,
                   title: resp.data.title,
                   text: resp.data.message,
-                }).then(() => {
+                }).then(function()  {
                   location.reload();
                 })
               }, function (resp) {
@@ -96,7 +96,7 @@ angular.module('MyApp')
                   type: resp.data.type,
                   title: resp.data.title,
                   text: resp.data.message,
-                }).then(() => {
+                }).then(function()  {
                   location.reload();
                 })
               }, function (evt) {
@@ -159,7 +159,7 @@ angular.module('MyApp')
                   type: response.type,
                   title: response.title,
                   text: response.message,
-              }).then(() => {
+              }).then(function()  {
                   if(response.status == 0)
                   {
       

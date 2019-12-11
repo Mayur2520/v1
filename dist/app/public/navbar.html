@@ -1,0 +1,24 @@
+<div  ng-controller="LoginController">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="" ng-click="ToggleNavbar()"><i class="fa fa-bars" aria-hidden="true"></i></a> &nbsp;
+    <a class="navbar-brand" href="">Logo</a>
+
+    <a class="navbar-brand ml-auto dropdown-toggle" href="" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i></a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="#">Profile</a>
+        <a class="dropdown-item" href="#">Sign-Out</a>
+      </div>
+  </nav>
+
+  <aside class="main_sidebar animated" id="sidenav" ng-show="openNav">
+      <ul>
+          <li><i class="fa icon icon-dashboard-1"></i><a href="#!dashboard">Dashboard</a></li>
+          <li><i class="fa icon icon-diet"></i><a href="#!products">Products</a></li>
+          <li><i class="fa fa-users"></i><a href="#!customers">Customers</a></li>
+          <li><i class="fa fa-user-circle-o"></i><a href="#!users">Users</a></li>
+          <li><i class="fa icon icon-order"></i><a href="#!orders">Orders</a></li>
+          <li><i class="fa icon icon-invoice"></i><a href="#!invoice">Invoice</a></li>
+          <li><i class="fa icon icon-money"></i><a href="#!payment">Payment</a></li>
+      </ul>
+  </aside>
+</div>

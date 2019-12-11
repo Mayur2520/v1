@@ -49,14 +49,14 @@ angular.module('MyApp')
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-              }).then((result) => {
+              }).then(function(result) {
                 if (result.value) {
                     Customer.deleteCustomerDetails().query({ id: id}).$promise.then(function (response) {   
                       Swal({
                         type: response.type,
                         title: response.title,
                         text: response.message,
-                      }).then(() => {
+                      }).then(function(){
                         $scope.getCustomerList();
                       })
                     });
@@ -102,7 +102,7 @@ angular.module('MyApp')
                     type: response.type,
                     title: response.title,
                     text: response.message,
-                  }).then(() => {
+                  }).then(function() {
                     $scope.getCustomerList();
                     if(response.status == 0)
                     {
@@ -139,14 +139,14 @@ angular.module('MyApp')
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-              }).then((result) => {
+              }).then(function(result) {
                 if (result.value) {
                     Customer.deleteUserDetails().query({ id: id}).$promise.then(function (response) {   
                       Swal({
                         type: response.type,
                         title: response.title,
                         text: response.message,
-                      }).then(() => {
+                      }).then(function(){
                         $scope.getUserList();
                       })
                     });
@@ -192,7 +192,7 @@ angular.module('MyApp')
                     type: response.type,
                     title: response.title,
                     text: response.message,
-                  }).then(() => {
+                  }).then(function() {
                     $scope.getUserList();
                     if(response.status == 0)
                     {

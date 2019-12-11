@@ -21,8 +21,8 @@ angular.module('MyApp')
     }
 
         function reverseString(str){
-            let stringRev ="";
-            for(let i= 0; i<str.length; i++){
+            var stringRev ="";
+            for(var i= 0; i<str.length; i++){
                 stringRev = str[i]+stringRev;
             }
             return stringRev;
@@ -106,14 +106,14 @@ angular.module('MyApp')
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-              }).then((result) => {
+              }).then(function(result) {
                 if (result.value) {
                     Order.deleteOrder().query({ id: orderid}).$promise.then(function (response) {   
                       Swal({
                         type: response.type,
                         title: response.title,
                         text: response.message,
-                      }).then(() => {
+                      }).then(function()  {
                         $scope.ListOrders();
                       })
                     });
@@ -138,14 +138,14 @@ angular.module('MyApp')
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Confirm'
-              }).then((result) => {
+              }).then(function(result)  {
                 if (result.value) {
                     Order.confirmToDilivary().query({ id: orderDetails.id}).$promise.then(function (response) {   
                       Swal({
                         type: response.type,
                         title: response.title,
                         text: response.message,
-                      }).then(() => {
+                      }).then(function()  {
                         $scope.ListOrders();
                       })
                     });
@@ -299,7 +299,7 @@ angular.module('MyApp')
                         type: response.type,
                         title: response.title,
                         text: response.message,
-                    }).then(() => {
+                    }).then(function()  {
                         if(response.status == 0)
                         {
             
@@ -326,7 +326,7 @@ angular.module('MyApp')
                     type: response.type,
                     title: response.title,
                     text: response.message,
-                }).then(() => {
+                }).then(function()  {
                     if(response.status == 0)
                     {
         

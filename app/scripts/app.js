@@ -4,7 +4,7 @@ angular.module('MyApp', ['ngResource',
  'ngRoute', 
  'ui.bootstrap', 
  'ngFileUpload', 
- 'ngCookies']).config(function($routeProvider) {
+ 'ngCookies']).config(["$routeProvider","$locationProvider","$httpProvider",function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "public/login.html",
@@ -71,4 +71,4 @@ angular.module('MyApp', ['ngResource',
 	.otherwise({
 		  redirectTo: ''
 		});
-})
+}])

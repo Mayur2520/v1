@@ -201,7 +201,7 @@ function ColorPassword(pass) {
 					type: response.type,
 					title: response.title,
 					text: response.message,
-				}).then(() => {
+				}).then(function() {
 					if(response.forgotpassword == 1)
 						{ 
 							$location.path('/');
@@ -242,7 +242,7 @@ function ColorPassword(pass) {
 			type: response.type,
 			title: response.title,
 			text: response.message,
-		}).then(() => {
+		}).then(function()  {
 				location.reload();
 		})
 		}

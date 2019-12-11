@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
+    <a class="navbar-brand" href="">Invoice</a>
+
+    <a class="navbar-brand ml-auto" href=""><i class="fa fa-share-alt" aria-hidden="true"></i></a>&nbsp;
+    <a class="navbar-brand" href=""><i class="fa fa-print" aria-hidden="true"></i></a>
+  </nav>
+
+  <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();">
+    <div class="row">
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+         <div class="form-group">
+             <label for="customername">Customer:</label>
+             <input type="text" class="form-control btn-sm" ng-model="orderDetails.customername" id="customername"
+                 name="customername" placeholder="Customer" readonly >
+         </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+         <div class="form-group">
+             <label for="orderdate">Order Date:</label>
+             <input type="date" class="form-control btn-sm" ng-model="orderDetails.orderdate" id="orderdate"
+                 name="orderdate" readonly >
+         </div>
+        </div>
+     </div>
+
+
+     <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td colspan="3">
+                            <input class="form-control btn-sm" placeholder="Search Products" ng-model="search.name"></td>
+                        <td colspan="2">
+                                <select class="form-control btn-sm" id="type" ng-model="productType" ng-options="obj.value as obj.title for obj in ProductsType">
+                                        <option value="" selected disabled>Type</option>
+                                    </select>
+                        </td>
+                    </tr>
+                </thead>
+                <thead class="text-nowrap text-center">
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name">
+                        <td><label class="p-2">{{$index +1}}</label></td>
+                        <td>{{_data.productname}}</td>
+                        <td>{{_data.dil_qty}} {{_data.unit}}</td>
+                        <td class="text-right">{{_data.price |number:2}}</td>
+                        <td class="text-right">{{(_data.netprice = (_data.dil_qty * _data.price) |number:2 )||"00.00"}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right"><strong>Total</strong></td>
+                        <td colspan="2" class="text-right"><strong>{{(orderdetails[0].totalAmount = getTotal() |number:2 )|| "00.00" }}/-</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  </div>
