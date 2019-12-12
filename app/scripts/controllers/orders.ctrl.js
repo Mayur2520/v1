@@ -378,6 +378,47 @@ angular.module('MyApp')
             }
           
         }
+
+        $scope.getInvoiceDetailsForPayment = function()
+        {
+            Order.getInvoiceDetailsForPayment().query({'orderid':$window.sessionStorage.getItem('orderid')}).$promise.then(function (response) {
+                if(!response.status)
+                {
+                   $scope.PaymentinvoiceDetails = response.invoicedetails;
+                }
+                });
+        }
+
+        $scope.orderList = false;
+        $scope.toggleOrderList = function()
+        {
+            if($scope.orderList == false)
+            $scope.orderList = true;
+            else
+            $scope.orderList = false;
+        }
        
+
+        $scope.savePaymentDetails = function()
+        {
+                Order.savePaymentDetails().save($scope.PaymentinvoiceDetails[0]).$promise.then(function(response){
+                    Swal({
+                        type: response.type,
+                        title: response.title,
+                        text: response.message,
+                    }).then(function()  {
+                        if(response.status == 0)
+                        {
+            
+                        }
+                        else
+                        {
+                            $scope.PaymentinvoiceDetails = [];
+                            $scope.getBackToOrderlist();
+                        }
+                    });
+                });
+        }
+
 
     }]);

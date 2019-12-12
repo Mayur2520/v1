@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
         <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
-        <a class="navbar-brand" href="">Payment Details</a>
+        <a class="navbar-brand" href="">Invoices For Payment</a>
     
-        <a class="navbar-brand ml-auto" href="" ng-click="savePaymentDetails()"><i class="fa fa-check" aria-hidden="true"></i></a>
+        <a class="navbar-brand ml-auto" href=""></a>
       </nav>
     
       <div class="container-fluid section" ng-init="getCustomerList()">
@@ -38,17 +38,15 @@
                         <th>Total Items</th>
                         <th>Amount</th>
                         <th>Ordered By</th>
-                        <th></th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="_data in CustomerInvoicesList | filter: search.name">
+                        <tr ng-repeat="_data in CustomerInvoicesList | filter: search.name" ng-click="RedirectToInvoiceView(_data.id,'payment_process')">
                             <td>{{$index +1}}</td>
                             <td>{{_data.invoicedate | date:'dd/MM/yyyy'}}</td>
                                 <td>{{_data.orderdate | date:'dd/MM/yyyy'}}</td>
                                 <td>{{_data.total_items}}</td>
                                 <td class="text-right">{{_data.netamt | number:2}}</td>
                                 <td>{{_data.ordered_by}}</td>
-                                <td><button class="btn btn-sm btn-info">Paid</button></td>
                         </tr>
                     </tbody>
                 </table>

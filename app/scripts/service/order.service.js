@@ -27,6 +27,12 @@ angular.module('MyApp')
         {}, { 'save': { method: 'POST',isArray:false } });
       },
 
+      savePaymentDetails: function()
+      {
+        return $resource('/api/savePaymentDetails',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       getOrderDetails: function()
       {
         return $resource('/api/getOrderDetails/:orderid',
@@ -48,6 +54,12 @@ angular.module('MyApp')
       confirmToDilivary: function()
       {
         return $resource('/api/confirmToDilivary/:id',
+        {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      getInvoiceDetailsForPayment: function()
+      {
+        return $resource('/api/getInvoiceDetailsForPayment/:orderid',
         {}, { 'query': { method: 'GET',isArray:false } });
       }
 
