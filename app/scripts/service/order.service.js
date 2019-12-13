@@ -27,6 +27,12 @@ angular.module('MyApp')
         {}, { 'save': { method: 'POST',isArray:false } });
       },
 
+      getPaymentsList: function()
+      {
+        return $resource('/api/getPaymentsList',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       savePaymentDetails: function()
       {
         return $resource('/api/savePaymentDetails',

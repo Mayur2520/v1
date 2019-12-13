@@ -356,9 +356,12 @@ angular.module('MyApp')
 
         $scope.getInvoicesOfCustomer = function(customerDetails)
         {
+
+
             Order.getInvoicesOfCustomer().query({'customerid':customerDetails.id}).$promise.then(function (response) {
                 if(!response.status)
                 {
+                    $window.sessionStorage.setItem('customerid',customerDetails.id);
                    $scope.CustomerInvoicesList = response.invoiceList;
                 }
             });
@@ -399,6 +402,35 @@ angular.module('MyApp')
         }
        
 
+        $scope.getPaymentsList = function(PaymentDate_from, PaymentDate_to)
+            {
+    
+                {
+                    if(PaymentDate_from)
+                    {
+                        var fromPaymentDate =  PaymentDate_from;
+                    }
+                    else
+                    {
+                        var fromPaymentDate =  new Date();
+                    }
+    
+                    if(PaymentDate_to)
+                    {
+                        var toPaymentDate =  PaymentDate_to;
+                    }
+                    else
+                    {
+                        var toPaymentDate =  fromPaymentDate;
+                    }
+                }
+    
+                Order.getPaymentsList().save([{fromPaymentDate:formatDate(fromPaymentDate),toPaymentDate:formatDate(toPaymentDate)}]).$promise.then(function (response) {
+                    if(!response.status)
+                    $scope.PaymentsList = response.PaymentsList;
+                }); 
+        }
+
         $scope.savePaymentDetails = function()
         {
                 Order.savePaymentDetails().save($scope.PaymentinvoiceDetails[0]).$promise.then(function(response){
@@ -419,6 +451,8 @@ angular.module('MyApp')
                     });
                 });
         }
+
+        
 
 
     }]);

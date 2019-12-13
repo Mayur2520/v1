@@ -72,6 +72,10 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/payment_process.html",
        controller:"OrderController"
     })
+    .when("/lumsum_payment_process", {
+      templateUrl : "public/lumsum_payment_process.html",
+       controller:"OrderController"
+    })
 	.otherwise({
 		  redirectTo: ''
 		});

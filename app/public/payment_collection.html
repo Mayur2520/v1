@@ -19,7 +19,7 @@
     <div class="col-12 text-center" ng-if="CustomerInvoicesList.length >= 0">
             <div class="btn-group">
                     <button type="button" class="btn btn-primary" ng-click="togglePaymentMethod('orderwise')">Againest Order</button>
-                    <button type="button" class="btn btn-primary" ng-click="togglePaymentMethod('lumpsum')">Lumpsum</button>
+                    <a type="button" class="btn btn-primary" href="#!lumsum_payment_process">Lumpsum</a>
                   </div>
     </div>
          <div class="row" ng-if="paymentDateils.againestOrder">
