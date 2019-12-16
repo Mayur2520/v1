@@ -3,6 +3,15 @@ angular.module('MyApp')
 
     return{
 
+        VerifyCompanyEmail: function () {
+          return $resource('/api/VerifyCompanyEmail',
+              {}, { 'save': { method: 'POST',isArray:false } });
+      },
+      VerifyCompanyMobile: function () {
+          return $resource('/api/VerifyCompanyMobile',
+              {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       ImporProductsDetails: function () {
           return $resource('/api/ImporProductsDetails',
               {}, { 'save': { method: 'POST',isArray:false } });
@@ -30,6 +39,16 @@ angular.module('MyApp')
 
       deleteProductDetails: function () {
           return $resource('/api/deleteProductDetails/:id',
+              {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      getCompanyList: function () {
+          return $resource('/api/getCompanyList/',
+              {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      deleteCompanyDetails: function () {
+          return $resource('/api/deleteCompanyDetails/:companyid',
               {}, { 'query': { method: 'GET',isArray:false } });
       },
     }

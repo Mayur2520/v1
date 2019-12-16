@@ -233,18 +233,22 @@ module.exports = {
 
     getUserList: function(req, res)
     {
+
+
         if (req.decoded.success == true) {   
             connection.acquire(function(err, con){
                 if(req.decoded.logedinuser.role == 'Superadmin')
                 {
                     var sql = 'select * from users WHERE status = 0 ORDER BY name ASC';
                 }
-                else if(req.decoded.logedinuser.role == 'admin'){
+                else if(req.decoded.logedinuser.role == 'Admin'){
                     var sql = 'select * from users WHERE status = 0 AND companyid = '+req.decoded.logedinuser.companyid+' ORDER BY name ASC';
                 }
                 else{
+                    
                     var sql = 'select * from users WHERE status = 0 AND companyid = '+req.decoded.logedinuser.companyid+' AND customerid = '+req.decoded.logedinuser.customerid+' ORDER BY name ASC';
                 }
+
                 con.query(sql, function(err, result)
                 {
                     if(err)

@@ -5,7 +5,7 @@
             <div class="col-md-12 col-lg-12 col-12">
                 <h4>Products</h4>
             </div>
-            <div class="col-md-4 col-lg-4 col-12 mb-1">
+            <div class="col-md-4 col-lg-4 col-12 mb-1" ng-if="userDetails.role == 'Superadmin' || userDetails.role == 'Admin'" >
                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalProductDetails">Add
                     New</button>
                 <button class="btn btn-sm btn-info mb-1" data-toggle="modal"
@@ -26,7 +26,7 @@
                                 <th>Marathi Name</th>
                                 <th>Unit</th>
                                 <th>Type</th>
-                                <th></th>
+                                <th ng-if="userDetails.role == 'Superadmin' || userDetails.role == 'Admin'" ></th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="_data in ProductsList | filter: search.name">
@@ -35,7 +35,7 @@
                                 <td class="marathi-input">{{_data.marathi_name}}</td>
                                 <td>{{_data.unit}}</td>
                                 <td>{{_data.type}}</td>
-                                <td class="text-center text-nowrap"><button class="btn btn-warning btn-sm" ng-click="getProductDetails(_data)"  data-toggle="modal" data-target="#modalProductDetails"><i class="fa fa-pencil"></i> Edit</button>&nbsp;<button class="btn btn-danger btn-sm" ng-click="deleteProductDetails(_data.id)"><i class="fa fa-trash"></i> Delete</button></td>
+                                <td ng-if="userDetails.role == 'Superadmin' || userDetails.role == 'Admin'"  class="text-center text-nowrap"><button class="btn btn-warning btn-sm" ng-click="getProductDetails(_data)"  data-toggle="modal" data-target="#modalProductDetails"><i class="fa fa-pencil"></i> Edit</button>&nbsp;<button class="btn btn-danger btn-sm" ng-click="deleteProductDetails(_data.id)"><i class="fa fa-trash"></i> Delete</button></td>
                             </tr>
                         </tbody>
                     </table>

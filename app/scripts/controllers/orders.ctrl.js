@@ -28,6 +28,7 @@ angular.module('MyApp')
             return stringRev;
     }
 
+    $scope.userDetails = {};
         function getSession()
         {
             Entity.getSession().query().$promise.then(function (response) {
@@ -121,6 +122,7 @@ angular.module('MyApp')
                 });
         }
 
+       
         $scope.setCartStatus = function()
         {
                 $scope.orderDetails.cartStatus = 1;
@@ -273,6 +275,20 @@ angular.module('MyApp')
         {
             data.dil_qty = data.qty;
             $scope.validateCartQty(data);
+        }
+
+        $scope.orderDetails = {};
+        $scope.setCustomerDetails = function(customerDetails)
+        {
+            $scope.orderDetails.customername = customerDetails;
+        }
+
+        $scope.VerifyUserRole = function()
+        {
+            if($scope.userDetails.role == 'customer' || $scope.userDetails.role == 'customer_admin')
+            {
+                $scope.setCustomerDetails({customername:{id:$scope.userDetails.customerid}})
+            }
         }
 
         $scope.saveOrderDetails = function()

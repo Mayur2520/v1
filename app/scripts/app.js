@@ -18,6 +18,10 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/dashboard.html",
        controller:"DashboardController"
     })
+    .when("/companies", {
+      templateUrl : "public/companies.html",
+       controller:"LoginController"
+    })
     .when("/products", {
       templateUrl : "public/products.html",
        controller:"EntityController"
