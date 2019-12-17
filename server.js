@@ -4,7 +4,7 @@ var express = require('express'),
 	fs = require('fs'),
 	morgan = require('morgan');
 	// logger = require('./lib/config/logger'),
-	// loggerConf = require('./lib/config/loggerConfig'),
+	var loggerConf = require('./lib/config/loggerConfig');
 	var dbcreation = require('./lib/config/dbCreation');
 	
 
@@ -32,11 +32,13 @@ routes.configure(app);
 dbcreation.createDB();
 dbcreation.CreateTables();
 
-/* app.use(morgan('tiny', {
-    stream: loggerConf.stream
-})); */
+
 
 var server = app.listen(parseInt(process.env.port),function(){
 	console.log('server start on '+ server.address().port+ ' port');
 })	
+
+app.use(morgan('tiny', {
+    stream: loggerConf.stream
+})); 
 

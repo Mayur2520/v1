@@ -46,11 +46,11 @@
     
       <!-- Modal Header -->
       <div class="modal-header">
-          <div class="col-12"><h4 ng-show="!sentotpmessage">Forgot Password?</h4>
-            <p ng-show="!sentotpmessage">Please enter your registered email to get OTP.</p>
+          <div class="col-12" ng-if="!sentotpmessage"><h4>Forgot Password?</h4>
+            <p>Please enter your registered email to get OTP.</p>
           </div>
-          <div class="col-12"><h4 ng-show="sentotpmessage">Verify OTP</h4>
-          <p ng-show="sentotpmessage">Please enter OTP received on your registered email.</p></div>
+          <div class="col-12" ng-if="sentotpmessage"><h4 >Verify OTP</h4>
+          <p>Please enter OTP received on your registered email.</p></div>
         
       </div>
       
@@ -65,8 +65,8 @@
         </div>
 
         <div class='row' ng-show="sentotpmessage">
-          <div class="col-md-2 col-sm-2 col-2 col-lg-2 col-xl-2" ng-repeat="obj in arrayObj">
-            <input type="text" class="form-control text-center text-bold" id="otp{{$index}}" ng-model="obj.otp" ng-keypress="SetFocus($index + 1)" maxlength="1" custom-autofocus="$index == focusIndex" />
+          <div class="col-md-2 col-sm-2 col-2 col-lg-2 col-xl-2 ml-auto mr-auto" ng-repeat="obj in arrayObj">
+            <input type="text" class="form-control text-center text-bold" id="otp{{$index}}" ng-model="obj.otp" style="width:2.5em" ng-keypress="SetFocus($index + 1)" maxlength="1" custom-autofocus="$index == focusIndex" />
           </div>
         </div>
 

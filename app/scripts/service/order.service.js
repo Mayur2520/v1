@@ -67,6 +67,12 @@ angular.module('MyApp')
       {
         return $resource('/api/getInvoiceDetailsForPayment/:orderid',
         {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      deletePaymentDetails: function()
+      {
+        return $resource('/api/deletePaymentDetails/:id',
+        {}, { 'query': { method: 'GET',isArray:false } });
       }
 
     }

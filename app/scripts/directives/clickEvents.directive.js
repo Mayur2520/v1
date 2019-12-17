@@ -37,4 +37,18 @@ angular.module('MyApp').directive('section', function() {
       }
       return [];
   }
-});;
+}).directive('customAutofocus', function () {
+  return {
+    restrict: 'A',
+
+    link: function (scope, element, attrs) {
+      scope.$watch(function () {
+        return scope.$eval(attrs.customAutofocus);
+      }, function (newValue) {
+        if (newValue == true) {
+          element[0].focus();
+        }
+      });
+    }
+  };
+});

@@ -15,8 +15,17 @@ angular.module('MyApp')
             return $resource('/api/ForgotPassword',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
+        verifyOTP: function () {
+            return $resource('/api/verifyOTP/:otp',
+                {}, { 'query': { method: 'GET',isArray:false } });
+        },
 		getUserDetails: function () {
             return $resource('/api/getUserDetails/:userid', {});
+        },
+
+		SignOut: function () {
+            return $resource('/api/SignOut/',
+            {}, { 'query': { method: 'GET',isArray:false } });
         },
         checkConnection: function()
         {

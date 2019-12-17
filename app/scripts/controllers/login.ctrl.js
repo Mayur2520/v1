@@ -19,6 +19,13 @@ angular.module('MyApp')
 				});
 		};
 
+		$scope.SignOut = function()
+		{
+			Authenticate.SignOut().query().$promise.then(function (response) {
+                $location.path('/');
+            });
+		};
+
 		$scope.changeFieldType = function () {
 			if ($scope.fieltype == 'password') {
 				$scope.fieltype = 'text';
@@ -211,6 +218,57 @@ angular.module('MyApp')
 						title: response.title,
 						text: response.message,
 					})
+				}
+			});
+		};
+
+		//time
+		$scope.time = 60;
+
+		//timer callback
+		var timer = function () {
+			if ($scope.time > 0) {
+				$scope.time -= 1;
+				$timeout(timer, 1000);
+			}
+		}
+
+		$scope.arrayObj = [{
+			otp: ''
+		}, {
+			otp: ''
+		}, {
+			otp: ''
+		}, {
+			otp: ''
+		}, {
+			otp: ''
+		}, {
+			otp: ''
+		}];
+		$scope.focusIndex = 0;
+
+		$scope.SetFocus = function (index) {
+			$scope.focusIndex = index;
+		};
+
+
+		$scope.SubmitOtpAnResetpassword = function () {
+			var OTP = '';
+			$scope.arrayObj.map(function (indval) {
+				OTP = OTP + '' + indval.otp;
+			});
+
+			Authenticate.verifyOTP().query({otp:OTP.trim()}).$promise.then(function (response) {
+				if (response.status === 0) {
+					$('#myModal').modal('hide');
+					$location.path('/set_new_password');
+				} else {
+					Swal({
+					type: "error",
+					title: "Oops!",
+					text: "OTP does not match",
+				})
 				}
 			});
 		};

@@ -468,6 +468,37 @@ angular.module('MyApp')
                 });
         }
 
+        $scope.getPatmentDetails = function(paymentDetails)
+        {
+           $scope.paymentDetails = [paymentDetails] ;
+           console.log($scope.paymentDetails);
+        }
+
+        $scope.deletePaymentDetails = function(paymentid)
+        {
+            Swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then(function(result) {
+                if (result.value) {
+                    Order.deletePaymentDetails().query({ id: paymentid}).$promise.then(function (response) {   
+                      Swal({
+                        type: response.type,
+                        title: response.title,
+                        text: response.message,
+                      }).then(function()  {
+                        $scope.getPaymentsList();
+                      })
+                    });
+                  }
+                });
+        }
+
         
 
 
