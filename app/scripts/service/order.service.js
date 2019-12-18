@@ -73,6 +73,12 @@ angular.module('MyApp')
       {
         return $resource('/api/deletePaymentDetails/:id',
         {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      getInvoiceListForLumsumPayment: function()
+      {
+        return $resource('/api/getInvoiceListForLumsumPayment/:amount/:customerid',
+        {}, { 'query': { method: 'GET',isArray:false } });
       }
 
     }

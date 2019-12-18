@@ -5,7 +5,7 @@
             <div class="col-md-12 col-lg-12 col-12">
                 <h4>Payments</h4>
             </div>
-            <div class="col-md-4 col-lg-4 col-12" ng-if="userDetails.role == 'Admin'" >
+            <div class="col-md-4 col-lg-4 col-12" ng-if="userDetails.role == 'Admin' || userDetails.role == 'Superadmin'" >
                 <a class="btn btn-sm btn-info" href="#!payment_collection">Add New</a>
             </div>
          
@@ -16,13 +16,13 @@
                     <div class="col-md-6 col-6 col-lg-6">
                             <div class="form-group">
                                     <label for="PaymentDate_from">Payment Date From</label>
-                                    <input type="date" id="PaymentDate_from" ng-model="PaymentDate_from" ng-change="getPaymentsList(PaymentDate_from, PaymentDate_to)" class="form-control"/>
+                                    <input ui-date="dateOptionsFilters" id="PaymentDate_from" ng-model="PaymentDate_from" ng-change="getPaymentsList(PaymentDate_from, PaymentDate_to)" class="form-control"/>
                                 </div>
                     </div>
                     <div class="col-md-6 col-6 col-lg-6">
                             <div class="form-group">
                                     <label for="PaymentDate_to">To</label>
-                                    <input type="date" id="PaymentDate_to" ng-model="PaymentDate_to" ng-change="getPaymentsList(PaymentDate_from, PaymentDate_to)" class="form-control"/>
+                                    <input ui-date="dateOptionsFilters" id="PaymentDate_to" ng-model="PaymentDate_to" ng-change="getPaymentsList(PaymentDate_from, PaymentDate_to)" class="form-control"/>
                                 </div>
                     </div>
                 </div>
@@ -76,17 +76,126 @@
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Payment Details/h4>
+              <h4 class="modal-title">Payment Details</h4>
             </div>
             <div class="modal-body">
-                    <div class="row">
-                        <div class="col-6 col-md-6 col-lg-6">
-                            <div class="col-12">
-                                <label></label>
-                            </div>
+                <div class="row border-bottom pb-2">
+                    <div class="col-6">
+                        <div class="col-12">
+                            <small>Customer</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{paymentDetails[0].cust_name}}</strong>
                         </div>
                     </div>
+                    <div class="col-6 text-right">
+                        <div class="col-12">
+                            <small>Payment Date</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{paymentDetails[0].paymentdate | date:'dd/MM/yyyy'}}</strong>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-12">
+                            <small>Invoice #</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{paymentDetails[0].orderid}}</strong>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div class="col-12">
+                            <small>Invoice Date</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{paymentDetails[0].invoicedate | date:'dd/MM/yyyy'}}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2 pb-2 border-bottom">
+                    <div class="col-6">
+                        <div class="col-12">
+                            <small>Amount</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{(paymentDetails[0].paidamt + paymentDetails[0].pendingamt) | number:2}}</strong>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div class="col-12">
+                            <small>Paid Amount</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{paymentDetails[0].paidamt | number:2}}</strong>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-12">
+                            <small>Pending Amount</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{paymentDetails[0].pendingamt | number:2}}</strong>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div class="col-12">
+                            <small>Total Pending Amt.</small>
+                        </div>
+                        <div class="col-12">
+                            <strong>{{paymentDetails[0].total_pendingamt | number:2}}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2 pb-2 border-bottom">
+                        <div class="col-3">
+                                <div class="col-12">
+                                    <small>Mode</small>
+                                </div>
+                                <div class="col-12">
+                                    <strong>{{paymentDetails[0].paymentmode}}</strong>
+                                </div>
+                            </div>
+                        <div class="col-9 text-right">
+                                <div class="col-12">
+                                    <small ng-if= "paymentDetails[0].paymentmode == 'NEFT'">Transaction No.</small>
+                                    <small ng-if= "paymentDetails[0].paymentmode == 'Cheque'">Cheque No.</small>
+                                </div>
+                                <div class="col-12">
+                                    <strong>{{paymentDetails[0].txnno}}</strong>
+                                </div>
+                            </div>
+                        <div class="col-6">
+                                <div class="col-12">
+                                    <small ng-if= "paymentDetails[0].paymentmode == 'NEFT'">Transaction Date</small>
+                                    <small ng-if= "paymentDetails[0].paymentmode == 'Cheque'">Cheque Date</small>
+                                </div>
+                                <div class="col-12">
+                                    <strong>{{paymentDetails[0].txndate | date:'dd/MM/yyyy'}}</strong>
+                                </div>
+                            </div>
+                        <div class="col-6  text-right" ng-if= "paymentDetails[0].paymentmode == 'Cheque'">
+                                <div class="col-12">
+                                    <small >Bank, Branch</small>
+                                </div>
+                                <div class="col-12">
+                                    <strong>{{paymentDetails[0].bank}}</strong>
+                                </div>
+                            </div>
+                </div>
+                <div class="row mt-2 pb-2">
+                        <div class="col-12 text-right">
+                                <div class="col-12">
+                                    <small>Paid By</small>
+                                </div>
+                                <div class="col-12">
+                                    <strong>{{paymentDetails[0].paidby}}</strong>
+                                </div>
+                            </div>
+                </div>
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

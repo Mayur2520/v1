@@ -4,7 +4,8 @@ angular.module('MyApp', ['ngResource',
  'ngRoute', 
  'ui.bootstrap', 
  'ngFileUpload', 
- 'ngCookies']).config(["$routeProvider","$locationProvider","$httpProvider",function($routeProvider) {
+ 'ngCookies',
+ 'ui.date']).config(["$routeProvider","$locationProvider","$httpProvider",function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "public/login.html",

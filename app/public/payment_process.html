@@ -90,21 +90,46 @@
                     <div class="col-12">
                             <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="paymentmode" ng-model="PaymentinvoiceDetails[0].payment_mode" value="Cash">Cash
+                                      <input type="radio" class="form-check-input" name="paymentmode" ng-model="PaymentinvoiceDetails[0].payment_mode" ng-change="setPaymentMode('Cash')" value="Cash">Cash
                                     </label>
                              </div>
                             <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="paymentmode" ng-model="PaymentinvoiceDetails[0].payment_mode" value="Cheque">Cheque
+                                      <input type="radio" class="form-check-input" name="paymentmode" ng-model="PaymentinvoiceDetails[0].payment_mode" ng-change="setPaymentMode('Cheque')" value="Cheque">Cheque
                                     </label>
                              </div>
                             <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="paymentmode" ng-model="PaymentinvoiceDetails[0].payment_mode" value="NEFT">NEFT
+                                      <input type="radio" class="form-check-input" name="paymentmode" ng-model="PaymentinvoiceDetails[0].payment_mode" ng-change="setPaymentMode('NEFT')"  value="NEFT">NEFT
                                     </label>
                              </div>
                     </div>
             </div>
+
+    
+                    <div class="col-12 mt-2" ng-show="PaymentMode != 'Cash'">
+                            <div class="form-group">
+                                <label for="txnno" ng-if="PaymentMode == 'Cheque'">Cheque No.</label>
+                                <label for="txnno" ng-if="PaymentMode == 'NEFT'">Transaction No.</label>
+                                <input type="text" class="form-control" id="txnno" ng-model="PaymentinvoiceDetails[0].txnno"/>
+                            </div>
+                        </div>
+
+                    <div class="col-12 mt-2" ng-show="PaymentMode != 'Cash'">
+                            <div class="form-group">
+                                <label for="txndate" ng-if="PaymentMode == 'Cheque'">Cheque Date</label>
+                                <label for="txndate" ng-if="PaymentMode == 'NEFT'">Transaction Date</label>
+                                <input  ui-date="dateOptions" class="form-control" id="txndate" ng-model="PaymentinvoiceDetails[0].txndate"/>
+                            </div>
+                        </div>
+
+                    <div class="col-12 mt-2" ng-show="PaymentMode == 'Cheque'">
+                            <div class="form-group">
+                                <label for="bank">Bank, Branch</label>
+                                <input type="text" class="form-control" id="bank" ng-model="PaymentinvoiceDetails[0].bank"/>
+                            </div>
+                        </div>
+        
 
             <div class="col-12 mt-2">
                 <div class="form-group">
@@ -124,7 +149,7 @@
             <div class="col-12">
                 <div class="form-group">
                     <label for="paiddate">Paid Date</label>
-                    <input type="date" class="form-control" id="paiddate" ng-model="PaymentinvoiceDetails[0].payment_date"/>
+                    <input  ui-date="dateOptions"  class="form-control" id="paiddate" ng-model="PaymentinvoiceDetails[0].payment_date"/>
                 </div>
             </div>
 

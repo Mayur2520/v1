@@ -1,6 +1,21 @@
 angular.module('MyApp')
 	.controller('OrderController', ['$scope', '$rootScope' ,'$http', '$route', '$location', '$window', '$timeout', 'Order','Entity', 'Customer', function ($scope, $rootScope, $http, $route, $location, $window, $timeout, Order, Entity, Customer) {
 
+
+
+        $scope.dateOptions = {
+            changeYear: false,
+            changeMonth: false,
+            yearRange:new Date().getFullYear()+':-0',
+            minDate: new Date()
+            };
+
+        $scope.dateOptionsFilters = {
+            changeYear: true,
+            changeMonth: true,
+            yearRange:'2019:-0',
+            };
+
         $scope.getBackToOrderlist = function()
         {
             $window.sessionStorage.removeItem('orderid');
@@ -378,6 +393,7 @@ angular.module('MyApp')
                 if(!response.status)
                 {
                     $window.sessionStorage.setItem('customerid',customerDetails.id);
+                    $window.sessionStorage.setItem('customername',customerDetails.name);
                    $scope.CustomerInvoicesList = response.invoiceList;
                 }
             });
@@ -468,10 +484,24 @@ angular.module('MyApp')
                 });
         }
 
+        $scope.getInvoiceListForLumsumPayment = function(amount)
+        {
+            $scope.lumsumpaidamout = amount;
+            if(amount)
+            {
+                Order.getInvoiceListForLumsumPayment().query({amount:amount, customerid:$window.sessionStorage.getItem('customerid')}).$promise.then(function(response){
+                   
+                        if(!response.status)
+                        {
+                            $scope.InvoiceListforPayments = response.invoiceList;
+                        }
+                });
+            }
+        }
+
         $scope.getPatmentDetails = function(paymentDetails)
         {
            $scope.paymentDetails = [paymentDetails] ;
-           console.log($scope.paymentDetails);
         }
 
         $scope.deletePaymentDetails = function(paymentid)
@@ -499,7 +529,17 @@ angular.module('MyApp')
                 });
         }
 
-        
+        $scope.PaymentMode = 'Cash';
+        $scope.setPaymentMode = function(mode)
+        {
+            $scope.PaymentMode = mode;
+        }
+
+        $scope.getCustomerName = function()
+        {
+            return String($window.sessionStorage.getItem('customername'));
+        }
+
 
 
     }]);

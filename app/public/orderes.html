@@ -13,16 +13,16 @@
 
             <div class="col-md-4 col-lg-4 col-12 ml-auto">
                 <div class="row">
-                    <div class="col-md-6 col-12 col-lg-6">
+                    <div class="col-md-6 col-6 col-lg-6">
                             <div class="form-group">
                                     <label for="order-date">Order Date From</label>
-                                    <input type="date" id="order-date" ng-model="orderDate_from" ng-change="ListOrders(orderDate_from, orderDate_to)" class="form-control"/>
+                                    <input ui-date="dateOptionsFilters" id="order-date" ng-model="orderDate_from" ng-change="ListOrders(orderDate_from, orderDate_to)" class="form-control"/>
                                 </div>
                     </div>
-                    <div class="col-md-6 col-12 col-lg-6">
+                    <div class="col-md-6 col-6 col-lg-6">
                             <div class="form-group">
                                     <label for="order-date">To</label>
-                                    <input type="date" id="order-date" ng-model="orderDate_to" ng-change="ListOrders(orderDate_from, orderDate_to)" class="form-control"/>
+                                    <input ui-date="dateOptionsFilters" id="order-date-to" ng-model="orderDate_to" ng-change="ListOrders(orderDate_from, orderDate_to)" class="form-control"/>
                                 </div>
                     </div>
                 </div>

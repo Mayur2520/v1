@@ -9,16 +9,16 @@
             
             <div class="col-md-4 col-lg-4 col-12 ml-auto">
                 <div class="row">
-                    <div class="col-md-6 col-12 col-lg-6">
+                    <div class="col-md-6 col-6 col-lg-6">
                             <div class="form-group">
                                     <label for="order-date">Order Date From</label>
-                                    <input type="date" id="order-date" ng-model="invoiceDate_from" ng-change="ListInvoice(invoiceDate_from, invoiceDate_to)" class="form-control"/>
+                                    <input ui-date="dateOptionsFilters" id="invoice-date" ng-model="invoiceDate_from" ng-change="ListInvoice(invoiceDate_from, invoiceDate_to)" class="form-control"/>
                                 </div>
                     </div>
-                    <div class="col-md-6 col-12 col-lg-6">
+                    <div class="col-md-6 col-6 col-lg-6">
                             <div class="form-group">
                                     <label for="order-date">To</label>
-                                    <input type="date" id="order-date" ng-model="invoiceDate_to" ng-change="ListInvoice(invoiceDate_from, invoiceDate_to)" class="form-control"/>
+                                    <input ui-date="dateOptionsFilters" id="invoice-date-to" ng-model="invoiceDate_to" ng-change="ListInvoice(invoiceDate_from, invoiceDate_to)" class="form-control"/>
                                 </div>
                     </div>
                 </div>

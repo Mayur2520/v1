@@ -8,5 +8,47 @@
 
 <div class="container-fluid section">
     <div class="row">
+        <div class="col-6">
+                <label class="col-12">Customer:</label>
+                <strong class="col-12">{{getCustomerName()}}</strong>
+        </div>
+
+        <div class="col-6">
+                <div class="form-group">
+             <label for="paymentamount">Paid Amount:</label>
+             <div class="input-group">
+                    <input  type="number" class="form-control btn-sm" ng-model="paymentamount" id="paymentamount"
+                    name="paymentamount" >
+                    <div class="input-group-append"  ng-click="getInvoiceListForLumsumPayment(paymentamount)">
+                      <span class=" btn btn-secondary btn-sm" id="basic-addon2">Done</span>
+                    </div>
+                  </div>
+         </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <head>
+                    <th>#</th>
+                    <th>Order Date</th>
+                    <th>Invoice Date</th>
+                    <th>Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Balance</th>
+                </head>
+                <tbody>
+                    <tr ng-repeat="_data in InvoiceListforPayments">
+                        <td>{{$index +1}}</td>
+                        <td class="text-center">{{_data.orderdate | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center">{{_data.invoicedate | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-right">{{_data.netamt | number:2}}</td>
+                        <td class="text-right">{{_data.paidamt = paymentamount - (InvoiceListforPayments[$index -1].netamt + InvoiceListforPayments[$index +1].paidamt) | number:2}}</td>
+                        <td class="text-right">{{_data.balance = ((_data.paidamt - _data.netamt) < 0)? (-1)*(_data.paidamt - _data.netamt):(_data.paidamt - _data.netamt) | number:2}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

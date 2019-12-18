@@ -11,13 +11,13 @@
          <div class="form-group">
              <label for="customername">Customer:</label>
              <input type="text" class="form-control btn-sm" ng-model="customername" id="customername"
-                 name="customername" uib-typeahead="obj as obj.name for obj in CustomersList | filter:$viewValue " typeahead-on-select="setCustomerDetails()" placeholder="Search Customer" >
+                 name="customername" uib-typeahead="obj as obj.name for obj in CustomersList | filter:$viewValue " typeahead-on-select="setCustomerDetails(customername)" placeholder="Search Customer" >
          </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6 col-xl-6" ng-class="{'col-6':(userDetails.role != 'customer' && userDetails.role != 'customer_admin')}">
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6" ng-class="{'col-12':(userDetails.role == 'customer' && userDetails.role == 'customer_admin')}">
          <div class="form-group">
              <label for="orderdate">Order Date:</label>
-             <input type="date" class="form-control btn-sm" ng-model="orderDetails.orderdate" id="orderdate"
+             <input ui-date="dateOptions" class="form-control btn-sm" ng-model="orderDetails.orderdate" id="orderdate"
                  name="orderdate">
          </div>
         </div>
