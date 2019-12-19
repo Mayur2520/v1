@@ -39,6 +39,12 @@ angular.module('MyApp')
         {}, { 'save': { method: 'POST',isArray:false } });
       },
 
+      saveLumsumPaymentDetails: function()
+      {
+        return $resource('/api/saveLumsumPaymentDetails',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       getOrderDetails: function()
       {
         return $resource('/api/getOrderDetails/:orderid',
@@ -78,6 +84,12 @@ angular.module('MyApp')
       getInvoiceListForLumsumPayment: function()
       {
         return $resource('/api/getInvoiceListForLumsumPayment/:amount/:customerid',
+        {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
+      getCustomerAdvancePayment: function()
+      {
+        return $resource('/api/getCustomerAdvancePayment/:customerid',
         {}, { 'query': { method: 'GET',isArray:false } });
       }
 

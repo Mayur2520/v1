@@ -50,7 +50,7 @@
 
     <div class="row" ng-if="orderList">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped text-nowrap">
                 <thead>
                     <th>#</th>
                     <th>Name</th>
@@ -72,9 +72,17 @@
     </div>
 
     <div class="row">
-            <div class="col-12 text-right">
+            <div class="col-6 text-left">
                     <div class="col-12">
-                        <small>Amount</small>
+                        <small>Total Amount</small>
+                    </div>
+                    <div class="col-12">
+                        <strong>{{PaymentinvoiceDetails[0].netamt | number:2}}/-</strong>
+                    </div>
+            </div>
+            <div class="col-6 text-right">
+                    <div class="col-12">
+                        <small>Pending Amount</small>
                     </div>
                     <div class="col-12">
                         <strong>{{PaymentinvoiceDetails[0].amounttopaid | number:2}}/-</strong>

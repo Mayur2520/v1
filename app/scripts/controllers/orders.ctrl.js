@@ -484,6 +484,11 @@ angular.module('MyApp')
                 });
         }
 
+        function getTotalAmount()
+        {
+            return $scope.InvoiceListforPayments.reduce((sum, value) => sum + value.pendingpayment, 0)
+        }
+
         $scope.getInvoiceListForLumsumPayment = function(amount)
         {
             $scope.lumsumpaidamout = amount;
@@ -494,9 +499,23 @@ angular.module('MyApp')
                         if(!response.status)
                         {
                             $scope.InvoiceListforPayments = response.invoiceList;
+                            $scope.TotalPaymentAmount = getTotalAmount();
                         }
                 });
             }
+        }
+
+        $scope.getCustomerAdvancePayment = function()
+        {
+            $scope.lumsumpaymentDetails = [];
+
+                Order.getCustomerAdvancePayment().query({customerid:$window.sessionStorage.getItem('customerid')}).$promise.then(function(response){
+                   
+                        if(!response.status)
+                        {
+                            $scope.advanceAmount = response.amount;
+                        }
+                });
         }
 
         $scope.getPatmentDetails = function(paymentDetails)
@@ -540,6 +559,59 @@ angular.module('MyApp')
             return String($window.sessionStorage.getItem('customername'));
         }
 
+       
 
+        $scope.ValidatePaymentConditions = function()
+        {
+            if($scope.paymentamount != undefined && $scope.paymentamount > 0)
+            {
+                if($scope.lumsumpaymentDetails != undefined && ($scope.lumsumpaymentDetails[0].payment_date != undefined && $scope.lumsumpaymentDetails[0].payment_date != "Invalid Date") && ($scope.lumsumpaymentDetails[0].payment_mode != undefined))
+                {
+                   return true
+                }
+            }
+            else
+            {
+                return false
+            }
+
+        }
+
+        $scope.saveLumsumPaymentDetails = function()
+        {
+
+            $scope.InvoiceListforPayments[0].paymentDetails = $scope.lumsumpaymentDetails[0];
+            Order.saveLumsumPaymentDetails().save($scope.InvoiceListforPayments).$promise.then(function(response){
+                Swal({
+                    type: response.type,
+                    title: response.title,
+                    text: response.message,
+                }).then(function()  {
+                    if(response.status == 0)
+                    {
+        
+                    }
+                    else
+                    {
+                        $scope.lumsumpaymentDetails = [];
+                        $scope.getBackToOrderlist();
+                    }
+                });
+            });
+        }
+     
+     /*    $scope.CalculatePaidAmount = function(amount)
+        {
+            if(amount <= $scope.lumsumpaidamout)
+            {
+                $scope.lumsumpaidamout = $scope.lumsumpaidamout - amount
+                return amount;
+            }
+            else
+            {
+                $scope.lumsumpaidamout = amount - $scope.lumsumpaidamout;
+                return amount - $scope.lumsumpaidamout;
+            }
+        } */
 
     }]);

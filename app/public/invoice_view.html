@@ -24,12 +24,28 @@
                  name="orderdate" readonly > -->
          </div>
         </div>
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+         <div class="form-group">
+             <label class="col-12">Invoice #:</label>
+             <strong class="col-12">{{orderDetails.orderid}}</strong>
+             <!-- <input type="text" class="form-control btn-sm" ng-model="orderDetails.customername" id="customername"
+                 name="customername" placeholder="Customer" readonly > -->
+         </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+         <div class="form-group">
+             <label class="col-12">Invoice Date:</label>
+             <strong class="col-12">{{orderdetails[0].invoicedate | date:"dd/MM/yyyy"}}</strong>
+            <!--  <input type="date" class="form-control btn-sm" ng-model="orderDetails.orderdate" id="orderdate"
+                 name="orderdate" readonly > -->
+         </div>
+        </div>
      </div>
 
 
      <div class="row">
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped text-nowrap">
                 <thead>
                     <tr>
                         <td colspan="3">

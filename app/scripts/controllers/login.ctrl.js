@@ -5,7 +5,7 @@ angular.module('MyApp')
 		$scope.AuthenticateUser = function () {
 			Authenticate.authUser().save($scope.user).$promise.then(function (response) {
 					if (response.success === true) {
-						if (response.firstlogin === 0) {
+						if (response.firstlogin == 0 || response.firstlogin == null) {
 							$location.path('/set_new_password');
 						} else
 							$location.path('/dashboard');
