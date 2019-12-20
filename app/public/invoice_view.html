@@ -2,8 +2,8 @@
     <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left" aria-hidden="true"></i></a> &nbsp;
     <a class="navbar-brand" href="">Invoice</a>
 
-    <a class="navbar-brand ml-auto" href=""><i class="fa fa-share-alt" aria-hidden="true"></i></a>&nbsp;
-    <a class="navbar-brand" href=""><i class="fa fa-print" aria-hidden="true"></i></a>
+    <a class="navbar-brand ml-auto" href="" ng-click="shareInvoice('invoice-print')"><i class="fa fa-share-alt" aria-hidden="true"></i></a>&nbsp;
+    <a class="navbar-brand" href="" ng-click="printInvoice('invoice-print')"><i class="fa fa-print" aria-hidden="true"></i></a>
   </nav>
 
   <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();">
@@ -79,6 +79,64 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="row" id="invoice-print" style="display: none;" ng-init="getCompanyDetailsforInvoice();">
+            <div class="col-12 col-md-12">
+                <table class="table tabled-bordered" border="1" style="width:100%">
+                    <tr  style="border: 1px solid black;width:100%">
+                        <td colspan="5" style="text-align:center"><small>TAX INVOICE</small></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="row" style="padding-left:5px;">
+                                <div class="col-12" style="text-align:center;">
+                                    <h2>{{companyDetails[0].name}}</h2>
+                                </div>
+                                <div class="col-12" style="text-align:center;">
+                                    <p>{{companyDetails[0].description}}</p>
+                                </div>
+                                <div class="col-12" style="text-align:left">
+                                     <small>Address: &nbsp;{{companyDetails[0].address}}</small>
+                                </div>
+                                <div class="col-12"  style="text-align:left">
+                                    <small>Contact:</small> &nbsp;
+                                    <small>{{companyDetails[0].mobile}}</small>
+                                    <small>{{companyDetails[0].altmobile}}</small>
+                                </div>
+                                <div class="col-12"  style="text-align:left">
+                                    <small>Email:</small>&nbsp;
+                                    <small>{{companyDetails[0].email}}</small>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="text-align:center">
+                        <td><strong>#</strong></td>
+                        <td><strong>Perticulars</strong></td>
+                        <td><strong>Quanity</strong></td>
+                        <td><strong>Rate</strong></td>
+                        <td><strong>Net Price</strong></td>
+                    </tr>
+                    <tr ng-repeat="_data in orderdetails">
+                        <td><label class="p-2" style="padding: 4px;">{{$index +1}}</label></td>
+                        <td style="white-space: nowrap;">{{_data.productname}} <small class="marathi-input">{{_data.marathi_name}}</small></td>
+                        <td>{{_data.dil_qty}} {{_data.unit}}</td>
+                        <td style="text-align:right">{{_data.price |number:2}}</td>
+                        <td style="text-align:right">{{(_data.netprice = (_data.dil_qty * _data.price) |number:2 )||"00.00"}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="text-align:right"><strong>Total:&nbsp;&nbsp;&nbsp;&nbsp;
+                        {{(orderdetails[0].totalAmount = getTotal() |number:2 )|| "00.00" }}/-</strong></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="text-align:right;padding-top: 40px;">
+                            <small>Proprietor / Director &nbsp;&nbsp;</small>
+                            <br>
+                        <label>{{ companyDetails[0].owner | uppercase }}</label></td>
+                    </tr>
+                </table>
+            </div>
     </div>
 
   </div>

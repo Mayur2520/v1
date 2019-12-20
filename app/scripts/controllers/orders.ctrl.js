@@ -486,7 +486,8 @@ angular.module('MyApp')
 
         function getTotalAmount()
         {
-            return $scope.InvoiceListforPayments.reduce((sum, value) => sum + value.pendingpayment, 0)
+            // return $scope.InvoiceListforPayments.reduce((sum, value) => sum + value.pendingpayment, 0)
+            return $scope.InvoiceListforPayments.reduce(function(sum, value){sum + value.pendingpayment}, 0)
         }
 
         $scope.getInvoiceListForLumsumPayment = function(amount)
@@ -599,19 +600,41 @@ angular.module('MyApp')
                 });
             });
         }
-     
-     /*    $scope.CalculatePaidAmount = function(amount)
+
+        $scope.getCompanyDetailsforInvoice = function()
         {
-            if(amount <= $scope.lumsumpaidamout)
-            {
-                $scope.lumsumpaidamout = $scope.lumsumpaidamout - amount
-                return amount;
-            }
-            else
-            {
-                $scope.lumsumpaidamout = amount - $scope.lumsumpaidamout;
-                return amount - $scope.lumsumpaidamout;
-            }
-        } */
+            Entity.getCompanyDetails().query({}).$promise.then(function(response){
+              
+                    if(!response.status)
+                    {
+                        $scope.companyDetails = response.companyDetails;
+                        console.log($scope.companyDetails)
+                    }
+            });
+        }
+
+        $scope.printInvoice = function(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var popupWin = window.open('', '_blank', 'width=300,height=300');
+            popupWin.document.open();
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.close();
+          } 
+
+        $scope.shareInvoice = function(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+                var htmlContent = '<html><head></head><body>' + printContents + '</body></html>';
+
+                Order.shareInvoice().save({invoiceContent:htmlContent,orderData: $scope.orderdetails[0]}).$promise.then(function(response){
+                    Swal({
+                        type: response.type,
+                        title: response.title,
+                        text: response.message,
+                    }).then(function()  {
+                        
+                    });
+                });
+
+          } 
 
     }]);

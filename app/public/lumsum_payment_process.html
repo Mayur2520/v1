@@ -131,6 +131,16 @@
                         <td class="text-right">{{_data.balance = (_data.paidamt - _data.pendingpayment) | number:2}}</td>
                     </tr>
                 </tbody>
+                <!-- <tbody ng-if="InvoiceListforPayments.length == 1">
+                    <tr ng-repeat="_data in InvoiceListforPayments">
+                        <td>{{$index +1}}</td>
+                        <td class="text-center">{{_data.orderdate | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center">{{_data.invoicedate | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-right">{{_data.pendingpayment | number:2}}</td>
+                        <td class="text-right">{{_data.paidamt = InvoiceListforPayments[$index ].pendingpayment | number:2}}</td>
+                        <td class="text-right">{{_data.balance = (_data.paidamt - _data.pendingpayment) | number:2}}</td>
+                    </tr>
+                </tbody> -->
             </table>
         </div>
     </div>
@@ -138,10 +148,10 @@
         <div class="col-12 text-right">
             <small>Advance Balance:</small>
         </div>
-        <div class="col-12 text-right" ng-show="(totalAmount - TotalPaymentAmount) > 0">
+        <div class="col-12 text-right" ng-if="(totalAmount - TotalPaymentAmount) > 0">
             <strong>{{ lumsumpaymentDetails[0].adnvanceBalanceAmount = (totalAmount - TotalPaymentAmount)| number:2}}</strong>
         </div>
-        <div class="col-12 text-right" ng-show="(totalAmount - TotalPaymentAmount) < 0">
+        <div class="col-12 text-right" ng-if="(totalAmount - TotalPaymentAmount) < 0">
             <strong>{{ lumsumpaymentDetails[0].adnvanceBalanceAmount = 0| number:2}}</strong>
         </div>
     </div>

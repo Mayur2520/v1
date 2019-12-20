@@ -51,5 +51,10 @@ angular.module('MyApp')
           return $resource('/api/deleteCompanyDetails/:companyid',
               {}, { 'query': { method: 'GET',isArray:false } });
       },
+
+      getCompanyDetails: function () {
+          return $resource('/api/getCompanyDetails/',
+              {}, { 'query': { method: 'GET',isArray:false } });
+      },
     }
   }]);

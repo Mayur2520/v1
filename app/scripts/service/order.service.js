@@ -45,6 +45,12 @@ angular.module('MyApp')
         {}, { 'save': { method: 'POST',isArray:false } });
       },
 
+      shareInvoice: function()
+      {
+        return $resource('/api/shareInvoice',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
       getOrderDetails: function()
       {
         return $resource('/api/getOrderDetails/:orderid',
