@@ -34,7 +34,7 @@ dbcreation.CreateTables();
 
 
 
-var server = app.listen(parseInt(process.env.port),function(){
+var server = app.listen(parseInt(8029),function(){
 	console.log('server start on '+ server.address().port+ ' port');
 })	
 

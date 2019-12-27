@@ -193,7 +193,7 @@ angular.module('MyApp')
                         }
                         $scope.orderDetails.customername = $scope.orderdetails[0].cust_name;
                         $scope.orderDetails.orderid = $scope.orderdetails[0].orderid;
-                        $scope.orderDetails.orderdate = new Date($scope.orderdetails[0].orderdate);
+                         $scope.orderDetails.orderdate = $scope.orderdetails[0].orderdate;
                      }
                 });     
         };
@@ -323,6 +323,11 @@ angular.module('MyApp')
 
             if(orderDetails.length > 0)
             {
+
+                /* if($scope.orderDetails.orderdate)
+                {
+                    $scope.orderDetails.orderdate = formatDate($scope.orderDetails.orderdate)
+                } */
                 orderDetails[0].customerdetails = $scope.orderDetails;
 
                 Order.saveOrderDetails().save(orderDetails).$promise.then(function(response){
@@ -617,7 +622,7 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=300,height=300');
             popupWin.document.open();
-            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
             popupWin.document.close();
           } 
 

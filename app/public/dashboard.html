@@ -2,12 +2,78 @@
         <div ng-include="'./public/navbar.html'"></div>
         <div class="container-fluid section">
          
-          <div class="col-12" ng-repeat="data in dataarr">
-            {{data}}<h3>Navbar Text</h3>
-            <p>Use the .navbar-text class to vertical align any elements inside the navbar that are not links (ensures
-              proper padding).  </p> <div class="col-12">-------------------------------------------------
-                <button class="btn btn-primary" ng-click="SendNotifuication()">Click</button>
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-12">
+                <h4>Dashboard</h4>
+            </div>
+           
+            <div class="col-md-4 col-lg-4 col-12 ml-auto">
+              <div class="row" ng-init="getDashboardValues()">
+                  <div class="col-md-6 col-6 col-lg-6">
+                          <div class="form-group">
+                                  <label for="order-date">Date From</label>
+                                  <input ui-date="dateOptionsFilters" id="order-date" ng-model="Date_from" ng-change="getDashboardValues(Date_from, Date_to)" class="form-control"/>
+                              </div>
+                  </div>
+                  <div class="col-md-6 col-6 col-lg-6">
+                          <div class="form-group">
+                                  <label for="order-date">To</label>
+                                  <input ui-date="dateOptionsFilters" id="order-date-to" ng-model="Date_to" ng-change="getDashboardValues(Date_from, Date_to)" class="form-control"/>
+                              </div>
+                  </div>
               </div>
           </div>
+        </div>
+
+          <div class="row mt-4 mb-4">
+
+            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-4 col-12 mt-2">
+              <div class="card bg-orange-gradient p-4">
+                <div class="card-body text-left text-white">
+                  <h4>Products</h4>
+                  <h3>{{dashboardValues[0].products_count}}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-4 col-12 mt-2">
+              <div class="card bg-cool-blue p-4">
+                <div class="card-body text-left text-white">
+                  <h4>Customers</h4>
+                  <h3>{{dashboardValues[0].customer_counts}}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-4 col-12 mt-2">
+              <div class="card bg-dimigo p-4">
+                <div class="card-body text-left text-white">
+                  <h4>Orders</h4>
+                  <h3>{{dashboardValues[0].orders_count}}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-4 col-12 mt-2">
+              <div class="card bg-orca p-4">
+                <div class="card-body text-left text-white">
+                  <h4>Invoices</h4>
+                  <h3>{{dashboardValues[0].invoice_count}}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-4 col-12 mt-2">
+              <div class="card bg-hydrogen p-4">
+                <div class="card-body text-left text-white">
+                  <h4>Payment</h4>
+                  <h3>{{(dashboardValues[0].total_payment | number:2) || "00.00"}}/-</h3>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          
         </div>
       </div>

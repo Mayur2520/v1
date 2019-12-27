@@ -20,7 +20,7 @@
              <label class="col-12">Order Date:</label>
             <!--  <input type="date" class="form-control btn-sm" ng-model="orderDetails.orderdate" id="orderdate"
                  name="orderdate" readonly > -->
-                 <strong class="col-12">{{ orderDetails.orderdate | date:"dd/MM/yyyy"}}</strong>
+                 <strong class="col-12">{{ orderDetails.orderdate = orderdetails[0].orderdate | date:"dd/MM/yyyy"}}</strong>
          </div>
         </div>
      </div>
@@ -50,7 +50,7 @@
                 <tbody>
                     <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name" ng-class="{booked_row:_data.isQtySame, low_qty: _data.lowQty}">
                         <td><label class="p-2">{{$index +1}}</label></td>
-                        <td ng-click="setDilQtyAsQty(_data)">{{_data.productname}}</td>
+                        <td ng-click="setDilQtyAsQty(_data)">{{_data.productname}} <small class="marathi-input">{{_data.marathi_name}}</small></td>
                         <td>{{_data.qty}}</td>
                         <td><input type="number" class="form-control btn-sm"  ng-model="_data.dil_qty" placeholder="Dil. Qty." ng-change="validateCartQty(_data)"/></td>
                         <td>{{_data.unit}}</td>

@@ -18,7 +18,7 @@
         <div class="col-6 col-md-6 col-lg-6 col-xl-6">
          <div class="form-group">
              <label class="col-12">Order Date:</label>
-             <strong>{{orderDetails.orderdate | date: "dd/MM/yyyy"}}</strong>
+             <strong>{{orderDetails.orderdate = orderdetails[0].orderdate | date: "dd/MM/yyyy"}}</strong>
              <!-- <input type="date" class="form-control btn-sm" ng-model="orderDetails.orderdate" id="orderdate"
                  name="orderdate" readonly > -->
          </div>
@@ -44,16 +44,16 @@
                     <th>#</th>
                     <th>Product</th>
                     <th>Dil. Qty.</th>
-                    <th>Rate (in Rs.)</th>
+                    <th>Rate (/10 Kg.)</th>
                     <th>Total</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name">
                         <td><label class="p-2">{{$index +1}}</label></td>
-                        <td>{{_data.productname}}</td>
+                        <td>{{_data.productname}} <small class="marathi-input">{{_data.marathi_name}}</small></td>
                         <td>{{_data.dil_qty}} {{_data.unit}}</td>
                         <td><input type="number" class="form-control btn-sm col-6"  ng-model="_data.price" placeholder="Rate"/></td>
-                        <td>{{(_data.netprice = (_data.dil_qty * _data.price) |number:2 )||"00.00"}}</td>
+                        <td>{{(_data.netprice = ((_data.dil_qty * _data.price)/10) |number:2 )||"00.00"}}</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="text-right"><strong>Total</strong></td>

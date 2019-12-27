@@ -41,6 +41,11 @@ angular.module('MyApp')
         // At last, if the user already denied any notification, and you
         // want to be respectful there is no need to bother them any more.
       },
-
+      getDashboardValues: function()
+      {
+        return $resource('/api/getDashboardValues',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+      
     }
   }]);
