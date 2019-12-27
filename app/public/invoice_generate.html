@@ -3,9 +3,19 @@
     <a class="navbar-brand" href="">Invoice</a>
 
     <a class="navbar-brand ml-auto" href="" ng-click="generateInvoice()"><i class="fa fa-check" aria-hidden="true"></i></a>
+
+    <div class="row">
+        <div class="col-8"><input class="form-control btn-sm" placeholder="Search" ng-model="search.name"></td></div>
+    <div class="col-4">
+        <select class="form-control btn-sm" id="type" ng-model="productType" ng-options="obj.value as obj.title for obj in ProductsType">
+            <option value="" selected disabled>Type</option>
+        </select>
+    </div>
+    </div>
+
   </nav>
 
-  <div class="container-fluid section" ng-init="getOrderDetails();productUnits();productTypes();">
+  <div class="container-fluid section mt-4" ng-init="getOrderDetails();productUnits();productTypes();">
     <div class="row">
         <div class="col-6 col-md-6 col-lg-6 col-xl-6">
          <div class="form-group">
@@ -29,7 +39,7 @@
      <div class="row">
         <div class="table-responsive">
             <table class="table table-striped text-nowrap">
-                <thead>
+              <!--   <thead>
                     <tr>
                         <td colspan="3">
                             <input class="form-control btn-sm" placeholder="Search Products" ng-model="search.name"></td>
@@ -39,7 +49,7 @@
                                     </select>
                         </td>
                     </tr>
-                </thead>
+                </thead> -->
                 <thead class="text-nowrap">
                     <th>#</th>
                     <th>Product</th>
@@ -56,8 +66,12 @@
                         <td>{{(_data.netprice = ((_data.dil_qty * _data.price)/10) |number:2 )||"00.00"}}</td>
                     </tr>
                     <tr>
+                        <td colspan="3" class="text-right"><strong>Delivery Charges</strong></td>
+                        <td colspan="2"><input type="number" class="form-control" ng-model="orderdetails[0].deliverycharges"></td>
+                    </tr>
+                    <tr>
                         <td colspan="3" class="text-right"><strong>Total</strong></td>
-                        <td colspan="2" class="text-right"><strong>{{(orderdetails[0].totalAmount = getTotal() |number:2 )|| "00.00" }}/-</strong></td>
+                        <td colspan="2" class="text-right"><strong>{{(orderdetails[0].totalAmount =(getTotal() + orderdetails[0].deliverycharges) |number:2 )|| "00.00" }}/-</strong></td>
                     </tr>
                 </tbody>
             </table>

@@ -622,7 +622,7 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=300,height=300');
             popupWin.document.open();
-            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>');
             popupWin.document.close();
           } 
 

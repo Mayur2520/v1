@@ -1,3 +1,6 @@
+
+	var dbcreation = require('./lib/config/dbCreation');
+	
 var express = require('express'),
 	path = require('path'),
 	bodypareser = require('body-parser'),
@@ -5,7 +8,7 @@ var express = require('express'),
 	morgan = require('morgan');
 	// logger = require('./lib/config/logger'),
 	var loggerConf = require('./lib/config/loggerConfig');
-	var dbcreation = require('./lib/config/dbCreation');
+
 	
 
 

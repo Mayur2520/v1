@@ -2749,6 +2749,22 @@ button.badge-top-right:before {
     background-color: rgb(241, 91, 91) !important;
 }
 
+.inv-header
+{
+    font-size: x-large;
+    font-weight: bolder;
+}
+.inv-descriotion
+{
+    font-size: small;
+    font-weight: 100;
+}
+
+.ext-sm-txt
+{
+    font-size: 10px !important;
+}
+
 
 
 /* style sheet for "A4" printing */
