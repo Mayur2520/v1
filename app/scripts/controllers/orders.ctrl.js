@@ -622,15 +622,20 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=300,height=300');
             popupWin.document.open();
-            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>');
             popupWin.document.close();
           } 
 
         $scope.shareInvoice = function(divName) {
             var printContents = document.getElementById(divName).innerHTML;
-                var htmlContent = '<html><head></head><body>' + printContents + '</body></html>';
+                var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 mr-auto p-4">' + printContents + '</div></div></body></html>';
 
-                Order.shareInvoice().save({invoiceContent:htmlContent,orderData: $scope.orderdetails[0]}).$promise.then(function(response){
+                var height = $( '#'+divName ).height();
+                var width = $( '#'+divName ).width();
+                
+               
+
+                Order.shareInvoice().save({invoiceContent:htmlContent,orderData: $scope.orderdetails[0],size:{height:height,width:width}}).$promise.then(function(response){
                     Swal({
                         type: response.type,
                         title: response.title,

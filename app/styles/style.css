@@ -2767,22 +2767,15 @@ button.badge-top-right:before {
 
 
 
-/* style sheet for "A4" printing */
-@media print and (width: 21cm) and (height: 29.7cm) {
-    @page {
-       margin: 3cm;
+@media print {
+  
+    #invoice-print, #invoice-print * {
+      visibility: visible;
     }
-}
-
-/* style sheet for "letter" printing */
-@media print and (width: 8.5in) and (height: 11in) {
-   @page {
-       margin: 1in;
-   }
-}
-
-/* A4 Landscape*/
-@page {
-   size: A6 portrait ;
-   margin: 5%;
-}
+    #invoice-print {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 5.2in;
+    }
+  }
