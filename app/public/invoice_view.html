@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="" ng-click="getBackToOrderlist()"><i class="fa fa-arrow-left"
-            aria-hidden="true"></i></a> &nbsp;
+            aria-hidden="true"></i></a>  
     <a class="navbar-brand" href="">Invoice</a>
-
+ 
     <a class="navbar-brand ml-auto" href="" ng-click="shareInvoice('invoice-print')"><i class="fa fa-share-alt"
-            aria-hidden="true"></i></a>&nbsp;
+            aria-hidden="true"></i></a> 
     <a class="navbar-brand" href="" ng-click="printInvoice('invoice-print')"><i class="fa fa-print"
             aria-hidden="true"></i></a>
-
+ 
             <div class="row">
                 <div class="col-8"><input class="form-control btn-sm" placeholder="Search" ng-model="search.name"></td></div>
             <div class="col-4">
@@ -16,9 +16,9 @@
                 </select>
             </div>
             </div>
-
+ 
 </nav>
-
+ 
 <div class="container-fluid section mt-4" ng-init="getOrderDetails();productUnits();productTypes();">
     <div class="row">
         <div class="col-6 col-md-6 col-lg-6 col-xl-6">
@@ -55,8 +55,8 @@
             </div>
         </div>
     </div>
-
-
+ 
+ 
     <div class="row">
         <div class="table-responsive">
             <table class="table table-striped text-nowrap">
@@ -83,7 +83,7 @@
                 <tbody>
                     <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name">
                         <td><label class="p-2">{{$index +1}}</label></td>
-                        <td>{{_data.productname}} &nbsp; <small class="marathi-input">{{_data.marathi_name}}</small>
+                        <td>{{_data.productname}}   <small class="marathi-input">{{_data.marathi_name}}</small>
                         </td>
                         <td>{{_data.dil_qty}} {{_data.unit}}</td>
                         <td class="text-right">{{_data.price |number:2}}</td>
@@ -104,7 +104,7 @@
             </table>
         </div>
     </div>
-
+ 
     <div class="row" id="invoice-print" style="display: none;"
         ng-init="getCompanyDetailsforInvoice();">
         
@@ -117,7 +117,7 @@
                                 <div class="col-12 col-md-12">
                                     <div class="inv-header col-12 col-md-12 text-center">{{companyDetails[0].name}}</div>
                                     <div class="inv-descriotion col-12 col-md-12 text-center">{{companyDetails[0].description}}</div>
-                                    <div class="col-12 col-md-12 text-center inv-descriotion">
+                                    <div class="col-12 col-md-12 text-left">
                                         <small>{{companyDetails[0].address}}</small><small ng-if="companyDetails[0].mobile">,
                                             {{companyDetails[0].mobile}}</small>
                                         <small ng-if="companyDetails[0].altmobile != null">
@@ -132,7 +132,7 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="row inv-descriotion ">
+                            <div class="row">
                                 <div class="col-12">
                                     <strong>{{orderdetails[0].cust_name}}</strong>
                                 </div>
@@ -145,7 +145,7 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="row inv-descriotion">
+                            <div class="row">
                                 <div class="col-6 col-md-6">
                                     Invoice No.
                                 </div>
@@ -162,38 +162,38 @@
                         </td>
                     </tr>
                 </thead>
-                <thead class="text-center inv-descriotion">
+                <thead class="text-center">
                          <th><small><b>#</b></small></th>
                         <th><small><b>Perticulars</b></small></th>
                         <th><small><b>Quanity</b></small></th>
                         <th><small><b>Rate (10 Kg.)</b></small></th>
                         <th><small><b>Net Price</b></small></th>
                 </thead>
-                <tbody class="inv-descriotion">
+                <tbody>
                     <tr ng-repeat="_data in orderdetails">
                         <td><small>{{$index +1}}</small></td>
                         <td style="white-space: nowrap;"><small>{{_data.productname}} </small> <small class="marathi-input">{{_data.marathi_name}}</small></td>
-                        <td><small>{{_data.dil_qty}} {{_data.unit}}</small></td>
+                        <td><small>{{_data.dil_qty}} <span class="ext-sm-txt">{{_data.unit}}</span></small></td>
                         <td style="text-align:right"><small>{{_data.price |number:2}}</small></td>
                         <td style="text-align:right"><small>{{(_data.netprice = ((_data.dil_qty * _data.price)/10) |number:2 )||"00.00"}}</small></td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="text-align:right"><small>Delivery Charges:&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td colspan="5" style="text-align:right"><small>Delivery Charges:    
                         {{(orderdetails[0].deliverycharges |number:2 )|| "00.00" }}/-</small></td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="text-align:right"><strong>Total:&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td colspan="5" style="text-align:right"><strong>Total:    
                         {{(orderdetails[0].totalAmount = (getTotal() + orderdetails[0].deliverycharges) |number:2 )|| "00.00" }}/-</strong></td>
                     </tr>
                     <tr>
                         <td colspan="5" style="text-align:right;padding-top: 40px;">
-                            <small>Proprietor / Director &nbsp;&nbsp;</small>
+                            <small>Proprietor / Director   </small>
                             <br>
                         <label>{{ companyDetails[0].owner | uppercase }}</label></td>
                     </tr>
                 </tbody>
             </table>
       
-
+ 
     </div>
 </div>

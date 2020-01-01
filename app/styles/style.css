@@ -2751,12 +2751,15 @@ button.badge-top-right:before {
 
 .inv-header
 {
-    font-size: 6em;
+    /* font-size: 6em; */
+    font-size: x-large;
     font-weight: bolder;
 }
 .inv-descriotion
 {
-    font-size: 2.5em;
+
+    /* font-size: 2.5em; */
+    font-size: small;
     font-weight: 100;
 }
 
@@ -2767,9 +2770,15 @@ button.badge-top-right:before {
 
 
 
-
-/* A4 Landscape*/
-@page {
-   size: 10.414cm 29.718cm;
-   margin: 5%;
-}
+@media print {
+  
+    #invoice-print, #invoice-print * {
+      visibility: visible;
+    }
+    #invoice-print {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 5.2in;
+    }
+  }
