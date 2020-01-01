@@ -117,7 +117,7 @@
                                 <div class="col-12 col-md-12">
                                     <div class="inv-header col-12 col-md-12 text-center">{{companyDetails[0].name}}</div>
                                     <div class="inv-descriotion col-12 col-md-12 text-center">{{companyDetails[0].description}}</div>
-                                    <div class="col-12 col-md-12 text-left">
+                                    <div class="col-12 col-md-12 text-center inv-descriotion">
                                         <small>{{companyDetails[0].address}}</small><small ng-if="companyDetails[0].mobile">,
                                             {{companyDetails[0].mobile}}</small>
                                         <small ng-if="companyDetails[0].altmobile != null">
@@ -132,7 +132,7 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="row">
+                            <div class="row inv-descriotion ">
                                 <div class="col-12">
                                     <strong>{{orderdetails[0].cust_name}}</strong>
                                 </div>
@@ -145,7 +145,7 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="row">
+                            <div class="row inv-descriotion">
                                 <div class="col-6 col-md-6">
                                     Invoice No.
                                 </div>
@@ -162,18 +162,18 @@
                         </td>
                     </tr>
                 </thead>
-                <thead class="text-center">
+                <thead class="text-center inv-descriotion">
                          <th><small><b>#</b></small></th>
                         <th><small><b>Perticulars</b></small></th>
                         <th><small><b>Quanity</b></small></th>
                         <th><small><b>Rate (10 Kg.)</b></small></th>
                         <th><small><b>Net Price</b></small></th>
                 </thead>
-                <tbody>
+                <tbody class="inv-descriotion">
                     <tr ng-repeat="_data in orderdetails">
                         <td><small>{{$index +1}}</small></td>
                         <td style="white-space: nowrap;"><small>{{_data.productname}} </small> <small class="marathi-input">{{_data.marathi_name}}</small></td>
-                        <td><small>{{_data.dil_qty}} <span class="ext-sm-txt">{{_data.unit}}</span></small></td>
+                        <td><small>{{_data.dil_qty}} {{_data.unit}}</small></td>
                         <td style="text-align:right"><small>{{_data.price |number:2}}</small></td>
                         <td style="text-align:right"><small>{{(_data.netprice = ((_data.dil_qty * _data.price)/10) |number:2 )||"00.00"}}</small></td>
                     </tr>

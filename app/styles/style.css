@@ -2751,12 +2751,12 @@ button.badge-top-right:before {
 
 .inv-header
 {
-    font-size: x-large;
+    font-size: 6em;
     font-weight: bolder;
 }
 .inv-descriotion
 {
-    font-size: small;
+    font-size: 2.5em;
     font-weight: 100;
 }
 
@@ -2767,22 +2767,9 @@ button.badge-top-right:before {
 
 
 
-/* style sheet for "A4" printing */
-@media print and (width: 21cm) and (height: 29.7cm) {
-    @page {
-       margin: 3cm;
-    }
-}
-
-/* style sheet for "letter" printing */
-@media print and (width: 8.5in) and (height: 11in) {
-   @page {
-       margin: 1in;
-   }
-}
 
 /* A4 Landscape*/
 @page {
-   size: A6 portrait ;
+   size: 10.414cm 29.718cm;
    margin: 5%;
 }
