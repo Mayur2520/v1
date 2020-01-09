@@ -692,7 +692,7 @@ angular.module('MyApp')
                 var filteredData =  $scope.SaledReportData.filter(function(value){
                      return (value.product_id == productid && value.cust_id == cust_id)
                  })
-            return filteredData[0].total_qty;
+            return filteredData[0].total_qty+' '+filteredData[0].unit;
         }
       
         $scope.getQtySaledReport = function(order_Date_from, orer_date_to)
