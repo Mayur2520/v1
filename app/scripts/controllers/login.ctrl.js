@@ -1,6 +1,5 @@
 angular.module('MyApp')
-	.controller('LoginController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', 'Authenticate', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity, Authenticate) {
-
+	.controller('LoginController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', 'Authenticate','socket', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity, Authenticate, socket) {
 		$scope.fieltype = 'password';
 		$scope.AuthenticateUser = function () {
 			Authenticate.authUser().save($scope.user).$promise.then(function (response) {

@@ -97,7 +97,13 @@ angular.module('MyApp')
       {
         return $resource('/api/getCustomerAdvancePayment/:customerid',
         {}, { 'query': { method: 'GET',isArray:false } });
-      }
+      },
+
+      getQtySaledReport: function()
+      {
+        return $resource('/api/getQtySaledReport',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
 
     }
 }]);

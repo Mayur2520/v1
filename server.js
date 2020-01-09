@@ -19,10 +19,7 @@ var express = require('express'),
 	let http = require('http').Server(app);
 
 
-	// Socket setting
-	let io = require('socket.io')(http);
-	require('./lib/config/socket.Ctrl')(io);
-	// Socket setting
+
 
 
 app.use(bodypareser.urlencoded({limit:'20mb',extended:true}));
@@ -41,6 +38,12 @@ var server = app.listen(parseInt(8029),function(){
 	console.log('server start on '+ server.address().port+ ' port');
 })	
 
+	// Socket setting
+	let io = require('socket.io')(server);
+	require('./lib/config/socket.Ctrl')(io);
+	// Socket setting
+
+	
 app.use(morgan('tiny', {
     stream: loggerConf.stream
 })); 

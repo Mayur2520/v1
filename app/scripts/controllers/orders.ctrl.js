@@ -686,4 +686,43 @@ angular.module('MyApp')
         };
 
 
+
+        $scope.getTotalQtyFromReport = function(productid, cust_id)
+        {
+                var filteredData =  $scope.SaledReportData.filter(function(value){
+                     return (value.product_id == productid && value.cust_id == cust_id)
+                 })
+            return filteredData[0].total_qty;
+        }
+      
+        $scope.getQtySaledReport = function(order_Date_from, orer_date_to)
+        {
+            {
+                if(order_Date_from)
+                {
+                    var from_orderDate =  order_Date_from;
+                }
+                else
+                {
+                    var from_orderDate =  new Date();
+                }
+
+                if(orer_date_to)
+                {
+                    var to_orderDate =  orer_date_to;
+                }
+                else
+                {
+                    var to_orderDate =  from_orderDate;
+                }
+            }
+
+            Order.getQtySaledReport().save([{from_orderDate:formatDate(from_orderDate),to_orderDate:formatDate(to_orderDate)}]).$promise.then(function (response) {
+                if(!response.status)
+                $scope.SaledReportData = response.SaledReportData;
+
+            });
+        };
+
+
     }]);
