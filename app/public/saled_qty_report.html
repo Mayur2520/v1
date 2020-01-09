@@ -43,8 +43,8 @@
                         <tbody>
                            <tr ng-repeat="_products in ProductsList">
                                 <td>{{$index +1}}</td>
-                                <td>{{_products.name}}</td>
-                                <td  ng-repeat="_customers in CustomersList">{{getTotalQtyFromReport(_products.id, _customers.id)}}</td>
+                                <td>{{_products.name}} <small>(in {{_products.unit}})</small></td>
+                                <td  ng-repeat="_customers in CustomersList">{{getTotalQtyFromReport(_products.id, _customers.id)}} </td>
                            </tr>
                         </tbody>
                     </table>

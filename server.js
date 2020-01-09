@@ -39,8 +39,8 @@ var server = app.listen(parseInt(8029),function(){
 })	
 
 	// Socket setting
-	let io = require('socket.io')(server);
-	require('./lib/config/socket.Ctrl')(io);
+	/* let io = require('socket.io')(server);
+	require('./lib/config/socket.Ctrl')(io); */
 	// Socket setting
 
 	
