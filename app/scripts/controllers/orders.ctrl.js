@@ -622,23 +622,68 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=300,height=300');
             popupWin.document.open();
-            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>');
+            var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body onload="window.print()"><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:5px;padding-left:7px;">' + printContents + '</div></div></body></html>';
+
+            //'<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>'
+            popupWin.document.write(htmlContent);
             popupWin.document.close();
           } 
 
         $scope.shareInvoice = function(divName) {
             var printContents = document.getElementById(divName).innerHTML;
-                var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 mr-auto p-4">' + printContents + '</div></div></body></html>';
+            // var billheader = document.getElementById('bill-header').innerHTML;
+
+                var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:5px;padding-left:7px;">' + printContents + '</div></div></body></html>';
+
+                //var billHeaderContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 pl-2 pr-2">' + billheader + '</div></div></body></html>';
+
+                var billHeaderContent = '';
+
+
+
+
+                
 
                 var height = $( '#'+divName ).height();
                 var width = $( '#'+divName ).width();
                 
                
 
-                Order.shareInvoice().save({invoiceContent:htmlContent,orderData: $scope.orderdetails[0],size:{height:height,width:width}}).$promise.then(function(response){
+                Order.shareInvoice().save({billheader:billHeaderContent,invoiceContent:htmlContent,orderData: $scope.orderdetails[0],size:{height:height,width:width}}).$promise.then(function(response){
                     window.open("http://103.252.7.5:8029/invoices/"+response.filename);
                 });
 
           } 
+
+
+          $scope.ListOrdersReport = function(order_Date_from, orer_date_to)
+        {
+            // if(order_Date_from ||  orer_date_to)
+            {
+                if(order_Date_from)
+                {
+                    var from_orderDate =  order_Date_from;
+                }
+                else
+                {
+                    var from_orderDate =  new Date();
+                }
+
+                if(orer_date_to)
+                {
+                    var to_orderDate =  orer_date_to;
+                }
+                else
+                {
+                    var to_orderDate =  from_orderDate;
+                }
+            }
+
+           /*  Order.ListOrders().save([{from_orderDate:formatDate(from_orderDate),to_orderDate:formatDate(to_orderDate)}]).$promise.then(function (response) {
+                if(!response.status)
+                $scope.ordersList = response.ordersList;
+            }); */
+        };
+
 
     }]);

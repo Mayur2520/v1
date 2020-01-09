@@ -104,74 +104,74 @@
             </table>
         </div>
     </div>
+
+    <div id="bill-header" class="row" style="display: none;" ng-init="getCompanyDetailsforInvoice();">
+
+        <table  class="table table-bordered" style=" display: fixed;width: 3.74in;">
+            <thead >
+                <tr>
+                    <td colspan="5">
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="inv-header col-12 col-md-12 text-center">{{companyDetails[0].name}}</div>
+                                <div class="inv-descriotion col-12 col-md-12 text-center">{{companyDetails[0].description}}</div>
+                                <div class="col-12 col-md-12 text-left inv-descriotion">
+                                    <small>{{companyDetails[0].address}}</small><small ng-if="companyDetails[0].mobile">,
+                                        {{companyDetails[0].mobile}}</small>
+                                    <small ng-if="companyDetails[0].altmobile != null">
+                                        ,
+                                    </small>
+                                    <small>{{companyDetails[0].altmobile}}</small> <small ng-if="companyDetails[0].email">,
+                                        {{companyDetails[0].email}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <div class="row inv-cust">
+                            <div class="col-12 col-md-12 col-sm-12">
+                                <strong>{{orderdetails[0].cust_name}}</strong>
+                            </div>
+                            <div class="col-12">
+                                <small>{{orderdetails[0].cust_addr}} <small ng-if="orderdetails[0].cust_mobile">,
+                                    </small>{{orderdetails[0].cust_mobile}}</small>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="inv-cust">
+                    <td colspan="2">
+                        <div class="col-12 col-md-12">
+                            Invoice No.
+                        </div>
+                        <div class="col-12 col-md-12">
+                           
+                            <strong> {{orderdetails[0].orderid}}</strong>
+                        </div>
+                    </td>
+                        <td colspan="3" class="text-right">
+                            <div class="col-12 col-md-12">
+                                Invoice Date
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <strong>{{orderdetails[0].invoicedate | date:"dd/MM/yyyy"}}</strong>
+                            </div>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+
+
+    </div>
+
  
-    <div class="row" id="invoice-print" style="display: none;"
-        ng-init="getCompanyDetailsforInvoice();">
+    <div id="invoice-print" class="row" style="display: none;">
 
-            <table class="table table-bordered" style=" margin-left: 2.5px;display: fixed;width: 3.74in;">
-                <thead>
-                    <tr>
-                        <td colspan="5">
-                            <div class="row" style="position: relative;">
-                                <div style="position: absolute;left: 18px;" >
-                                    
-                                        <img src="http://103.252.7.5:8029/uploads/{{companyDetails[0].logoimg}}" style="height: 60px;width: auto;"/>
-                                    
-                                </div>
-                                <div class="col-10 col-md-10 ml-auto">
-                                    <div class="inv-header col-12 col-md-12 text-center">{{companyDetails[0].name}}</div>
-                                    <div class="inv-descriotion col-12 col-md-12 text-center">{{companyDetails[0].description}}</div>
-                                    <div class="col-12 col-md-12 text-left inv-descriotion">
-                                        <small>{{companyDetails[0].address}}</small><small ng-if="companyDetails[0].mobile">,
-                                            {{companyDetails[0].mobile}}</small>
-                                        <small ng-if="companyDetails[0].altmobile != null">
-                                            ,
-                                        </small>
-                                        <small>{{companyDetails[0].altmobile}}</small> <small ng-if="companyDetails[0].email">,
-                                            {{companyDetails[0].email}}</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 col-md-4">
-
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">
-                            <div class="row inv-cust">
-                                <div class="col-12 col-md-12 col-sm-12">
-                                    <small>Invoice To:</small>
-                                </div> 
-                                <div class="col-12 col-md-12 col-sm-12">
-                                    <strong>{{orderdetails[0].cust_name}}</strong>
-                                </div>
-                                <div class="col-12">
-                                    <small>{{orderdetails[0].cust_addr}}  {{orderdetails[0].cust_mobile}}</small>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="inv-cust">
-                        <td colspan="2">
-                            <div class="col-12 col-md-12">
-                                Invoice No.
-                            </div>
-                            <div class="col-12 col-md-12">
-                               
-                                <strong> {{orderdetails[0].orderid}}</strong>
-                            </div>
-                        </td>
-                            <td colspan="3" class="text-right">
-                                <div class="col-12 col-md-12">
-                                    Invoice Date
-                                </div>
-                                <div class="col-12 col-md-12">
-                                    <strong>{{orderdetails[0].invoicedate | date:"dd/MM/yyyy"}}</strong>
-                                </div>
-                        </td>
-                    </tr>
-                </thead>
+       
+            <table class="table table-bordered" style=" display: fixed;width: 3.74in;">
+                
                 <thead class="text-center inv-descriotion">
                          <th style="width: 3px;">#</th>
                         <th style="width: 50px;">Perticulars</th>
@@ -198,23 +198,10 @@
                         {{(orderdetails[0].totalAmount = (getTotal() + orderdetails[0].deliverycharges) |number:2 )|| "00.00" }}/-</strong></td>
                     </tr>
                     <tr>
-                        
-                        <td colspan="5" style="text-align:right;">
-                            <div style="padding-top: 40px;">
-                                <div class="row">
-                                    <div class="col-5 col-md-5 mr-auto text-left">
-                            
-                                        <small style="position: absolute;left: 20px;top:10px;">Reveiver's Signature </small>
-                                    </div>
-                                    <div class="col-7 col-md-7 ml-auto text-right" >
-                                        <small>Proprietor / Director   </small>
-                                        <br>
-                                    <label>{{ companyDetails[0].owner | uppercase }}</label>
-                                    </div>
-                                </div>
-                            
-                    </div>
-                    </td>
+                        <td colspan="5" style="text-align:right;padding-top: 40px;">
+                            <small>Proprietor / Director   </small>
+                            <br>
+                        <label>{{ companyDetails[0].owner | uppercase }}</label></td>
                     </tr>
                 </tbody>
             </table>

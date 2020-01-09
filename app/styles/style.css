@@ -2759,6 +2759,14 @@ button.badge-top-right:before {
 {
 
     /* font-size: 2.5em; */
+    font-size: x-small;
+    font-weight: 100;
+}
+
+.inv-cust
+{
+
+    /* font-size: 2.5em; */
     font-size: small;
     font-weight: 100;
 }
