@@ -140,14 +140,18 @@
                     <tr>
                         <td colspan="5">
                             <div class="row inv-cust">
-                                <div class="col-12 col-md-12 col-sm-12">
+                                <div class="col-3 col-md-3 col-sm-3">
                                     <small>Invoice To:</small>
                                 </div> 
-                                <div class="col-12 col-md-12 col-sm-12">
-                                    <strong>{{orderdetails[0].cust_name}}</strong>
-                                </div>
-                                <div class="col-12">
-                                    <small>{{orderdetails[0].cust_addr}}  {{orderdetails[0].cust_mobile}}</small>
+                                <div class="col-9 col-md-9 col-lg-9">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-sm-12">
+                                             <strong>{{orderdetails[0].cust_name}}</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <small>{{orderdetails[0].cust_addr}}  {{orderdetails[0].cust_mobile}}</small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -174,7 +178,7 @@
                 </thead>
                 <thead class="text-center inv-descriotion">
                          <th style="width: 3px;">#</th>
-                        <th style="width: 50px;">Perticulars</th>
+                        <th style="width: 50px;">Particulars</th>
                         <th style="width: 8px;">Quanity</th>
                         <th style="width: 10px;white-space: pre-line; ">Rate (10Kg.)</th>
                         <th style="width: 10px;">Net Price</th>
