@@ -1,5 +1,7 @@
 angular.module('MyApp')
 	.controller('EntityController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity) {
+
+    var endurl= 'http://localhost:8029';
         $scope.config = {
             itemsPerPage: 5,
             fillLastPage: true
@@ -81,7 +83,7 @@ angular.module('MyApp')
                 }
               }
               Upload.upload({
-                url: '/api/saveProductDetails',
+                url: endurl+'/api/saveProductDetails',
                 data: passeddata
               }).then(function (resp) {
                 Swal({

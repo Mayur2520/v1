@@ -1,39 +1,39 @@
 angular.module('MyApp')
   .factory('Customer', ['$resource', function ($resource) {
-
+    var endurl= 'http://localhost:8029';
     return{
 
         CustomerTypes: function () {
-            return $resource('/api/CustomerTypes',
+            return $resource(endurl+'/api/CustomerTypes',
                 {}, { 'query': { method: 'GET',isArray:true } });
         },
         getCustomerList: function()
         {
-            return $resource('/api/getCustomerList',
+            return $resource(endurl+'/api/getCustomerList',
                 {}, { 'query': { method: 'GET',isArray:false } });
         },
 
         deleteCustomerDetails: function()
         {
-            return $resource('/api/deleteCustomerDetails/:id',
+            return $resource(endurl+'/api/deleteCustomerDetails/:id',
                 {}, { 'query': { method: 'GET',isArray:false } });
         },
 
         SaveCustomerDetails: function()
         {
-            return $resource('/api/SaveCustomerDetails',
+            return $resource(endurl+'/api/SaveCustomerDetails',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 
         VerifyCustomerEmail: function()
         {
-            return $resource('/api/VerifyCustomerEmail',
+            return $resource(endurl+'/api/VerifyCustomerEmail',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 
         VerifyCustomerMobile: function()
         {
-            return $resource('/api/VerifyCustomerMobile',
+            return $resource(endurl+'/api/VerifyCustomerMobile',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 
@@ -43,31 +43,31 @@ angular.module('MyApp')
 
         getUserList: function()
         {
-            return $resource('/api/getUserList',
+            return $resource(endurl+'/api/getUserList',
                 {}, { 'query': { method: 'GET',isArray:false } });
         },
 
         deleteUserDetails: function()
         {
-            return $resource('/api/deleteUserDetails/:id',
+            return $resource(endurl+'/api/deleteUserDetails/:id',
                 {}, { 'query': { method: 'GET',isArray:false } });
         },
 
         SaveUserDetails: function()
         {
-            return $resource('/api/SaveUserDetails',
+            return $resource(endurl+'/api/SaveUserDetails',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 
         VerifyUserEmail: function()
         {
-            return $resource('/api/VerifyUserEmail',
+            return $resource(endurl+'/api/VerifyUserEmail',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 
         VerifyUserMobile: function()
         {
-            return $resource('/api/VerifyUserMobile',
+            return $resource(endurl+'/api/VerifyUserMobile',
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 

@@ -89,6 +89,14 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/saled_qty_report.html",
       controller:"OrderController"
     })
+    .when("/user_profile", {
+      templateUrl : "public/user_profile.html",
+      controller:"LoginController"
+    })
+    .when("/company_profile", {
+      templateUrl : "public/company_profile.html",
+      controller:"LoginController"
+    })
 	.otherwise({
 		  redirectTo: ''
 		});

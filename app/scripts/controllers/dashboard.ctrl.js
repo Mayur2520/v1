@@ -52,7 +52,6 @@ angular.module('MyApp')
 
         $scope.SendNotifuication = function()
         {
-            console.log('-------------------- 1')
             Dashboard.ExeNotification('sample User',"Sample message sent from device")
         }
 

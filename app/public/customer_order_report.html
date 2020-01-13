@@ -1,5 +1,3 @@
-
-jsjsjsjsjsj
 <div class="wrapper">
     <div ng-include="'./public/navbar.html'"></div>
     
@@ -9,21 +7,28 @@ jsjsjsjsjsj
                 <h4>Customers Order Report</h4>
             </div>
             <div class="col-md-4 col-lg-4 col-12">
-                <a class="btn btn-sm btn-info">Print</a>
+                <!-- <a class="btn btn-sm btn-info">Print</a> -->
             </div>
 
             <div class="col-md-4 col-lg-4 col-12 ml-auto">
                 <div class="row">
-                    <div class="col-md-6 col-6 col-lg-6">
+                    <div class="col-md-4 col-12 col-lg-4" ng-if="userDetails.role == 'Superadmin' || userDetails.role == 'Admin'">
                             <div class="form-group">
-                                    <label for="order-date">Order Date From</label>
-                                    <input ui-date="dateOptionsFilters" id="order-date" ng-model="orderDate_from" ng-change="ListOrdersReport(orderDate_from, orderDate_to)" class="form-control"/>
+                                    <label for="order-date">Customer</label>
+                                    <input type="text" class="form-control btn-sm" ng-model="customername" id="customername"
+                 name="customername" uib-typeahead="obj as obj.name for obj in CustomersList | filter:$viewValue " typeahead-on-select="getOrderReport(customername,orderDate_from, orderDate_to );SetCustomerid(customername.id)" placeholder="Search Customer" autocomplete="off"  >
                                 </div>
                     </div>
-                    <div class="col-md-6 col-6 col-lg-6">
+                    <div class="col-md-4 col-6 col-lg-4">
+                            <div class="form-group">
+                                    <label for="order-date">Order Date From</label>
+                                    <input ui-date="dateOptionsFilters" id="order-date" ng-model="orderDate_from" ng-change="getOrderReport(customername,orderDate_from, orderDate_to )" class="form-control"/>
+                                </div>
+                    </div>
+                    <div class="col-md-4 col-6 col-lg-4">
                             <div class="form-group">
                                     <label for="order-date">To</label>
-                                    <input ui-date="dateOptionsFilters" id="order-date-to" ng-model="orderDate_to" ng-change="ListOrdersReport(orderDate_from, orderDate_to)" class="form-control"/>
+                                    <input ui-date="dateOptionsFilters" id="order-date-to" ng-model="orderDate_to" ng-change="getOrderReport(customername,orderDate_from, orderDate_to )" class="form-control"/>
                                 </div>
                     </div>
                 </div>
@@ -36,18 +41,29 @@ jsjsjsjsjsj
             </div>
         </div>
 
-        <div class="row mt-3" ng-init="ListOrdersReport()">
-            <div class="col-12 col-md-12 col-lg-12" ng-if="ordersReportList.length > 0">
+        <div class="row mt-3" ng-init="getOrderReport(customername,orderDate_from, orderDate_to );getCustomerList()">
+            <div class="col-12 col-md-12 col-lg-12" ng-if="orderReportData.length > 0">
                 <div class="table-responsive">
                     <table id="example" class="table table-striped table-bordered text-nowrap" style="width: 100%;">
                         <thead>
                                 <th>#</th>
-                                <th>Customer</th>
+                                <th  ng-if="(userDetails.role == 'Superadmin' || userDetails.role == 'Admin') && !customername">Customer</th>
+                                <th>Order Date</th>
+                                <th>No. of Products</th>
+                                <th>Amount</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="_data in ordersReportList | filter:search.order">
+                            <tr ng-repeat="_data in orderReportData | filter:search.order">
                                 <td>{{$index +1}}</td>
-                               
+                               <td  ng-if="(userDetails.role == 'Superadmin' || userDetails.role == 'Admin') && !customername">{{_data.customer_name}}</td>
+                               <td class="text-center">{{_data.orderdate | date:'dd/MM/yyyy'}}</td>
+                               <td>{{_data.total_items}}</td>
+                               <td class="text-right">{{_data.net_amount | number:2}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    <strong>Total: {{CalculateTotalAmountInReport() | number:2}}</strong>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -56,7 +72,7 @@ jsjsjsjsjsj
         </div>
 
 
-        <div class="col-12" ng-if="ordersReportList.length == 0">
+        <div class="col-12" ng-if="orderReportData.length == 0">
             <div class="alert alert-danger text-center">
                 <strong>No record found!</strong>
               </div>
