@@ -1,6 +1,6 @@
 angular.module('MyApp')
   .factory('Dashboard', ['$resource', function ($resource) {
-
+    var endurl= 'http://localhost:8029';
     return{
 
       ExeNotification: function(user,message) {
@@ -43,7 +43,7 @@ angular.module('MyApp')
       },
       getDashboardValues: function()
       {
-        return $resource('/api/getDashboardValues',
+        return $resource(endurl+'/api/getDashboardValues',
         {}, { 'save': { method: 'POST',isArray:false } });
       },
       

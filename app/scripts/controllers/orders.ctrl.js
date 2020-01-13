@@ -613,7 +613,6 @@ angular.module('MyApp')
                     if(!response.status)
                     {
                         $scope.companyDetails = response.companyDetails;
-                        console.log($scope.companyDetails)
                     }
             });
         }
@@ -689,10 +688,15 @@ angular.module('MyApp')
 
         $scope.getTotalQtyFromReport = function(productid, cust_id)
         {
+            if($scope.SaledReportData && $scope.SaledReportData != null)
+            {
                 var filteredData =  $scope.SaledReportData.filter(function(value){
                      return (value.product_id == productid && value.cust_id == cust_id)
                  })
-            return filteredData[0].total_qty;
+                    return filteredData[0].total_qty;
+            }
+            else
+            return 0
         }
       
         $scope.getQtySaledReport = function(order_Date_from, orer_date_to)
@@ -723,6 +727,62 @@ angular.module('MyApp')
 
             });
         };
+
+        $scope.SetCustomerid = function(cust_id)
+        {
+            $scope.Customerid = cust_id;
+        }
+
+
+        $scope.getOrderReport = function(customerdetails, order_Date_from, order_date_to)
+        {
+            if( ($scope.Customerid &&  $scope.Customerid > 0))
+            {
+                var customerid = $scope.Customerid;
+                $scope.SetCustomerid(customerid)
+            }
+            if((customerdetails && customerdetails.id))
+            {
+                var customerid = customerdetails.id;
+                $scope.SetCustomerid(customerid)
+            }
+           
+            {
+                if(order_Date_from)
+                {
+                    var from_orderDate =  order_Date_from;
+                }
+                else
+                {
+                    var from_orderDate =  new Date();
+                }
+
+                if(order_date_to)
+                {
+                    var to_orderDate =  order_date_to;
+                }
+                else
+                {
+                    var to_orderDate =  from_orderDate;
+                }
+            }
+
+            Order.getOrderReport().save([{customerid:customerid, from_orderDate:formatDate(from_orderDate),to_orderDate:formatDate(to_orderDate)}]).$promise.then(function (response) {
+                if(!response.status)
+                $scope.orderReportData = response.orderReportData;
+                console.log( $scope.orderReportData)
+            });
+        };
+
+        $scope.CalculateTotalAmountInReport = function()
+        {
+            var totalamt = 0;
+            $scope.orderReportData.map(function(value){
+                totalamt = totalamt+ value.net_amount;
+            })
+
+           return totalamt;
+        }
 
 
     }]);

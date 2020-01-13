@@ -1,5 +1,5 @@
 angular.module('MyApp')
-	.controller('CustomerController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Customer', function ($scope, $http, $route, $location, $window, $timeout, Customer) {
+	.controller('CustomerController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Customer', 'Entity', function ($scope, $http, $route, $location, $window, $timeout, Customer, Entity) {
 
         $scope.userRoles = [{title:"Staff", value:"customer"},{title:"Admin", value:"customer_admin"}]
         $scope.CustomerDetails = [];
@@ -8,6 +8,20 @@ angular.module('MyApp')
                  Customer.CustomerTypes().query().$promise.then(function (response) {
                     $scope.customer_type = response;
                 });      
+        };
+
+        
+        $scope.productTypes = function()
+        {
+               
+                Entity.productTypes().query().$promise.then(function (response) {
+                    $scope.product_type = response;
+                    $scope.Products_Type = [];
+                    $scope.product_type.map(function(value){
+                        $scope.Products_Type.push({title:value,value:value})
+                    });
+                });
+               
         };
 
      $scope.getUserRole = function(role)
@@ -25,10 +39,7 @@ angular.module('MyApp')
         }
      }
 
-        $scope.getCustomerDetails = function(customerdetails)
-        {
-            $scope.CustomerDetails.push(customerdetails);
-        };
+       
 
         $scope.getCustomerList = function()
         {
@@ -95,8 +106,63 @@ angular.module('MyApp')
             }
         };
 
+
+        $scope.getCustomerDetails = function(customerdetails)
+        {
+            $scope.CustomerDetails = [];
+            
+            $scope.CustomerDetails.push(customerdetails);
+            
+            $scope.allowProductTypes = JSON.parse($scope.CustomerDetails[0].allowprdtypes);
+            $scope._product_Types = $scope.allowProductTypes;
+            
+            $scope.Products_Type.map(function(value){
+                if($scope.allowProductTypes != null)
+                $scope.allowProductTypes.map(function(existval){
+                    if(existval == value.value)
+                    {
+                        value.inStatus = true  
+                    }
+                })
+            });
+
+            if($scope._product_Types == null)
+            {
+                $scope._product_Types = [];
+            }
+        };
+
+        $scope._product_Types = [];
+        $scope.SetAllowProductType = function(productType)
+        {
+            if($scope._product_Types.length <= 0)
+            {
+                $scope._product_Types.push(productType.value);
+                productType.inStatus = true;
+            }
+            else
+            {
+                var typeExist = $scope._product_Types.filter(function(value)
+                {
+                    return value == productType.value;
+                });
+                if(typeExist.length > 0)
+                {
+                    $scope._product_Types.splice($scope._product_Types.indexOf(productType.value), 1);
+                    productType.inStatus = false;
+                }
+                else
+                {
+                    $scope._product_Types.push(productType.value);
+                    productType.inStatus = true;
+                }
+            }
+        }
+
         $scope.SaveCustomerDetails = function()
         {
+
+            $scope.CustomerDetails[0]['allowprdtypes'] = JSON.stringify($scope._product_Types);
             Customer.SaveCustomerDetails().save($scope.CustomerDetails[0]).$promise.then(function(response){
                 Swal({
                     type: response.type,
@@ -107,10 +173,16 @@ angular.module('MyApp')
                     if(response.status == 0)
                     {
                         $scope.CustomerDetails = [];
+                        $scope._product_Types = [];
                     }
                   })
             });
         };
+
+
+      
+
+        
 
         // USER DETAILS
 

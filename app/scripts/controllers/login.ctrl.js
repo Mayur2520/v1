@@ -1,5 +1,7 @@
 angular.module('MyApp')
-	.controller('LoginController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', 'Authenticate','socket', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity, Authenticate, socket) {
+	.controller('LoginController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', 'Authenticate', 'Customer','socket', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity, Authenticate, Customer, socket) {
+
+		var endurl= 'http://localhost:8029';
 		$scope.fieltype = 'password';
 		$scope.AuthenticateUser = function () {
 			Authenticate.authUser().save($scope.user).$promise.then(function (response) {
@@ -378,7 +380,7 @@ angular.module('MyApp')
 				}
 			  }
 			  Upload.upload({
-				url: '/api/SaveCompanyDetails',
+				url: endurl+'/api/SaveCompanyDetails',
 				data: passeddata
 			  }).then(function (resp) {
 				Swal({
@@ -470,5 +472,116 @@ angular.module('MyApp')
 					$scope.btnlbl = "Disable";
 				}
 		}
+
+		$scope.getCompanyProfile = function()
+		{
+			Entity.getCompanyDetails().query().$promise.then(function(response){
+				if(!response.status)
+					$scope.CompanyDetails = response.companyDetails;
+			});
+		}
+
+		$scope.getUserProfileData = function()
+		{
+			Entity.getUserProfileData().query().$promise.then(function(response){
+				if(!response.status)
+					$scope.userProfile = response.userProfile;
+			});
+		}
+
+
+		$scope.VerifyUserContacts = function()
+        {
+            if($scope.userProfile[0].email && $scope.userProfile[0].email != '' && $scope.userProfile[0].email != null)
+            {
+                Customer.VerifyUserEmail().save($scope.userProfile[0]).$promise.then(function(response){
+                    if(response.result[0].emailexist > 0)
+                    {
+                        $scope.emailexist = "Email ID already exist in record";
+                    }
+                    else
+                    {
+                        $scope.emailexist = undefined;  
+                    }
+                });
+            }
+
+            if($scope.userProfile[0].mobile && $scope.userProfile[0].mobile != '' && $scope.userProfile[0].mobile != 0 && $scope.userProfile[0].mobile != null)
+            {
+                Customer.VerifyUserMobile().save($scope.userProfile[0]).$promise.then(function(response){
+                    if(response.result[0].mobileexist > 0)
+                    {
+                        $scope.mobileexist = "Mobile already exist in record";
+                    }
+                    else
+                    {
+                        $scope.mobileexist = undefined;
+                    }
+                });
+            }
+        };
+
+		$scope.SaveUserProfile = function()
+		{
+			Customer.SaveUserDetails().save($scope.userProfile[0]).$promise.then(function(response){
+                Swal({
+                    type: response.type,
+                    title: response.title,
+                    text: response.message,
+                  }).then(function() {
+                    if(response.status == 0)
+                    {
+                        $scope.getUserProfileData();
+                    }
+                  })
+            });
+		}
+
+		$scope.setImagePreview = function(imgdata)
+		{
+			var reader = new FileReader();
+			reader.onload = function(event) {
+				$("#logoimg").attr("src",event.target.result);
+			}
+			reader.readAsDataURL(imgdata.files[0]);
+		}
+
+		$scope.SaveCompanyProfile = function()
+		{
+			if ($scope.form.file.$valid && $scope.logoimg) {
+				var passeddata = {
+				  file: $scope.logoimg,
+				  CompanyDetails: $scope.CompanyDetails[0]
+				}
+			  } else {
+				var passeddata = {
+					CompanyDetails: $scope.CompanyDetails[0]
+				}
+			  }
+			  Upload.upload({
+				url: endurl+'/api/SaveCompanyDetails',
+				data: passeddata
+			  }).then(function (resp) {
+				Swal({
+				  type: resp.data.type,
+				  title: resp.data.title,
+				  text: resp.data.message,
+				}).then(function()  {
+				  location.reload();
+				})
+			  }, function (resp) {
+				Swal({
+				  type: resp.data.type,
+				  title: resp.data.title,
+				  text: resp.data.message,
+				}).then(function()  {
+				  location.reload();
+				})
+			  }, function (evt) {
+				var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+				// console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+			  });
+		}
+
 
 	}]);
