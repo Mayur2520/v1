@@ -139,21 +139,40 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="row inv-cust">
-                                <div class="col-3 col-md-3 col-sm-3">
+
+                            <div class="container-fluid inv-cust">
+                                <div class="row">
+                                  <div class="col-4">
                                     <small>Invoice To:</small>
-                                </div> 
-                                <div class="col-9 col-md-9 col-lg-9">
+                                  </div>
+                                  <div class="col-8">
                                     <div class="row">
                                         <div class="col-12 col-md-12 col-sm-12">
-                                             <strong>{{orderdetails[0].cust_name}}</strong>
+                                            <strong>{{orderdetails[0].cust_name}}</strong>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 col-md-12 col-sm-12">
+                                            <small>{{orderdetails[0].cust_addr}}  {{orderdetails[0].cust_mobile}}</small>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            <!-- <div class="row inv-cust">
+                                 <div class="col-sm">
+                                    <small>Invoice To:</small>
+                                </div>  
+                                <div class="col-sm">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-sm-12">
+                                            <strong>{{orderdetails[0].cust_name}}</strong>
+                                        </div>
+                                        <div class="col-12 col-md-12 col-sm-12">
                                             <small>{{orderdetails[0].cust_addr}}  {{orderdetails[0].cust_mobile}}</small>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </td>
                     </tr>
                     <tr class="inv-cust">
