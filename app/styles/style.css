@@ -2790,3 +2790,18 @@ button.badge-top-right:before {
       width: 5.2in;
     }
   }
+
+  .Table
+  {
+      display: table;
+      padding: -2px;
+  }
+  .Row
+  {
+      display: table-row;
+  }
+  .Cell
+  {
+      display: table-cell;
+      text-align: left;
+  }
