@@ -105,7 +105,7 @@
         </div>
     </div>
  
-    <div class="row" id="invoice-print" style="display: none;"
+    <div class="row" id="invoice-print" style="display: none;font-family: sans-serif;"
         ng-init="getCompanyDetailsforInvoice();">
 
             <table class="table table-bordered" style=" margin-left: 2.5px;display: fixed;width: 3.74in;">
@@ -140,8 +140,8 @@
                     <tr>
                         <td colspan="5">
 
-
-                            <div class="Table">
+                            <div class="col-12 col-md-12 col-lg-12">
+                            <div class="Table inv-cust">
                                 <div class="Row">
                                     <div class="Cell" style="width: 70px !important;">
                                         <small>Invoice To:</small>
@@ -152,6 +152,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
                             <!-- <div class="container-fluid">
                             <div class="row inv-cust">
                                 <div class="col-6 col-md-6 col-sm-6">
@@ -172,19 +173,19 @@
                     <tr class="inv-cust">
                         <td colspan="2">
                             <div class="col-12 col-md-12">
-                                Invoice No.
+                                <small>nvoice No.</small>
                             </div>
                             <div class="col-12 col-md-12">
                                
-                                <strong> {{orderdetails[0].orderid}}</strong>
+                                <strlabelong> {{orderdetails[0].orderid}}</label>
                             </div>
                         </td>
                             <td colspan="3" class="text-right">
                                 <div class="col-12 col-md-12">
-                                    Invoice Date
+                                    <small>Invoice Date</small> 
                                 </div>
                                 <div class="col-12 col-md-12">
-                                    <strong>{{orderdetails[0].invoicedate | date:"dd/MM/yyyy"}}</strong>
+                                    <label>{{orderdetails[0].invoicedate | date:"dd/MM/yyyy"}}</label>
                                 </div>
                         </td>
                     </tr>
@@ -217,7 +218,7 @@
                     <tr>
                         
                         <td colspan="5" style="text-align:right;">
-                            <div style="padding-top: 40px;">
+                           <!--  <div style="padding-top: 40px;">
                                 <div class="row">
                                     <div class="col-5 col-md-5 mr-auto text-left">
                             
@@ -230,7 +231,23 @@
                                     </div>
                                 </div>
                             
+                    </div> -->
+
+                    <div class="col-12 col-md-12 col-lg-12" style="padding-top: 40px;">
+                        <div class="Table">
+                            <div class="Row">
+                                <div class="Cell">
+                                    <small class="mt-2">Reveiver's Signature </small>
+                                </div>
+                                <div class="Cell text-right">
+                                    <small>Proprietor / Director   </small>
+                                        <br>
+                                    <label>{{ companyDetails[0].owner | uppercase }}</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     </td>
                     </tr>
                 </tbody>
