@@ -26,7 +26,7 @@ var express = require('express'),
 		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		next();
 	});
-
+ 
 app.use(bodypareser.urlencoded({limit:'20mb',extended:true}));
 app.use(bodypareser.json({limit:'20mb'}));
 	
