@@ -9,7 +9,7 @@ var express = require('express'),
 	// logger = require('./lib/config/logger'),
 	var loggerConf = require('./lib/config/loggerConfig');
 
-	
+	var cors = require("cors")
 
 
 	var routes = require('./lib/routes');
@@ -18,7 +18,7 @@ var express = require('express'),
 
 	let http = require('http').Server(app);
 
-
+app.use(cors());
 
 
 
