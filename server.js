@@ -18,9 +18,14 @@ var express = require('express'),
 
 	let http = require('http').Server(app);
 
-app.use(cors());
+	app.use(cors());
 
-
+	app.use(function(req, res, next) {
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		next();
+	});
 
 app.use(bodypareser.urlencoded({limit:'20mb',extended:true}));
 app.use(bodypareser.json({limit:'20mb'}));
