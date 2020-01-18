@@ -12,19 +12,18 @@ var express = require('express'),
 	var cors = require("cors")
 
 
+	
 	var routes = require('./lib/routes');
 
 	var app = express();
 
 	let http = require('http').Server(app);
 
-	app.use(cors());
-
-	app.use(function(req, res, next) {
+	app.all("/api/*", function (req, res, next) {
 		res.header("Access-Control-Allow-Origin", "*");
-		res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
-		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-		next();
+		res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+		res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+		return next();
 	});
  
 app.use(bodypareser.urlencoded({limit:'20mb',extended:true}));
