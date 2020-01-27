@@ -335,21 +335,18 @@ angular.module('MyApp')
         $scope.saveOrderDetails = function()
         {
 
-            console.log(orderDetails);
-
             if($scope.ProductsList)
             {
                 var orderDetails = $scope.ProductsList.filter(function(value){
-                        return value.orderdetailsid != undefined || value.qty != undefined && value.unit != null
+                        return  value.qty != undefined && value.unit != null
                 })
             }
-            else if($scope.orderdetails)
+            if($scope.orderdetails)
             {
                 var orderDetails = $scope.orderdetails.filter(function(value){
-                    return value.dil_qty != undefined
+                    return value.dil_qty != undefined && value.dil_qty != '' && value.dil_qty != null;
                 })
             }
-
             if(orderDetails.length > 0)
             {
 
@@ -381,6 +378,17 @@ angular.module('MyApp')
             }
         };
 
+        $scope.ToggleForStaff = function(data)
+        {
+            if(data.forstaff == 1)
+            {
+                data.forstaff = 0;
+            }
+            else
+            {
+                data.forstaff = 1;
+            }
+        }
 
         $scope.generateInvoice = function()
         {
