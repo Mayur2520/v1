@@ -52,6 +52,7 @@
                 </thead>
                 <thead>
                     <th>#</th>
+                    <th>Staff</th>
                     <th>Product</th>
                     <th>Qty.</th>
                     <th>Unit</th>
@@ -59,6 +60,9 @@
                 <tbody>
                     <tr ng-repeat="_data in ProductsList | filter:{ type: productType } | filter: search.name" ng-class="{booked_row:validateEntries(_data) , recently_updated:_data.isRecentlyUpdated}">
                         <td>{{$index +1}}</td>
+                        
+                            <td><button class="btn btn-sm" ng-click="ToggleForStaff(_data)"><i class="fa fa-circle-thin" ng-if="_data.forstaff != 1" aria-hidden="true"></i> <i class="fa fa-circle" ng-if="_data.forstaff == 1" aria-hidden="true"></i></button></td>
+                        
                         <td>{{_data.name}} <small class="marathi-input">{{_data.marathi_name}}</small></td>
                         <td><input type="number" class="form-control"  ng-model="_data.qty" placeholder="Qty." ng-change="validateRecentlyUpdated(_data,{{_data}})"/></td>
                         <td><select class="form-control" ng-model="_data.unit" style="width: 80px;" ng-options="obj for obj in productUnit" ng-change="validateRecentlyUpdated(_data,{{_data}})">

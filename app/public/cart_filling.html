@@ -64,7 +64,7 @@
                     <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name" ng-class="{booked_row:_data.isQtySame, low_qty: _data.lowQty}">
                         <!-- <td><label class="p-2">{{$index +1}}</label></td> -->
                         <td><button class="btn btn-sm" ng-click="ToggleForStaff(_data)"><i class="fa fa-circle-thin" ng-if="_data.forstaff != 1" aria-hidden="true"></i> <i class="fa fa-circle" ng-if="_data.forstaff == 1" aria-hidden="true"></i></button></td>
-                        <td><select class="form-control btn-sm" ng-model="_data.productid" ng-options="_objs.id as _objs.name for _objs in ProductsList" ng-change="getUnitofProduct(_data)"></select>
+                        <td><select class="form-control btn-sm" ng-model="_data.productid" ng-options="_objs.id as _objs.name for _objs in ProductsList" ng-change="getUnitofProduct(_data);ChangeProduct(_data, {{_data.productid}});"></select>
                             </td>
                             <!-- {{_data.productname}}  -->
                         <td>{{_data.qty}}</td>

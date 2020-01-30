@@ -347,8 +347,11 @@ angular.module('MyApp')
                     return value.dil_qty != undefined && value.dil_qty != '' && value.dil_qty != null;
                 })
             }
+
+            console.log(orderDetails)
             if(orderDetails.length > 0)
             {
+                
 
                 /* if($scope.orderDetails.orderdate)
                 {
@@ -388,6 +391,14 @@ angular.module('MyApp')
             {
                 data.forstaff = 1;
             }
+        }
+
+        $scope.ChangeProduct = function(data,oldproductid)
+        {
+            if(oldproductid != data.productid)
+                data.changed_item = oldproductid;
+            if(data.changed_item == data.productid)
+                data.changed_item = null;
         }
 
         $scope.generateInvoice = function()
