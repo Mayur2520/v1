@@ -1,5 +1,5 @@
 angular.module('MyApp')
-	.controller('LoginController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', 'Authenticate', 'Customer','socket', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity, Authenticate, Customer, socket) {
+	.controller('LoginController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', 'Authenticate', 'Customer', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity, Authenticate, Customer) {
 
 		var endurl= 'http://localhost:8029';
 		$scope.fieltype = 'password';
