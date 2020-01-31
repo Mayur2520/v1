@@ -332,24 +332,61 @@ angular.module('MyApp')
             }
         }
 
+
+        function checkForStaffOrder(value)
+        {
+            var selectedProduct = $scope.ProductsList.filter(function(val){
+                return val.id  == value.productid;
+            });
+            if(selectedProduct.length > 0)
+            {
+                if(selectedProduct[0].forstaff != null || selectedProduct[0].forstaff > 0)
+                {
+                    return selectedProduct[0].forstaff;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
         $scope.saveOrderDetails = function()
         {
+        $scope.orderCartDetails = [];
 
             if($scope.ProductsList)
             {
-                var orderDetails = $scope.ProductsList.filter(function(value){
-                        return  value.qty != undefined && value.unit != null
+                $scope.ProductsList.map(function(value){
+                        if(value.qty != undefined && value.unit != null)
+                        {
+                            $scope.orderCartDetails.push(value);
+                        }
                 })
             }
             if($scope.orderdetails)
             {
-                var orderDetails = $scope.orderdetails.filter(function(value){
-                    return value.dil_qty != undefined && value.dil_qty != '' && value.dil_qty != null;
+                $scope.orderdetails.map(function(value){
+                    if(value.dil_qty != undefined  && value.dil_qty != null  && value.dil_qty >= 0)
+                    {
+                        if(value.forstaff)
+                        {
+                            if(value.forstaff == null || value.forstaff <= 0 || value.forstaff  == '')
+                            {
+                                value.forstaff = 0;
+                            }
+                        }
+                        else
+                        {
+                            value.forstaff = checkForStaffOrder(value);
+                        }
+                        $scope.orderCartDetails.push(value); 
+                    }
                 })
             }
 
-            console.log(orderDetails)
-            if(orderDetails.length > 0)
+            
+        if($scope.orderCartDetails.length > 0)
             {
                 
 
@@ -357,9 +394,9 @@ angular.module('MyApp')
                 {
                     $scope.orderDetails.orderdate = formatDate($scope.orderDetails.orderdate)
                 } */
-                orderDetails[0].customerdetails = $scope.orderDetails;
+                $scope.orderCartDetails[0].customerdetails = $scope.orderDetails;
               
-                Order.saveOrderDetails().save(orderDetails).$promise.then(function(response){
+                Order.saveOrderDetails().save($scope.orderCartDetails).$promise.then(function(response){
                     Swal({
                         type: response.type,
                         title: response.title,
@@ -818,7 +855,6 @@ angular.module('MyApp')
             Order.getOrderReport().save([{customerid:customerid, from_orderDate:formatDate(from_orderDate),to_orderDate:formatDate(to_orderDate)}]).$promise.then(function (response) {
                 if(!response.status)
                 $scope.orderReportData = response.orderReportData;
-                console.log( $scope.orderReportData)
             });
         };
 
