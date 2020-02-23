@@ -83,7 +83,7 @@
                 <tbody>
                     <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name">
                         <td><label class="p-2">{{$index +1}}</label></td>
-                        <td>{{_data.productname}}   <small class="marathi-input">{{_data.marathi_name}}</small>
+                        <td><small class="text-danger" ng-if="_data.forstaff == 1">(staff)</small> {{_data.productname}}   <small class="marathi-input">{{_data.marathi_name}}</small>
                         </td>
                         <td>{{_data.dil_qty}} {{_data.unit}}</td>
                         <td class="text-right">{{_data.price |number:2}}</td>
@@ -115,7 +115,7 @@
                             <div class="row" style="position: relative;">
                                 <div style="position: absolute;left: 18px;" >
                                     
-                                        <img src="http://103.252.7.5:8029/uploads/{{companyDetails[0].logoimg}}" style="height: 60px;width: auto;"/>
+                                        <img src="http://localhost:8029/uploads/{{companyDetails[0].logoimg}}" style="height: 60px;width: auto;"/>
                                     
                                 </div>
                                 <div class="col-10 col-md-10 ml-auto">
@@ -202,7 +202,7 @@
                     <!-- <small class="marathi-input">{{_data.marathi_name}}</small> -->
                     <tr  ng-repeat="_data in orderdetails">
                         <td style="width: 3px;">{{$index +1}}</td>
-                        <td style="width: 50px;">{{_data.productname}} </td>
+                        <td style="width: 50px;"><small class="text-danger" ng-if="_data.forstaff == 1">(staff)</small> {{_data.productname}} </td>
                         <td style="width: 8px;">{{_data.dil_qty}} <span class="ext-sm-txt">{{_data.unit}}</span></td>
                         <td style="text-align:right ;width: 10px;">{{_data.price |number:2}}</td>
                         <td style="text-align:right;width: 10px;">{{(_data.netprice = ((_data.dil_qty * _data.price)/10) |number:2 )||"00.00"}}</td>

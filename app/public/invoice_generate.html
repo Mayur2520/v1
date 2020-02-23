@@ -60,7 +60,7 @@
                 <tbody>
                     <tr ng-repeat="_data in orderdetails | filter:{ type: productType } | filter: search.name">
                         <td><label class="p-2">{{$index +1}}</label></td>
-                        <td>{{_data.productname}} <small class="marathi-input">{{_data.marathi_name}}</small></td>
+                        <td><small class="text-danger" ng-if="_data.forstaff == 1">(staff)</small> {{_data.productname}} <small class="marathi-input">{{_data.marathi_name}}</small></td>
                         <td>{{_data.dil_qty}} {{_data.unit}}</td>
                         <td><input type="number" class="form-control btn-sm col-6"  ng-model="_data.price" placeholder="Rate"/></td>
                         <td>{{(_data.netprice = ((_data.dil_qty * _data.price)/10) |number:2 )||"00.00"}}</td>

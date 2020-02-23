@@ -94,6 +94,13 @@ angular.module('MyApp')
 
         $scope.validateCartQty = function(newObj)
         {
+            if(!newObj.details_id)
+            {
+                newObj.qty = newObj.dil_qty;
+                
+            }
+            else
+            {
                     if(newObj.qty <= newObj.dil_qty)
                     {
                         newObj.isQtySame = true;
@@ -102,6 +109,7 @@ angular.module('MyApp')
                     {
                         newObj.lowQty = true;
                     }     
+            }
         };
 
         $scope.getCustomerList = function()
@@ -286,6 +294,24 @@ angular.module('MyApp')
             }
         }
 
+        $scope.AddNewProductsInOrderDetails = function()
+        {
+            if($scope.orderdetails[$scope.orderdetails.length -1].productid)
+            {
+                $scope.orderdetails.push({});
+            }
+        }
+
+        $scope.getUnitofProduct = function(productrow)
+        {
+            var selectedproduct = $scope.ProductsList.filter(function(value){
+                return productrow.productid == value.id;
+            });
+            
+                productrow.unit = selectedproduct[0].unit;
+            
+        };
+
         $scope.setDilQtyAsQty = function(data)
         {
             data.dil_qty = data.qty;
@@ -306,31 +332,71 @@ angular.module('MyApp')
             }
         }
 
+
+        function checkForStaffOrder(value)
+        {
+            var selectedProduct = $scope.ProductsList.filter(function(val){
+                return val.id  == value.productid;
+            });
+            if(selectedProduct.length > 0)
+            {
+                if(selectedProduct[0].forstaff != null || selectedProduct[0].forstaff > 0)
+                {
+                    return selectedProduct[0].forstaff;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
         $scope.saveOrderDetails = function()
         {
+        $scope.orderCartDetails = [];
+
             if($scope.ProductsList)
             {
-                var orderDetails = $scope.ProductsList.filter(function(value){
-                        return value.orderdetailsid != undefined || value.qty != undefined && value.unit != null
+                $scope.ProductsList.map(function(value){
+                        if(value.qty != undefined && value.unit != null)
+                        {
+                            $scope.orderCartDetails.push(value);
+                        }
                 })
             }
-            else if($scope.orderdetails)
+            if($scope.orderdetails)
             {
-                var orderDetails = $scope.orderdetails.filter(function(value){
-                    return value.dil_qty != undefined
+                $scope.orderdetails.map(function(value){
+                    if(value.dil_qty != undefined  && value.dil_qty != null  && value.dil_qty >= 0)
+                    {
+                        if(value.forstaff)
+                        {
+                            if(value.forstaff == null || value.forstaff <= 0 || value.forstaff  == '')
+                            {
+                                value.forstaff = 0;
+                            }
+                        }
+                        else
+                        {
+                            value.forstaff = checkForStaffOrder(value);
+                        }
+                        $scope.orderCartDetails.push(value); 
+                    }
                 })
             }
 
-            if(orderDetails.length > 0)
+            
+        if($scope.orderCartDetails.length > 0)
             {
+                
 
                 /* if($scope.orderDetails.orderdate)
                 {
                     $scope.orderDetails.orderdate = formatDate($scope.orderDetails.orderdate)
                 } */
-                orderDetails[0].customerdetails = $scope.orderDetails;
-
-                Order.saveOrderDetails().save(orderDetails).$promise.then(function(response){
+                $scope.orderCartDetails[0].customerdetails = $scope.orderDetails;
+              
+                Order.saveOrderDetails().save($scope.orderCartDetails).$promise.then(function(response){
                     Swal({
                         type: response.type,
                         title: response.title,
@@ -352,6 +418,25 @@ angular.module('MyApp')
             }
         };
 
+        $scope.ToggleForStaff = function(data)
+        {
+            if(data.forstaff == 1)
+            {
+                data.forstaff = 0;
+            }
+            else
+            {
+                data.forstaff = 1;
+            }
+        }
+
+        $scope.ChangeProduct = function(data,oldproductid)
+        {
+            if(oldproductid != data.productid)
+                data.changed_item = oldproductid;
+            if(data.changed_item == data.productid)
+                data.changed_item = null;
+        }
 
         $scope.generateInvoice = function()
         {
@@ -621,9 +706,9 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=300,height=300');
             popupWin.document.open();
-            var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body onload="window.print()"><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:5px;padding-left:7px;">' + printContents + '</div></div></body></html>';
+            var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body onload="window.print()"><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:5px;padding-left:7px;">' + printContents + '</div></div></body></html>';
 
-            //'<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>'
+            //'<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>'
             popupWin.document.write(htmlContent);
             popupWin.document.close();
           } 
@@ -632,9 +717,9 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             // var billheader = document.getElementById('bill-header').innerHTML;
 
-                var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:4px;padding-left:11.2px;position:relative;top:-20px;">' + printContents + '</div></div></body></html>';
+                var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:4px;padding-left:11.2px;position:relative;top:-20px;">' + printContents + '</div></div></body></html>';
 
-                //var billHeaderContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 pl-2 pr-2">' + billheader + '</div></div></body></html>';
+                //var billHeaderContent = '<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 pl-2 pr-2">' + billheader + '</div></div></body></html>';
 
                 var billHeaderContent = '';
 
@@ -649,7 +734,7 @@ angular.module('MyApp')
                
 
                 Order.shareInvoice().save({billheader:billHeaderContent,invoiceContent:htmlContent,orderData: $scope.orderdetails[0],size:{height:height,width:width}}).$promise.then(function(response){
-                    window.open("http://103.252.7.5:8029/invoices/"+response.filename);
+                    window.open("http://localhost:8029/invoices/"+response.filename);
                 });
 
           } 
@@ -770,7 +855,6 @@ angular.module('MyApp')
             Order.getOrderReport().save([{customerid:customerid, from_orderDate:formatDate(from_orderDate),to_orderDate:formatDate(to_orderDate)}]).$promise.then(function (response) {
                 if(!response.status)
                 $scope.orderReportData = response.orderReportData;
-                console.log( $scope.orderReportData)
             });
         };
 
