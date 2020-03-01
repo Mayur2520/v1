@@ -64,7 +64,7 @@
                             <td><button class="btn btn-sm" ng-click="ToggleForStaff(_data)"><i class="fa fa-circle-thin" ng-if="_data.forstaff != 1" aria-hidden="true"></i> <i class="fa fa-circle" ng-if="_data.forstaff == 1" aria-hidden="true"></i></button></td>
                         
                         <td>{{_data.name}} <small class="marathi-input">{{_data.marathi_name}}</small></td>
-                        <td><input type="number" class="form-control"  ng-model="_data.qty" placeholder="Qty." ng-change="validateRecentlyUpdated(_data,{{_data}})"/></td>
+                        <td><input type="number" class="form-control"  ng-model="_data.qty" placeholder="Qty." style="width:3.5em" ng-change="validateRecentlyUpdated(_data,{{_data}})"/></td>
                         <td><select class="form-control" ng-model="_data.unit" style="width: 80px;" ng-options="obj for obj in productUnit" ng-change="validateRecentlyUpdated(_data,{{_data}})">
                             <option value="" selected disabled>Select</option>
                         </select></td>

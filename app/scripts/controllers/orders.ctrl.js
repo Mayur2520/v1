@@ -706,9 +706,9 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=300,height=300');
             popupWin.document.open();
-            var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body onload="window.print()"><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:5px;padding-left:7px;">' + printContents + '</div></div></body></html>';
+            var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body onload="window.print()"><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:5px;padding-left:7px;">' + printContents + '</div></div></body></html>';
 
-            //'<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>'
+            //'<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body onload="window.print()">' + printContents + '</body></html>'
             popupWin.document.write(htmlContent);
             popupWin.document.close();
           } 
@@ -717,9 +717,9 @@ angular.module('MyApp')
             var printContents = document.getElementById(divName).innerHTML;
             // var billheader = document.getElementById('bill-header').innerHTML;
 
-                var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:4px;padding-left:11.2px;position:relative;top:-20px;">' + printContents + '</div></div></body></html>';
+                var htmlContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"><style>table.table-bordered > thead > tr > th{border:1.2px solid black;}</style></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 mt-4 pt-4" style="padding-right:4px;padding-left:11.2px;position:relative;top:-20px;">' + printContents + '</div></div></body></html>';
 
-                //var billHeaderContent = '<html><head><link rel="stylesheet" type="text/css" href="http://localhost:8029/styles/style.css" /><link rel="stylesheet" href="http://localhost:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 pl-2 pr-2">' + billheader + '</div></div></body></html>';
+                //var billHeaderContent = '<html><head><link rel="stylesheet" type="text/css" href="http://103.252.7.5:8029/styles/style.css" /><link rel="stylesheet" href="http://103.252.7.5:8029/bower_components/bootstrap/dist/css/bootstrap.css"></head><body><div class=""><div class="col-md-6 col-lg-6 col-6 col-sm-6 pl-2 pr-2">' + billheader + '</div></div></body></html>';
 
                 var billHeaderContent = '';
 
@@ -734,7 +734,7 @@ angular.module('MyApp')
                
 
                 Order.shareInvoice().save({billheader:billHeaderContent,invoiceContent:htmlContent,orderData: $scope.orderdetails[0],size:{height:height,width:width}}).$promise.then(function(response){
-                    window.open("http://localhost:8029/invoices/"+response.filename);
+                    window.open("http://103.252.7.5:8029/invoices/"+response.filename);
                 });
 
           } 
