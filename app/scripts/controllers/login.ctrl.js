@@ -1,7 +1,7 @@
 angular.module('MyApp')
 	.controller('LoginController', ['$scope', '$http', '$route', '$location', '$window', '$timeout', 'Upload', 'Entity', 'Authenticate', 'Customer', function ($scope, $http, $route, $location, $window, $timeout, Upload, Entity, Authenticate, Customer) {
 
-		var endurl= 'http://103.252.7.5:8029';
+		var endurl= 'http://localhost:8029';
 		$scope.fieltype = 'password';
 		$scope.AuthenticateUser = function () {
 			Authenticate.authUser().save($scope.user).$promise.then(function (response) {

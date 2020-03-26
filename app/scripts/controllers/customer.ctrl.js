@@ -180,6 +180,71 @@ angular.module('MyApp')
         };
 
 
+
+
+        $scope.getVendorList = function()
+        {
+                 Customer.getVendorList().query().$promise.then(function (response) {
+                     if(!response.status)
+                        $scope.VendorsList = response.vendorsList;
+                });      
+        };
+
+
+        $scope.getVendorDetails = function(vendordetails)
+        {
+            $scope.VendorDetails = [];
+            $scope.VendorDetails.push(vendordetails);
+        };
+
+
+
+        $scope.deleteVendorDetails = function(id)
+        {
+
+            Swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then(function(result) {
+                if (result.value) {
+                    Customer.deleteVendorDetails().query({ id: id}).$promise.then(function (response) {   
+                      Swal({
+                        type: response.type,
+                        title: response.title,
+                        text: response.message,
+                      }).then(function(){
+                        $scope.getVendorList();
+                      })
+                    });
+                  }
+                });
+        };
+
+
+        $scope.SaveVendorDetails = function()
+        {
+
+            Customer.SaveVendorDetails().save($scope.VendorDetails[0]).$promise.then(function(response){
+                Swal({
+                    type: response.type,
+                    title: response.title,
+                    text: response.message,
+                  }).then(function() {
+                    $scope.getVendorList();
+                    if(response.status == 0)
+                    {
+                        $scope.VendorDetails = [];
+                    }
+                  })
+            });
+        };
+
+
       
 
         

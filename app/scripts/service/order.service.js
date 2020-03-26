@@ -1,6 +1,6 @@
 angular.module('MyApp')
   .factory('Order', ['$resource', function ($resource) {
-    var endurl= 'http://103.252.7.5:8029';
+    var endurl= 'http://localhost:8029';
     return{
 
       saveOrderDetails: function()
@@ -110,6 +110,17 @@ angular.module('MyApp')
         return $resource(endurl+'/api/getOrderReport',
         {}, { 'save': { method: 'POST',isArray:false } });
       },
+// purchase
+      ListPOOrders: function()
+      {
+        return $resource(endurl+'/api/ListPOOrders',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
 
+      savePurchaseOrderDetails: function()
+      {
+        return $resource(endurl+'/api/savePurchaseOrderDetails',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
     }
 }]);

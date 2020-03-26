@@ -31,6 +31,10 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/customers.html",
        controller:"CustomerController"
     })
+    .when("/vendors", {
+      templateUrl : "public/vendors.html",
+       controller:"CustomerController"
+    })
     .when("/users", {
       templateUrl : "public/users.html",
        controller:"CustomerController"
@@ -40,6 +44,15 @@ angular.module('MyApp', ['ngResource',
        controller:"OrderController"
     })
 
+    .when("/poorders", {
+      templateUrl : "public/poorders.html",
+       controller:"OrderController"
+    })
+
+    .when("/place_poorder", {
+      templateUrl : "public/place_poorder.html",
+       controller:"OrderController"
+    })
     .when("/place_order", {
       templateUrl : "public/place_order.html",
        controller:"OrderController"

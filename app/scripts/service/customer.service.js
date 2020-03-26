@@ -1,6 +1,6 @@
 angular.module('MyApp')
   .factory('Customer', ['$resource', function ($resource) {
-    var endurl= 'http://103.252.7.5:8029';
+    var endurl= 'http://localhost:8029';
     return{
 
         CustomerTypes: function () {
@@ -71,6 +71,27 @@ angular.module('MyApp')
                 {}, { 'save': { method: 'POST',isArray:false } });
         },
 
+
+        // Vendor details
+
+        SaveVendorDetails: function()
+        {
+            return $resource(endurl+'/api/SaveVendorDetails',
+                {}, { 'save': { method: 'POST',isArray:false } });
+        },
+        getVendorList: function()
+        {
+            return $resource(endurl+'/api/getVendorList',
+                {}, { 'query': { method: 'GET',isArray:false } });
+        },
+        deleteVendorDetails: function()
+        {
+            return $resource(endurl+'/api/deleteVendorDetails/:id',
+                {}, { 'query': { method: 'GET',isArray:false } });
+        },
+
+
+        // Vendor details
 
     }
 }]);
