@@ -53,6 +53,10 @@ angular.module('MyApp', ['ngResource',
       templateUrl : "public/place_poorder.html",
        controller:"OrderController"
     })
+    .when("/purchase_report", {
+      templateUrl : "public/purchase_report.html",
+       controller:"OrderController"
+    })
     .when("/place_order", {
       templateUrl : "public/place_order.html",
        controller:"OrderController"

@@ -19,6 +19,15 @@ angular.module('MyApp')
         
             return yy+'/'+mm+'/'+dd;
     }
+
+
+        $scope.GetTotalOrderQty = function(freomDate, toDate)
+        {
+            Dashboard.GetTotalOrderQty().save([{from_dsDate:formatDate(freomDate),to_dsDate:formatDate(toDate)}]).$promise.then(function (response) {
+                if(!response.status)
+                $scope.OrderQuantityList = response.OrderQuantityList;
+            });
+        }
         
         $scope.getDashboardValues = function(Date_from, date_to)
         {
@@ -43,6 +52,8 @@ angular.module('MyApp')
                     var to_dsDate =  from_dsDate;
                 }
             }
+
+             $scope.GetTotalOrderQty(from_dsDate, to_dsDate);
 
             Dashboard.getDashboardValues().save([{from_dsDate:formatDate(from_dsDate),to_dsDate:formatDate(to_dsDate)}]).$promise.then(function (response) {
                 if(!response.status)

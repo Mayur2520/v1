@@ -19,6 +19,7 @@
           <li ng-if="userDetails.role == 'Superadmin' || userDetails.role == 'Admin'" ng-click="RedirectLink('/vendors')"><i class="fa fa-users"></i><a href="">Vendors</a></li>
           <li ng-click="RedirectLink('/users')"><i class="fa fa-user-circle-o"></i><a href="">Users</a></li>
           <li ng-if="userDetails.role == 'Superadmin' || userDetails.role == 'Admin'" ng-click="RedirectLink('/poorders')"><i class="fa icon icon-order"></i><a href="">Purchase Order</a></li>
+          <li ng-if="userDetails.role == 'Superadmin' || userDetails.role == 'Admin'" ng-click="RedirectLink('/purchase_report')"><i class="fa icon icon-order"></i><a href="">Purchase Order Report</a></li>
           <li ng-click="RedirectLink('/orders')"><i class="fa icon icon-order"></i><a href="">Orders</a></li>
           <li ng-click="RedirectLink('/invoice')"><i class="fa icon icon-invoice"></i><a href="">Invoice</a></li>
           <li ng-click="RedirectLink('/payment')"><i class="fa icon icon-money"></i><a href="">Payment</a></li>

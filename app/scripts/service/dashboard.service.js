@@ -46,6 +46,11 @@ angular.module('MyApp')
         return $resource(endurl+'/api/getDashboardValues',
         {}, { 'save': { method: 'POST',isArray:false } });
       },
+      GetTotalOrderQty: function()
+      {
+        return $resource(endurl+'/api/GetTotalOrderQty',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
       
     }
   }]);

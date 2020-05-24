@@ -145,6 +145,7 @@ angular.module('MyApp')
                 });
         }
 
+     
        
         $scope.setCartStatus = function()
         {
@@ -870,12 +871,72 @@ angular.module('MyApp')
 
         // purchase
 
-        $scope.InitPurchaseFunctions()
+        $scope.deductAmount = function(data)
+        {
+            $scope.totalPoAmount =  $scope.totalPoAmount - ((data.price/10) * data.qty);
+        }
+        $scope.revertAmount = function(data)
+        {
+            $scope.totalPoAmount =  $scope.totalPoAmount + ((data.price/10) * data.qty);
+        }
+
+        $scope.getTotalPoAmount = function(datalist)
+        {
+            $scope.totalPoAmount = 0;
+            if($scope.ProductsList && $scope.ProductsList.length > 0)
+            {
+                 $scope.ProductsList.map(function(value, index){   
+                      
+                        if(value.price == undefined)
+                        {
+                            value.price = 0;
+                        }
+                        if(value.qty == undefined)
+                        {
+                            value.qty = 0
+                        }
+                        $scope.totalPoAmount =  $scope.totalPoAmount + ((value.price/10) * value.qty);
+                    });
+            }
+        }
+
+        $scope.getPurchaseOrderDetails = function()
+        {
+            Order.getPurchaseOrderDetails().query({'orderid':$window.sessionStorage.getItem('orderid')}).$promise.then(function (response) {
+                     if(!response.status)
+                        $scope.purchaseOrderDetails = response.purchaseOrderDetails;
+                        if($scope.ProductsList && $scope.ProductsList.length > 0)
+                        {
+                            $scope.ProductsList.map(function(value){
+                                $scope.purchaseOrderDetails.map(function(orderitem){
+                                    if(value.id == orderitem.productid)
+                                    {
+                                        value.qty = orderitem.qty;
+                                        value.price = orderitem.price;
+                                        value.unit = orderitem.unit;
+                                        value.purchaseOrderDetailsId = orderitem.details_id;
+                                    }
+                                });
+                            });
+                        }
+                            //$scope.purchaseOrderDetails[0].orderid = $scope.purchaseOrderDetails[0].orderid;
+                             $scope.SelectedVendor = $scope.purchaseOrderDetails[0].vendorid;
+                             $scope.poOrderdate = $scope.purchaseOrderDetails[0].orderdate;
+                             $scope.totalPoAmount = $scope.purchaseOrderDetails[0].netamt;
+                             
+                });      
+        };
+
+        $scope.InitPurchaseFunctions = function()
         {
             $scope.getVendorList();
             $scope.getProductList();
             $scope.productUnits();
             $scope.productTypes();
+            if($window.sessionStorage.getItem('orderid') != null && $window.sessionStorage.getItem('orderid') > 0)
+            {
+                $scope.getPurchaseOrderDetails();
+            }
         }
 
         $scope.getVendorList = function()
@@ -885,6 +946,8 @@ angular.module('MyApp')
                         $scope.VendorsList = response.vendorsList;
                 });      
         };
+
+
 
         $scope.ListPOOrders = function(order_Date_from, orer_date_to)
         {
@@ -916,37 +979,148 @@ angular.module('MyApp')
             });
         };
 
-        $scope.savePurchaseOrderDetails = function()
-        {
-        
-           
 
-            
-        if($scope.orderCartDetails.length > 0)
-            {
-                $scope.orderCartDetails[0].customerdetails = $scope.orderDetails;
-                Order.saveOrderDetails().save($scope.orderCartDetails).$promise.then(function(response){
-                    Swal({
+        $scope.SetPaidStatus = function(orderid)
+        {
+            Swal({
+                title: 'Are you sure?',
+                text: "Click on yes for confirm payemnt!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+              }).then(function(result) {
+                if (result.value) {
+                    Order.SetPaidStatus().query({ id: orderid}).$promise.then(function (response) {   
+                      Swal({
                         type: response.type,
                         title: response.title,
                         text: response.message,
-                    }).then(function()  {
-                        if(response.status == 0)
+                      }).then(function()  {
+                        $scope.ListPOOrders();
+                      })
+                    });
+                  }
+                });
+        }
+
+       
+      
+
+        $scope.SelectedVendor = undefined;
+
+        $scope.savePurchaseOrderDetails = function()
+        {   
+       
+             if($scope.ProductsList && $scope.ProductsList.length > 0)
+            {
+                
+                    var selectedItems = $scope.ProductsList.filter(function(value){
+                        if(!$scope.purchaseOrderDetails)
                         {
-            
+                            return (value.purchaseOrderDetailsId || (value.price && value.price > 0 ) || (value.qty && value.qty > 0))
                         }
                         else
-                        {
-                            $scope.orderDetails = {};
-                            $scope.getBackToOrderlist();
-                            $scope.InitPurchaseFunctions();
-                        }
+                        return ((value.price && value.price > 0 ) && (value.qty && value.qty > 0))
                     });
-                });
+                
 
+                if(selectedItems && selectedItems.length > 0)
+                {
+                    if($scope.purchaseOrderDetails && $scope.purchaseOrderDetails.length > 0)
+                        selectedItems[0].orderid = $scope.purchaseOrderDetails[0].orderid;
+
+                        selectedItems[0].vendorid = $scope.SelectedVendor;
+                        selectedItems[0].orderdate = $scope.poOrderdate;
+                        selectedItems[0].netamt = $scope.totalPoAmount;
+
+                        Order.savePurchaseOrderDetails().save(selectedItems).$promise.then(function(response){
+                            Swal({
+                                type: response.type,
+                                title: response.title,
+                                text: response.message,
+                            }).then(function()  {
+                                if(response.status == 0)
+                                {
+                    
+                                }
+                                else
+                                {
+                                    $scope.orderDetails = {};
+                                    $scope.getBackToOrderlist();
+                                    $scope.InitPurchaseFunctions();
+                                }
+                            });
+                        });
+                }
+                else
+                {
+                    Swal({
+                        type: 'error',
+                        title: 'Empty Bucket',
+                        text: "Cart is empty.",
+                      }).then(function()  {
+                        
+                      })
+                }
             }
+ 
         };
 
+        $scope.GetDateWiseOrder = function(productid)
+        {
+            $scope.poreport.productid = productid;
+            Order.GetDateWiseOrder().save($scope.poreport).$promise.then(function(response){
+                if(!response.status)
+                {
+                    $scope.purchaseOrderDetails = response.orderwisedata;
+                    console.log($scope.purchaseOrderDetails);
+                    $('#modalProdctOrders').modal({
+                        show: true
+                    }); 
+                }
+            });
+        };
+
+        $scope.GetPurchaseReport = function()
+        {
+            if($scope.poreport.vendorid)
+            {
+                if(!$scope.poreport.Date_from || $scope.poreport.Date_from == null || $scope.poreport.Date_from == '' || $scope.poreport.Date_from  == undefined)
+                {
+                    $scope.poreport.Date_from =  new Date();
+                }
+
+                if(!$scope.poreport.Date_to || $scope.poreport.Date_to == null || $scope.poreport.Date_to == '' || $scope.poreport.Date_to  == undefined)
+                {
+                    $scope.poreport.Date_to =  $scope.poreport.Date_from;
+                }
+
+                Order.GetPurchaseReport().save($scope.poreport).$promise.then(function(response){
+                    if(response.status)
+                    {
+
+                    }
+                    else
+                    {
+                        $scope.purchaseReport = response.purchaseReport
+                    }
+                });
+                
+            }
+            else
+            {
+                Swal({
+                    type: 'error',
+                    title: 'Vondor not found!',
+                    text: "Please selected vendor.",
+                  }).then(function()  {
+                    
+                  })
+            }
+         
+        };
 
 
     }]);

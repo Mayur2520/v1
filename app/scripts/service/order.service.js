@@ -68,7 +68,7 @@ angular.module('MyApp')
         return $resource(endurl+'/api/deleteOrder/:id',
         {}, { 'query': { method: 'GET',isArray:false } });
       },
-
+      
       confirmToDilivary: function()
       {
         return $resource(endurl+'/api/confirmToDilivary/:id',
@@ -111,6 +111,13 @@ angular.module('MyApp')
         {}, { 'save': { method: 'POST',isArray:false } });
       },
 // purchase
+
+    SetPaidStatus: function()
+      {
+        return $resource(endurl+'/api/SetPaidStatus/:id',
+        {}, { 'query': { method: 'GET',isArray:false } });
+      },
+
       ListPOOrders: function()
       {
         return $resource(endurl+'/api/ListPOOrders',
@@ -121,6 +128,25 @@ angular.module('MyApp')
       {
         return $resource(endurl+'/api/savePurchaseOrderDetails',
         {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
+      GetPurchaseReport: function()
+      {
+        return $resource(endurl+'/api/GetPurchaseReport',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
+      GetDateWiseOrder: function()
+      {
+        return $resource(endurl+'/api/GetDateWiseOrder',
+        {}, { 'save': { method: 'POST',isArray:false } });
+      },
+
+     
+      getPurchaseOrderDetails: function()
+      {
+        return $resource(endurl+'/api/getPurchaseOrderDetails/:orderid',
+        {}, { 'query': { method: 'GET',isArray:false } });
       },
     }
 }]);
